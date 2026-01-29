@@ -1,0 +1,342 @@
+/* ============================================
+   MAIN2.CSS - Design Preview System Styles
+   ============================================ */
+
+/* Navigation Bar Styles */
+.preview-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #800020, #FF6B5A);
+  padding: 15px 30px;
+  z-index: 9999;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.preview-nav h3 {
+  color: white;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.preview-nav-link {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 8px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.preview-nav-link:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.preview-mode-badge {
+  margin-left: auto;
+  color: white;
+  font-size: 14px;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 8px 15px;
+  border-radius: 6px;
+}
+
+/* Homepage Container */
+.homepage-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #FFF9F8 0%, #FFE5E5 100%);
+  padding: 100px 50px 50px 50px;
+}
+
+.homepage-content {
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+/* Homepage Title Section */
+.homepage-title {
+  font-size: 48px;
+  color: #800020;
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 800;
+}
+
+.homepage-subtitle {
+  font-size: 20px;
+  color: #6B0019;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+/* Design Cards Grid */
+.design-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.design-card {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 40px rgba(128, 0, 32, 0.15);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: 3px solid transparent;
+  text-decoration: none;
+  display: block;
+}
+
+.design-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 60px rgba(128, 0, 32, 0.25);
+  border-color: #800020;
+}
+
+.design-card-icon {
+  font-size: 60px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.design-card-title {
+  color: #800020;
+  font-size: 24px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.design-card-description {
+  color: #475569;
+  font-size: 16px;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.design-card-button {
+  margin-top: 20px;
+  padding: 12px;
+  background: linear-gradient(135deg, #800020, #FF6B5A);
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.design-card:hover .design-card-button {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(128, 0, 32, 0.3);
+}
+
+/* Features Section */
+.features-section {
+  margin-top: 60px;
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(128, 0, 32, 0.1);
+}
+
+.features-title {
+  font-size: 32px;
+  color: #800020;
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 700;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.feature-item {
+  text-align: center;
+  padding: 20px;
+}
+
+.feature-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.feature-title {
+  color: #800020;
+  margin-bottom: 5px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.feature-description {
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .preview-nav {
+    padding: 12px 20px;
+    gap: 10px;
+  }
+
+  .preview-nav h3 {
+    font-size: 16px;
+    width: 100%;
+  }
+
+  .preview-nav-link {
+    padding: 6px 15px;
+    font-size: 14px;
+  }
+
+  .preview-mode-badge {
+    width: 100%;
+    text-align: center;
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .homepage-container {
+    padding: 90px 20px 30px 20px;
+  }
+
+  .homepage-title {
+    font-size: 32px;
+  }
+
+  .homepage-subtitle {
+    font-size: 16px;
+  }
+
+  .design-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .design-card {
+    padding: 25px;
+  }
+
+  .design-card-icon {
+    font-size: 50px;
+  }
+
+  .design-card-title {
+    font-size: 20px;
+  }
+
+  .design-card-description {
+    font-size: 14px;
+  }
+
+  .features-section {
+    padding: 30px 20px;
+  }
+
+  .features-title {
+    font-size: 26px;
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+  }
+
+  .feature-item {
+    padding: 15px;
+  }
+
+  .feature-icon {
+    font-size: 32px;
+  }
+
+  .feature-title {
+    font-size: 16px;
+  }
+
+  .feature-description {
+    font-size: 13px;
+  }
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.design-card {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.design-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.design-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.design-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.design-card:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+/* Loading State */
+.homepage-loading {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #FFF9F8 0%, #FFE5E5 100%);
+}
+
+.loading-spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid rgba(128, 0, 32, 0.1);
+  border-top-color: #800020;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Print Styles */
+@media print {
+  .preview-nav {
+    display: none;
+  }
+
+  .homepage-container {
+    padding: 20px;
+  }
+}

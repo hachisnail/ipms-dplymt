@@ -1,0 +1,232 @@
+{
+    "cards": [
+        {
+            "_id": 1,
+            "name":"CANR",
+            "img": "/deplogos/CANR.png",
+            "amount": 145,
+            "percentage": 0.12,
+            "active": true
+        },
+         {
+            "_id": 2,
+            "name":"CAS",
+            "img": "/deplogos/CAS.png",
+            "amount": 3246,
+            "percentage": -0.08,
+            "active": false
+        },
+        {
+            "_id": 3,
+            "name":"CBPA",
+            "img": "/deplogos/CBPA.png",
+            "amount": 1244,
+            "percentage": -0.08,
+            "active": false
+        },
+        {
+            "_id": 4,
+            "name":"CCMS",
+            "img": "/deplogos/CCMS.png",
+            "amount": 1244,
+            "percentage": -0.08,
+            "active": false
+        },
+        {
+            "_id": 5,
+            "name":"COED",
+            "img": "/deplogos/COED.png",
+            "amount": 1244,
+            "percentage": -0.08,
+            "active": false
+        },
+        {
+            "_id": 6,
+            "name":"COENG",
+            "img": "/deplogos/COENG.png",
+            "amount": 1244,
+            "percentage": -0.08,
+            "active": false
+        },
+        {
+            "_id": 7,
+            "name":"COTT",
+            "img": "/deplogos/COTT.png",
+            "amount": 1244,
+            "percentage": -0.08,
+            "active": false
+        },
+        {
+            "_id": 8,
+            "name":"CFAST",
+            "img": "/deplogos/IFMS.png",
+            "amount": 1244,
+            "percentage": -0.08,
+            "active": false
+        },
+        {
+            "_id": 9,
+            "name":"ENTIENZA",
+            "img": "/deplogos/ENTIENZA.png",
+            "amount": 1244,
+            "percentage": -0.08,
+            "active": false
+        }
+       
+    ],
+
+    "news": [
+        {"id": 1,
+        "img": "../assets/items/ipmo.jpg",
+        "title": "akjurgfvh kinuratko",
+        "subtitle": " Lorem ifwe ffvc f wserfg svsfdg sdfcv sdsdf adf",
+        "category": "abc"
+        },
+          {"id": 2,
+        "img": "../assets/items/ipmo.jpg",
+         "title": "akjurgfvh kinuratko",
+        "subtitle": " vdsf ifwe ffvc f wserfg svsfdg sdfcv sdsdf adf",
+        "category": "abc"
+        },  
+        {"id": 3,
+        "img": "../assets/items/ipmo.jpg",
+         "title": "akjurgfvh kinuratko",
+        "subtitle": " CBS ifwe ffvc f wserfg svsfdg sdfcv sdsdf adf",
+        "category": "abc"
+        },
+          {"id": 4,
+        "img": "../assets/items/ipmo.jpg",
+         "title": "akjurgfvh kinuratko",
+        "subtitle": " Lorem ifwe ffvc f wserfg svsfdg sdfcv sdsdf adf",
+        "category": "abc"
+        },
+          {"id": 5,
+        "img": "../assets/items/ipmo.jpg",
+         "title": "akjurgfvh kinuratko",
+        "subtitle": " Lorem ifwe ffvc f wserfg svsfdg sdfcv sdsdf adf",
+        "category": "abc"
+        }
+    ],
+
+    "topselling": [
+
+        {
+            "_id": 1,
+            "Image": "../assets/items/messages-2.jpg",
+            "name": "Inventors lsit of patettns",
+            "access": 64,
+            "contact": 124,
+            "email": 64,
+            "Status": "Pending"
+        },
+        {
+            "_id": 2,
+            "Image": "../assets/items/messages-2.jpg",
+            "name": "Inventors lsit of patettns",
+            "access": 64,
+            "contact": 124,
+            "email": 64,
+            "Status": "Pending"
+        },
+        {
+            "_id": 3,
+            "Image": "../assets/items/messages-2.jpg",
+            "name": "Inventors lsit of patettns",
+            "access": 64,
+            "contact": 124,
+            "email": 64,
+            "Status": "Pending"
+        },
+        {
+            "_id": 4,
+            "Image": "../assets/items/messages-2.jpg",
+            "name": "Inventors lsit of patettns",
+            "access": 64,
+            "contact": 124,
+            "email": 64,
+            "Status": "Pending"
+        }
+    ],
+    
+    "recentsales": [
+        {
+            "_id": 1,
+            "number": "#234",
+            "customer": "Brandon Jacob",
+            "product": "At reaf sgsws",
+            "price": 90,
+            "status": "Approved"
+        },
+           {
+            "_id": 2,
+            "number": "#27",
+            "customer": "Brie Kebs",
+            "product": "At reaf sgsws",
+            "price": 64,
+            "status": "Rejected"
+        },
+           {
+            "_id": 3,
+            "number": "#3632457",
+            "customer": "Rqand Raway",
+            "product": "At reaf sgsws",
+            "price": 234,
+            "status": "Declined"
+        },
+           {
+            "_id": 4,
+            "number": "#79887",
+            "customer": "Brandon Jacob",
+            "product": "At reaf sgsws",
+            "price": 5753,
+            "status": "Terminated"
+        }
+    ],
+
+
+    "recentactivity": [
+
+        {
+            "_id": 1,
+            "time": "2 hrs",
+            "color": "text-success",
+            "content": "i dont know jvneoirv explicabo officiis.",
+            "highlight": "explicabo officiis"
+        },
+         {
+            "_id": 2,
+            "time": "1 hrs",
+            "color": "text-danger",
+            "content": "g gb  edser ",
+            "highlight": ""
+        },
+         {
+            "_id": 3,
+            "time": "2 days",
+            "color": "text-primary",
+            "content": "ntryjmgf drh qqwew sssda k asc  efc.",
+            "highlight": ""
+        },
+         {
+            "_id": 4,
+            "time": "12 hrs",
+            "color": "text-info",
+            "content": "twempuerf sdf sdf d sdgd occaecati voluptatem.",
+            "highlight": "occaecati voluptatem"
+        },
+         {
+            "_id": 5,
+            "time": "2 days",
+            "color": "text-warning",
+            "content": "fd fa fda  awew  jnkjn jkk k kwe  efc.",
+            "highlight": ""
+        },
+        {
+            "_id": 6,
+            "time": "4 weeks",
+            "color": "text-muted",
+            "content": "sdY5YEHG sd DAAAADXA das.",
+            "highlight": ""
+        }
+    ]
+} 

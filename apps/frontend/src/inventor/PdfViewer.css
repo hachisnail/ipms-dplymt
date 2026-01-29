@@ -1,0 +1,367 @@
+/* ========================================= */
+/* PDF BACKGROUND CONTAINER (Transparent) */
+/* ========================================= */
+.pdf-background-container {
+    width: 700px;
+    padding: 20px;
+    background: rgba(255, 249, 248, 0.5); /* Transparent maroon tint */
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(128, 0, 32, 0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 232, 229, 0.6);
+    /* ✅ CENTERING ADDED */
+    margin: 0 auto;
+    display: block;
+}
+
+/* ========================================= */
+/* INLINE PDF VIEWER CONTAINER */
+/* ========================================= */
+.pdf-inline-view-wrapper {
+    width: 700px; 
+    height: 600px;
+    min-height: 500px; 
+    background-color: white;
+    border-radius: 12px; 
+    box-shadow: 0 8px 24px rgba(128, 0, 32, 0.12);
+    border: 2px solid #ffe8e5;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* ✅ CENTERING ADDED */
+    margin: 0 auto;
+}
+
+.pdf-empty-state {
+    padding: 3rem;
+    text-align: center;
+    color: #4b5563;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.pdf-empty-state h3 {
+    color: #800020;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.pdf-empty-state p {
+    color: #6b7280;
+    font-size: 1.1rem;
+    max-width: 500px;
+}
+
+/* ========================================= */
+/* HEADER STYLES (Clean and Professional) */
+/* ========================================= */
+.pdf-viewer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.75rem; 
+    border-bottom: 2px solid #ffe8e5;
+    background: linear-gradient(135deg, #fff9f8 0%, #ffffff 100%);
+    min-height: 70px;
+}
+
+.pdf-viewer-header h4 {
+    color: #800020;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 20px;
+}
+
+.pdf-header-buttons {
+    display: flex;
+    gap: 12px; 
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+}
+
+/* ========================================= */
+/* BUTTON STYLES (Branded) */
+/* ========================================= */
+.pdf-download-btn, 
+.pdf-save-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px; 
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid transparent;
+    cursor: pointer;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+/* Open in New Tab Button */
+.pdf-download-btn {
+    color: #800020; 
+    background: linear-gradient(135deg, #ffe8e5, #fff3f1);
+    border-color: #ffe8e5;
+}
+
+.pdf-download-btn:hover {
+    background: linear-gradient(135deg, #ffccc4, #ffe8e5);
+    border-color: #FF8170;
+    color: #6B0017;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(128, 0, 32, 0.25);
+}
+
+/* Download Button */
+.pdf-save-btn {
+    color: #FF6B5A; 
+    background: linear-gradient(135deg, #fff3f1, #ffffff);
+    border-color: #ffccc4;
+}
+
+.pdf-save-btn:hover {
+    background: linear-gradient(135deg, #FF6B5A, #FF8170);
+    border-color: #FF6B5A;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 107, 90, 0.3);
+}
+
+.pdf-download-btn:active,
+.pdf-save-btn:active {
+    transform: translateY(0) scale(0.95);
+}
+
+/* ========================================= */
+/* PDF CONTENT AREA */
+/* ========================================= */
+.pdf-content-area-inline {
+    width: 100%;
+    flex-grow: 1; 
+    overflow: hidden; 
+    background: linear-gradient(to bottom, #f9fafb, #ffffff);
+    position: relative;
+}
+
+.pdf-iframe-inline {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: #ffffff;
+}
+
+/* ========================================= */
+/* FALLBACK TEXT STYLES */
+/* ========================================= */
+.pdf-fallback-text {
+    padding: 2.5rem; 
+    text-align: center;
+    color: #6b7280;
+    font-size: 1rem;
+}
+
+.pdf-fallback-link {
+    color: #FF6B5A;
+    text-decoration: underline;
+    margin-left: 0.25rem;
+    transition: color 0.2s ease;
+    font-weight: 600;
+}
+
+.pdf-fallback-link:hover {
+    color: #800020;
+    text-decoration: none;
+}
+
+/* ========================================= */
+/* RESPONSIVE DESIGN */
+/* ========================================= */
+
+/* Tablets (768px - 1024px) */
+@media (max-width: 1024px) {
+    .pdf-background-container {
+        width: 100%;
+        max-width: 620px;
+        padding: 16px;
+        margin: 0 auto;
+    }
+    
+    .pdf-inline-view-wrapper {
+        width: 100%;
+        max-width: 620px;
+        height: 600px;
+        border-radius: 10px;
+        margin: 0 auto;
+    }
+    
+    .pdf-viewer-header {
+        padding: 1rem 1.25rem;
+        min-height: 60px;
+    }
+    
+    .pdf-viewer-header h4 {
+        font-size: 1.125rem;
+    }
+    
+    .pdf-download-btn, 
+    .pdf-save-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+}
+
+/* Mobile Devices (up to 767px) */
+@media (max-width: 767px) {
+    .pdf-background-container {
+        width: 100%;
+        max-width: 620px;
+        padding: 40px;
+        border-radius: 0;
+        background: rgba(255, 249, 248, 0.3);
+        border-left: none;
+        border-right: none;
+        margin: 0 auto;
+    }
+    
+    .pdf-inline-view-wrapper {
+        width: 100%;
+        max-width: 620px;
+        height: 500px;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+        margin: 0 auto;
+    }
+    
+    .pdf-viewer-header {
+        padding: 0.875rem 1rem;
+        flex-direction: row;
+        flex-wrap: wrap;
+        min-height: 240px;
+        gap: 10px;
+    }
+    
+    .pdf-viewer-header h4 {
+        font-size: 1rem;
+        width: 100%;
+        padding-right: 0;
+        margin-bottom: 8px;
+    }
+    
+    .pdf-header-buttons {
+        width: 100%;
+        justify-content: flex-end;
+        gap: 10px;
+    }
+    
+    .pdf-download-btn, 
+    .pdf-save-btn {
+        width: 42px;
+        height: 42px;
+        font-size: 17px;
+    }
+    
+    .pdf-empty-state {
+        padding: 2rem 1rem;
+    }
+    
+    .pdf-empty-state h3 {
+        font-size: 1.375rem;
+    }
+    
+    .pdf-empty-state p {
+        font-size: 0.95rem;
+    }
+}
+
+/* Extra Small Devices (up to 480px) */
+@media (max-width: 480px) {
+    .pdf-background-container {
+        width: 100%;
+        max-width: 620px;
+        padding: 8px;
+        margin: 0 auto;
+    }
+    
+    .pdf-inline-view-wrapper {
+        width: 100%;
+        max-width: 620px;
+        height: 450px;
+        margin: 0 auto;
+    }
+    
+    .pdf-viewer-header {
+        padding: 0.75rem 0.875rem;
+    }
+    
+    .pdf-viewer-header h4 {
+        font-size: 0.95rem;
+    }
+    
+    .pdf-download-btn, 
+    .pdf-save-btn {
+        width: 38px;
+        height: 38px;
+        font-size: 15px;
+    }
+}
+
+/* ========================================= */
+/* LOADING STATE (Optional) */
+/* ========================================= */
+.pdf-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #800020;
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+.pdf-loading::before {
+    content: '';
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 4px solid #ffe8e5;
+    border-top-color: #FF6B5A;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-right: 12px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ========================================= */
+/* PRINT STYLES */
+/* ========================================= */
+@media print {
+    .pdf-background-container {
+        background: none;
+        box-shadow: none;
+        border: none;
+        padding: 0;
+    }
+    
+    .pdf-viewer-header {
+        display: none;
+    }
+    
+    .pdf-inline-view-wrapper {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+}

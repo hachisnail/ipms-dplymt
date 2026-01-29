@@ -1,0 +1,58 @@
+/* NOTIFICATION.CSS - CONSULTANT THEME */
+
+.notification-item:hover {
+    background-color: #e0f2fe !important;
+}
+
+.notification-item.unread {
+    font-weight: 500;
+    background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
+}
+
+.badge-number {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    font-size: 10px;
+    padding: 3px 6px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%);
+    color: white;
+    box-shadow: 0 2px 8px rgba(3, 105, 161, 0.4);
+}
+
+.notifications {
+    max-height: 500px;
+    overflow-y: auto;
+    width: 350px;
+}
+
+.notification-item {
+    padding: 10px 15px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.notification-item i {
+    font-size: 24px;
+    margin-right: 10px;
+    color: #0f172a;
+    transition: all 0.3s ease;
+}
+
+.notification-item:hover i {
+    color: #0369a1;
+}
+
+.notification-item h4 {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+    color: #0f172a;
+}
+
+.notification-item p {
+    font-size: 12px;
+    margin: 3px 0;
+    color: #334155;
+}

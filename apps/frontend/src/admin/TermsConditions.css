@@ -1,0 +1,225 @@
+/* ================================================================
+   TermsConditions.css - ADMIN THEME (FULL VERSION)
+   Matched to Admin Purple/Lavender Palette and JSX Structure
+   ================================================================ */
+
+.terms-container {
+    padding: 30px;
+    max-width: 1200px; /* Widened for better readability */
+    margin: 20px auto;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(107, 33, 168, 0.08);
+    border: 1px solid #f3e8ff;
+}
+
+/* --- HEADER SECTION --- */
+.terms-header {
+    /* Admin Deep Purple Gradient */
+    background: linear-gradient(90deg, #6b21a8, #581c87);
+    color: white;
+    padding: 25px 30px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(107, 33, 168, 0.2);
+}
+
+.header-content h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header-content .subtitle {
+    margin: 6px 0 12px 0;
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+
+.last-updated {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* --- SEARCH BAR SECTION --- */
+.terms-search-section {
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f3e8ff;
+}
+
+.terms-search-wrapper {
+    position: relative;
+    max-width: 450px;
+}
+
+.terms-search-wrapper i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6b21a8;
+    opacity: 0.6;
+}
+
+.terms-search-input {
+    width: 100%;
+    padding: 12px 15px 12px 45px;
+    border: 2px solid #f3e8ff;
+    border-radius: 10px;
+    font-size: 1rem;
+    background: #faf5ff; /* Admin Light Background */
+    transition: all 0.3s ease;
+}
+
+.terms-search-input:focus {
+    outline: none;
+    border-color: #a855f7;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.1);
+}
+
+/* --- ACCORDION CONTENT --- */
+.terms-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.terms-section {
+    background: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #f3e8ff;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.terms-section:hover {
+    border-color: #a855f7;
+    box-shadow: 0 4px 12px rgba(107, 33, 168, 0.05);
+}
+
+/* Header Clickable Area */
+.section-header {
+    padding: 18px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    background: #ffffff;
+    transition: background 0.2s;
+}
+
+.section-header:hover {
+    background: #faf5ff;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header-left i {
+    font-size: 20px;
+    color: #6b21a8; /* Admin Purple */
+}
+
+.header-left h3 {
+    margin: 0;
+    font-size: 1.15rem;
+    color: #581c87;
+    font-weight: 600;
+}
+
+/* Chevron Icon */
+.bi-chevron-up, .bi-chevron-down {
+    color: #a855f7;
+    font-size: 18px;
+}
+
+/* Expanded Content */
+.section-content {
+    padding: 0 25px 20px 60px; /* Offset to align with title text */
+    background: #ffffff;
+    animation: slideDown 0.3s ease-out;
+}
+
+.section-content ul {
+    list-style: none;
+    padding: 0;
+}
+
+.section-content li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 12px;
+    color: #4b5563;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.section-content li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #a855f7; /* Admin secondary accent */
+    font-size: 22px;
+    line-height: 1;
+}
+
+/* --- FOOTER --- */
+.terms-footer {
+    margin-top: 30px;
+    background: #faf5ff; /* Admin Light */
+    border-left: 5px solid #a855f7;
+    border-radius: 12px;
+    padding: 25px;
+}
+
+.footer-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.footer-content i {
+    font-size: 28px;
+    color: #6b21a8;
+}
+
+.footer-content p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #4b5563;
+    line-height: 1.5;
+}
+
+/* --- ANIMATIONS --- */
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .terms-header {
+        padding: 20px;
+    }
+    .header-content h2 {
+        font-size: 1.4rem;
+    }
+    .section-content {
+        padding: 0 20px 20px 20px;
+    }
+}

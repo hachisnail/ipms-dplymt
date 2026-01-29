@@ -1,0 +1,268 @@
+/* ================================================================
+   ReferenceLibrary.css - FULL VERSION
+   Optimized for Wide Layout & Inventor Branding
+   ================================================================ */
+
+/* --- MAIN CONTAINER --- */
+.reference-container {
+    padding: 30px;
+    max-width: 1200px; /* ✅ Increased width to prevent compression */
+    margin: 20px auto;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(128, 0, 32, 0.08);
+    border: 1px solid var(--border, #ffe8e5);
+    min-height: 600px;
+}
+
+/* --- HEADER SECTION --- */
+.reference-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--border, #ffe8e5);
+}
+
+.header-left h2 {
+    margin: 0;
+    color: var(--primary, #800020);
+    font-size: 1.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.subtitle {
+    margin: 5px 0 0 0;
+    color: #6b7280;
+    font-size: 0.95rem;
+}
+
+.categories-count {
+    padding: 8px 16px;
+    background: var(--primary, #800020);
+    color: #ffffff;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* --- SEARCH BAR --- */
+.search-section {
+    margin-bottom: 30px;
+}
+
+.search-bar {
+    position: relative;
+    max-width: 500px;
+}
+
+.search-bar i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary, #800020);
+    opacity: 0.5;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 12px 15px 12px 45px;
+    border: 2px solid var(--border, #ffe8e5);
+    border-radius: 10px;
+    font-size: 1rem;
+    background: var(--bg-light, #fff9f8);
+    transition: all 0.3s ease;
+}
+
+.search-bar input:focus {
+    outline: none;
+    border-color: var(--secondary, #FF6B5A);
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(255, 107, 90, 0.1);
+}
+
+/* --- CATEGORIES GRID --- */
+.categories-grid {
+    display: grid;
+    /* ✅ Prevents compression by allowing cards to wrap naturally */
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); 
+    gap: 25px;
+}
+
+/* --- CATEGORY CARD --- */
+.category-card {
+    background: #ffffff;
+    border-radius: 15px;
+    border: 1px solid var(--border, #ffe8e5);
+    border-top: 5px solid var(--primary, #800020); /* Branded top border */
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+.category-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(128, 0, 32, 0.1);
+    border-color: var(--secondary, #FF6B5A);
+}
+
+.card-header {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: linear-gradient(to bottom, var(--bg-light, #fff9f8), #ffffff);
+    border-bottom: 1px solid var(--border, #ffe8e5);
+}
+
+.icon-circle {
+    width: 50px;
+    height: 50px;
+    background: var(--primary, #800020);
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.card-title h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--primary, #800020);
+    font-weight: 700;
+}
+
+.short-code {
+    display: inline-block;
+    padding: 3px 10px;
+    background: var(--secondary, #FF6B5A);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 800;
+    border-radius: 6px;
+    text-transform: uppercase;
+    margin-top: 4px;
+}
+
+.card-body {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.description {
+    color: #4b5563;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.quick-info {
+    display: flex;
+    gap: 20px;
+    padding-top: 15px;
+    border-top: 1px dashed var(--border, #ffe8e5);
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+
+.info-item i {
+    color: var(--secondary, #FF6B5A);
+}
+
+.card-footer {
+    padding: 0 20px 20px 20px;
+}
+
+.btn-view-details {
+    width: 100%;
+    padding: 12px;
+    background: var(--primary, #800020);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.2s ease;
+}
+
+.btn-view-details:hover {
+    background: var(--secondary, #FF6B5A);
+    box-shadow: 0 4px 12px rgba(255, 107, 90, 0.2);
+}
+
+/* --- MODAL STYLES (Popup) --- */
+.modal-overlay {
+    background: rgba(128, 0, 32, 0.4);
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    max-width: 650px;
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+}
+
+.modal-header {
+    background: var(--primary, #800020);
+    color: white;
+    padding: 20px;
+}
+
+.info-box {
+    background: var(--bg-light, #fff9f8);
+    border: 1px solid var(--border, #ffe8e5);
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.info-box strong {
+    color: var(--primary, #800020);
+}
+
+.btn-close-modal {
+    background: #6b7280;
+    padding: 10px 25px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+/* --- RESPONSIVE ADJUSTMENTS --- */
+@media (max-width: 768px) {
+    .reference-container {
+        padding: 15px;
+        margin: 10px;
+    }
+    
+    .reference-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .categories-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,88 @@
+/* ================================================================
+   BACK TO TOP BUTTON - THEME-AWARE VERSION
+   Now uses CSS variables instead of hardcoded blue!
+   ================================================================ */
+
+.back-to-top {
+  position: fixed;
+  visibility: hidden;
+  opacity: 0;
+  right: 15px;
+  bottom: 15px;
+  z-index: var(--z-fixed, 99999);
+  background: var(--gradient-primary);
+  width: 50px;
+  height: 50px;
+  border-radius: var(--radius-lg);
+  transition: all 0.4s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 2px solid transparent;
+  box-shadow: var(--shadow-lg);
+}
+
+.back-to-top i {
+  font-size: 24px;
+  color: white;
+  line-height: 0;
+  transition: transform 0.3s ease;
+}
+
+.back-to-top:hover {
+  background: var(--gradient-secondary);
+  border-color: var(--secondary-light);
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-xl);
+}
+
+.back-to-top:hover i {
+  transform: translateY(-3px);
+}
+
+.back-to-top.active {
+  visibility: visible;
+  opacity: 1;
+  animation: slideInUp 0.5s ease;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+@media (max-width: 768px) {
+  .back-to-top {
+    width: 45px;
+    height: 45px;
+    right: 12px;
+    bottom: 12px;
+  }
+  
+  .back-to-top i {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .back-to-top {
+    width: 40px;
+    height: 40px;
+    right: 10px;
+    bottom: 10px;
+  }
+  
+  .back-to-top i {
+    font-size: 18px;
+  }
+}

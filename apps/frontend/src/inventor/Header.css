@@ -1,0 +1,59 @@
+/* ============================================
+   HEADER - FIXED VERSION
+   Coordinates with sidebar toggle
+   ============================================ */
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 997;
+    height: 60px;
+    box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
+    background-color: #fff;
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+}
+
+.header .toggle-sidebar-btn {
+    font-size: 32px;
+    cursor: pointer;
+    color: #00503C;
+    position: relative;
+    padding: 0 10px;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+}
+
+.header .toggle-sidebar-btn:hover {
+    color: #800020;
+    transform: scale(1.1);
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+/* Desktop: Header doesn't need to shift */
+@media (min-width: 1200px) {
+    header {
+        /* Header stays full width */
+    }
+}
+
+/* Mobile: Header stays full width */
+@media (max-width: 1199px) {
+    header {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    .header .toggle-sidebar-btn {
+        margin-left: 0;
+    }
+}

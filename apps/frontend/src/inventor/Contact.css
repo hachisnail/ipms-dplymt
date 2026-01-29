@@ -1,0 +1,375 @@
+/* ================================================================
+   CONTACT.CSS - INVENTOR (Using CSS Variables)
+   Uses colors from themes.css
+   ================================================================ */
+
+/* --- MAIN CONTAINER --- */
+.contact-container {
+    width: 95%; 
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 30px 20px;
+    background: var(--bg-light);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    transition: all 0.3s ease;
+    border: 1px solid var(--border);
+}
+
+.contact-container:hover {
+    box-shadow: 0 12px 35px rgba(128, 0, 32, 0.15);
+}
+
+/* --- HEADINGS & DESCRIPTION --- */
+.contact-container h1 {
+    text-align: center;
+    color: var(--primary);
+    font-size: 30px;
+    margin-bottom: 10px;
+    font-weight: 800;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.contact-container h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    border-radius: 2px;
+}
+
+.contact-description {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 15px;
+    margin-bottom: 30px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+/* --- CONTACT CARD LIST --- */
+.contact-card-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; 
+    gap: 20px;
+}
+
+/* --- INDIVIDUAL CONTACT CARD --- */
+.contact-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: calc(33.333% - 13.33px); 
+    min-width: 240px; 
+    padding: 20px 15px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    min-height: 280px;
+    text-align: center;
+    position: relative;
+}
+
+.contact-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(255, 107, 90, 0.15);
+    border-color: #ffccc4;
+}
+
+.contact-card:hover::before {
+    opacity: 1;
+}
+
+/* --- IMAGE STYLES --- */
+.contact-card img {
+    border-radius: var(--radius-full); 
+    width: 80px;
+    height: 80px;
+    margin: 0 0 15px 0;
+    object-fit: cover; 
+    background: linear-gradient(135deg, var(--border), #fff3f1);
+    border: 3px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.contact-card:hover img {
+    transform: scale(1.05);
+    border-color: var(--secondary);
+}
+
+/* --- NAME & POSITION --- */
+.contact-card h3 {
+    text-align: center;
+    color: var(--primary);
+    font-size: 18px;
+    margin-bottom: 5px;
+    font-weight: 700;
+    transition: color 0.3s ease;
+}
+
+.contact-card:hover h3 {
+    color: var(--secondary);
+}
+
+.contact-position {
+    color: var(--secondary-light);
+    font-size: 14px;
+    margin-bottom: 15px;
+    font-weight: 500;
+    padding: 4px 12px;
+    background: var(--border);
+    border-radius: var(--radius-lg);
+    display: inline-block;
+}
+
+/* --- CONTACT DETAILS --- */
+.contact-details {
+    width: 100%; 
+    margin-top: auto; 
+    padding-top: 15px;
+    border-top: 1px solid var(--border);
+}
+
+.contact-details p {
+    color: var(--text-muted); 
+    font-size: 14px;
+    margin-bottom: 8px;
+    display: flex; 
+    align-items: center;
+    justify-content: flex-start; 
+    padding: 0 5px; 
+    transition: all 0.2s ease;
+}
+
+.contact-details p:hover {
+    background: var(--bg-light);
+    border-radius: var(--radius-sm);
+    padding-left: 8px;
+}
+
+.contact-icon {
+    font-size: 16px;
+    color: var(--secondary);
+    margin-right: 8px;
+    width: 20px; 
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.contact-details p:hover .contact-icon {
+    color: var(--primary);
+    transform: scale(1.1);
+}
+
+.contact-details a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 0.2s;
+    word-break: break-all;
+}
+
+.contact-details a:hover {
+    color: var(--secondary);
+    text-decoration: underline;
+}
+
+/* --- SOCIAL LINKS --- */
+.social-links {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    border-radius: var(--radius-full);
+    background: linear-gradient(135deg, var(--border), #fff3f1);
+    color: var(--primary);
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.social-link:hover {
+    background: linear-gradient(135deg, var(--secondary), var(--secondary-light));
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(255, 107, 90, 0.3);
+}
+
+/* --- BADGE STYLES --- */
+.contact-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    background: linear-gradient(135deg, var(--secondary), var(--secondary-light));
+    color: white;
+    border-radius: var(--radius-lg);
+    font-size: 11px;
+    font-weight: 600;
+    margin: 5px 0;
+}
+
+/* --- LOADING STATE --- */
+.contact-loading {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--primary);
+}
+
+.contact-loading::before {
+    content: '';
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--border);
+    border-top-color: var(--secondary);
+    border-radius: var(--radius-full);
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* --- EMPTY STATE --- */
+.contact-empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-muted);
+    background: var(--border);
+    border-radius: var(--radius-md);
+    margin: 20px 0;
+}
+
+.contact-empty i {
+    font-size: 48px;
+    color: var(--secondary-soft);
+    margin-bottom: 15px;
+    display: block;
+}
+
+/* ------------------------------------------------ */
+/* --- RESPONSIVE --- */
+/* ------------------------------------------------ */
+
+/* Tablet View (2 cards per row) */
+@media (max-width: 992px) {
+    .contact-card {
+        width: calc(50% - 10px); 
+        min-height: 270px;
+    }
+}
+
+/* Mobile View (1 card per row) */
+@media (max-width: 640px) {
+    .contact-container {
+        width: 100%;
+        max-width: unset;
+        margin: 0;
+        padding: 20px 15px;
+        border-radius: 0;
+        box-shadow: none;
+        background: var(--bg-white);
+        border-left: none;
+        border-right: none;
+    }
+    
+    .contact-container h1 {
+        font-size: 26px;
+        padding-bottom: 12px;
+    }
+    
+    .contact-container h1::after {
+        width: 50px;
+        height: 2px;
+    }
+
+    .contact-card {
+        width: 100%; 
+        max-width: unset;
+        min-width: unset;
+        padding: 20px 15px;
+        min-height: unset;
+        box-shadow: var(--shadow-sm); 
+    }
+
+    .contact-card img {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .contact-card h3 {
+        font-size: 16px;
+    }
+    
+    .contact-position {
+        font-size: 13px;
+        padding: 3px 10px;
+    }
+
+    .contact-details p {
+        font-size: 13px;
+        padding: 0;
+    }
+    
+    .contact-icon {
+        font-size: 14px;
+    }
+    
+    .social-link {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+    .contact-container {
+        padding: 15px 10px;
+    }
+    
+    .contact-container h1 {
+        font-size: 24px;
+    }
+    
+    .contact-description {
+        font-size: 14px;
+    }
+    
+    .contact-card {
+        padding: 18px 12px;
+    }
+}

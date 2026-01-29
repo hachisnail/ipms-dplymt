@@ -1,0 +1,32 @@
+/* BACK TO TOP BUTTON - ADMIN PURPLE THEME */
+.back-to-top {
+    position: fixed;
+    visibility: hidden;
+    opacity: 0;
+    right: 15px;
+    bottom: 15px;
+    z-index: 99999;
+    background: linear-gradient(135deg, var(--primary, #7c3aed), var(--primary-light, #8b5cf6));
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm, 4px);
+    transition: var(--transition, 0.3s ease);
+    box-shadow: var(--shadow, 0 4px 12px rgba(124, 58, 237, 0.3));
+}
+
+.back-to-top i {
+    font-size: 24px;
+    color: #ffffff;
+    line-height: 0;
+}
+
+.back-to-top:hover {
+    background: linear-gradient(135deg, var(--secondary, #a78bfa), var(--secondary-light, #c4b5fd));
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md, 0 8px 20px rgba(124, 58, 237, 0.4));
+}
+
+.back-to-top.active {
+    visibility: visible;
+    opacity: 1;
+}

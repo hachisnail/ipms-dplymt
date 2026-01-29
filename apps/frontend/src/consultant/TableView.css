@@ -1,0 +1,822 @@
+/* ================================
+   🎨 CONSULTANT THEME - PROFESSIONAL DESIGN
+   Dark Slate & Cyan Blue Theme
+================================ */
+:root {
+    /* Primary Brand Colors - Consultant Theme */
+    --primary: #0f172a;
+    --primary-dark: #020617;
+    --primary-light: #334155;
+    --primary-glow: rgba(15, 23, 42, 0.4);
+    
+    /* Secondary Colors - Cyan/Teal */
+    --secondary: #0369a1;
+    --secondary-light: #0284c7;
+    --secondary-soft: #7dd3fc;
+    
+    /* Status Colors */
+    --success: #10b981;
+    --success-light: #34d399;
+    --success-glow: rgba(16, 185, 129, 0.4);
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --danger-light: #f87171;
+    --danger-glow: rgba(239, 68, 68, 0.4);
+    --info: #0284c7;
+    
+    /* Neutral Palette */
+    --bg-primary: #f8fafc;
+    --bg-secondary: #ffffff;
+    --bg-card: #ffffff;
+    --text-primary: #020617;
+    --text-secondary: #334155;
+    --text-muted: #6b7280;
+    
+    /* Border & Shadows */
+    --border: #d1d5db;
+    --border-light: #e5e7eb;
+    --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.08);
+    --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.1);
+    --shadow-lg: 0 10px 20px rgba(15, 23, 42, 0.12);
+    --shadow-xl: 0 20px 30px rgba(15, 23, 42, 0.15);
+    
+    /* Border Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --radius-full: 9999px;
+    
+    /* Spacing Scale */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
+}
+
+/* ================================
+   🌐 GLOBAL RESETS
+================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ================================
+   📦 MAIN CONTAINER
+================================ */
+.Table-container {
+    max-width: 1400px;
+    margin: var(--space-xl) auto;
+    padding: var(--space-lg);
+    background: var(--bg-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    min-height: 100vh;
+}
+
+/* ================================
+   🎯 PAGE TITLE
+================================ */
+.Table-container h2 {
+    text-align: center;
+    font-size: 1.75rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: var(--space-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    letter-spacing: -0.5px;
+    animation: titleFadeIn 0.6s ease;
+}
+
+@keyframes titleFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ================================
+   📊 TABLE WRAPPER
+================================ */
+.table-wrapper {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    max-height: 550px;
+    overflow-y: auto;
+    overflow-x: auto;
+    border: 1px solid var(--border-light);
+    animation: fadeInUp 0.5s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ================================
+   🎨 CUSTOM SCROLLBAR
+================================ */
+.table-wrapper::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+    border-radius: var(--radius-full);
+    margin: 4px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, var(--secondary-light), var(--secondary));
+    border-radius: var(--radius-full);
+    border: 3px solid var(--bg-primary);
+    transition: all 0.3s ease;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, var(--secondary), var(--primary));
+    border: 2px solid var(--bg-primary);
+}
+
+/* ================================
+   📋 MAIN TABLE
+================================ */
+.responsive-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 13px;
+}
+
+/* ================================
+   🎯 TABLE HEADER
+================================ */
+.responsive-table th {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: #ffffff;
+    padding: 10px 12px;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    border-bottom: 3px solid var(--secondary);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    text-align: left;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.1);
+}
+
+.responsive-table th:first-child {
+    border-top-left-radius: var(--radius-lg);
+}
+
+.responsive-table th:last-child {
+    border-top-right-radius: var(--radius-lg);
+}
+
+.responsive-table th i {
+    margin-right: 6px;
+    opacity: 0.9;
+}
+
+/* ================================
+   📝 TABLE CELLS
+================================ */
+.responsive-table td {
+    padding: 10px 12px;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-light);
+    vertical-align: middle;
+    background: var(--bg-secondary);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ================================
+   🎨 ALTERNATING ROWS
+================================ */
+.responsive-table tbody tr:nth-child(even) {
+    background: linear-gradient(90deg, #f8fafc 0%, #ffffff 100%);
+}
+
+.responsive-table tbody tr:nth-child(odd) {
+    background: var(--bg-secondary);
+}
+
+/* ================================
+   ✨ ROW HOVER EFFECT
+================================ */
+.responsive-table tbody tr {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.responsive-table tbody tr:hover {
+    background: linear-gradient(90deg, #e0f2fe 0%, #f0f9ff 100%);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* ================================
+   🆔 ID BADGE
+================================ */
+.id-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    border-radius: var(--radius-full);
+    font-weight: 700;
+    font-size: 11px;
+    box-shadow: 0 2px 8px var(--primary-glow);
+}
+
+/* ================================
+   📝 TITLE CELL
+================================ */
+.title-cell {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 13px;
+    max-width: 250px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ================================
+   📄 DESCRIPTION CELL
+================================ */
+.description-cell {
+    color: var(--text-secondary);
+    font-size: 12px;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1.5;
+}
+
+/* ================================
+   🏷️ TYPE CELL
+================================ */
+.type-cell {
+    display: inline-block;
+    padding: 4px 10px;
+    background: var(--bg-primary);
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* ================================
+   📅 DATE CELL
+================================ */
+.date-cell {
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* ================================
+   🖼️ IMAGE PREVIEW
+================================ */
+.image-preview-wrapper {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.image-preview-wrapper:hover {
+    transform: scale(1.15);
+    box-shadow: var(--shadow-lg);
+}
+
+.image-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.image-preview-wrapper:hover .image-preview {
+    transform: scale(1.1);
+}
+
+/* ================================
+   📎 FILE LINK
+================================ */
+.file-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.file-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(3, 105, 161, 0.3);
+    text-decoration: none;
+    color: white;
+}
+
+/* ================================
+   🏷️ STATUS BADGES
+================================ */
+.status-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: var(--shadow-sm);
+}
+
+.status-new {
+    background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+    color: #0369a1;
+}
+
+.status-review {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    color: #92400e;
+}
+
+.status-approved {
+    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+    color: #065f46;
+}
+
+.status-rejected {
+    background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+    color: #991b1b;
+}
+
+/* ================================
+   🔘 ACTION BUTTONS (Table)
+================================ */
+.view-btn {
+    padding: 8px 16px;
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
+    border: none;
+    border-radius: var(--radius-sm);
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.view-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(3, 105, 161, 0.3);
+}
+
+.delete-btn {
+    padding: 8px 16px;
+    background: linear-gradient(135deg, var(--danger) 0%, var(--danger-light) 100%);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: white;
+}
+
+.delete-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+/* ================================
+   🎭 POPUP OVERLAY - FIXED
+================================ */
+.popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    animation: overlayFadeIn 0.3s ease;
+    padding: 20px; /* ✅ ADDED: Padding to prevent overflow */
+}
+
+@keyframes overlayFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* ================================
+   🎨 POPUP CARD - ENLARGED & FIXED
+================================ */
+.popup-card {
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    border-radius: var(--radius-xl);
+    padding: 2.5rem 2rem; /* ✅ INCREASED: More padding */
+    max-width: 900px; /* ✅ INCREASED: From 650px to 900px */
+    width: 95%; /* ✅ INCREASED: From 90% to 95% */
+    max-height: 90vh; /* ✅ INCREASED: From 85vh to 90vh */
+    overflow-y: auto;
+    box-shadow: 0 25px 50px rgba(15, 23, 42, 0.3);
+    border: 3px solid transparent;
+    background-image: 
+        linear-gradient(white, white),
+        linear-gradient(135deg, var(--primary), var(--secondary));
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    animation: popupSlideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative; /* ✅ ADDED: For proper positioning */
+}
+
+/* ✅ CUSTOM SCROLLBAR FOR POPUP */
+.popup-card::-webkit-scrollbar {
+    width: 10px;
+}
+
+.popup-card::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 10px;
+}
+
+.popup-card::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, var(--secondary-light), var(--secondary));
+    border-radius: 10px;
+    border: 2px solid #f1f5f9;
+}
+
+.popup-card::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, var(--secondary), var(--primary));
+}
+
+@keyframes popupSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ================================
+   📌 POPUP HEADER - IMPROVED
+================================ */
+.popup-card h3 {
+    font-size: 28px; /* ✅ INCREASED: From 26px to 28px */
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: 1.5rem; /* ✅ ADJUSTED: Better spacing */
+    letter-spacing: -0.5px;
+    padding-bottom: 1rem; /* ✅ ADDED: Extra spacing */
+    border-bottom: 2px solid var(--border-light); /* ✅ ADDED: Visual separator */
+}
+
+.popup-card h3 i {
+    -webkit-text-fill-color: var(--secondary);
+    font-size: 30px; /* ✅ INCREASED: From 28px */
+    animation: iconRotate 3s ease-in-out infinite;
+}
+
+@keyframes iconRotate {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(10deg); }
+}
+
+/* ================================
+   📄 POPUP DETAILS - IMPROVED
+================================ */
+.popup-details {
+    background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+    padding: 1.5rem; /* ✅ INCREASED: More padding */
+    border-radius: var(--radius-md);
+    border: 2px solid var(--border);
+    margin: var(--space-lg) 0;
+}
+
+.popup-details p {
+    margin: 1rem 0; /* ✅ INCREASED: Better spacing */
+    font-size: 15px; /* ✅ INCREASED: From 14px to 15px */
+    color: var(--text-secondary);
+    line-height: 1.8; /* ✅ INCREASED: Better readability */
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md); /* ✅ INCREASED: More gap */
+}
+
+.popup-details p strong {
+    color: var(--primary);
+    min-width: 140px; /* ✅ INCREASED: From 120px */
+    font-weight: 700; /* ✅ ADDED: Bolder text */
+}
+
+/* ================================
+   ✅ CHECKLIST SECTION - IMPROVED
+================================ */
+.checklist-section {
+    background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+    padding: 1.75rem; /* ✅ INCREASED: More padding */
+    border-radius: var(--radius-lg);
+    margin: var(--space-xl) 0;
+    border: 2px solid var(--border);
+    box-shadow: inset 0 2px 8px rgba(15, 23, 42, 0.05);
+}
+
+.checklist-section h4 {
+    font-size: 18px; /* ✅ ADDED: Section heading */
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.checklist-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: 1rem; /* ✅ INCREASED: More padding */
+    margin: var(--space-md) 0; /* ✅ INCREASED: More margin */
+    background: white;
+    border-radius: var(--radius-sm);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.checklist-item:hover {
+    transform: translateX(8px);
+    border-color: var(--secondary);
+    box-shadow: 0 4px 12px rgba(3, 105, 161, 0.1);
+}
+
+.checklist-item input[type="checkbox"] {
+    width: 24px; /* ✅ INCREASED: From 22px to 24px */
+    height: 24px; /* ✅ INCREASED: From 22px to 24px */
+    cursor: pointer;
+    accent-color: var(--secondary);
+    transition: transform 0.2s ease;
+}
+
+.checklist-item input[type="checkbox"]:checked {
+    transform: scale(1.1);
+}
+
+.checklist-item label {
+    cursor: pointer;
+    user-select: none;
+    flex: 1;
+    font-size: 15px; /* ✅ INCREASED: From 14px to 15px */
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.checklist-item input[type="checkbox"]:checked + label {
+    color: var(--text-muted);
+    text-decoration: line-through;
+}
+
+/* Triage Status */
+.triage-status {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+    border-radius: var(--radius-full);
+    font-size: 13px;
+    font-weight: 700;
+    color: #991b1b;
+    margin-bottom: var(--space-lg);
+}
+
+.triage-status.complete {
+    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+    color: #065f46;
+}
+
+/* ================================
+   💬 REJECTION COMMENT - IMPROVED
+================================ */
+.rejection-comment-section {
+    margin-top: var(--space-xl);
+}
+
+.rejection-comment-section label {
+    display: block;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: var(--space-sm);
+    font-size: 16px; /* ✅ INCREASED: From 15px to 16px */
+}
+
+.rejection-comment-section textarea {
+    width: 100%;
+    margin-top: var(--space-sm);
+    padding: 1rem; /* ✅ INCREASED: More padding */
+    border-radius: var(--radius-md);
+    border: 2px solid var(--border);
+    font-size: 15px; /* ✅ INCREASED: From 14px to 15px */
+    font-family: inherit;
+    resize: vertical;
+    min-height: 150px; /* ✅ INCREASED: From 130px to 150px */
+    transition: all 0.3s ease;
+    background: white;
+    line-height: 1.6;
+}
+
+.rejection-comment-section textarea:focus {
+    outline: none;
+    border-color: var(--secondary);
+    box-shadow: 0 0 0 4px rgba(3, 105, 161, 0.1);
+    background: #f0f9ff;
+}
+
+/* ================================
+   🔘 ACTION BUTTONS - FIXED POSITIONING
+================================ */
+.popup-actions {
+    display: flex;
+    gap: var(--space-md);
+    margin-top: 2rem; /* ✅ INCREASED: Better spacing */
+    padding-top: 1.5rem; /* ✅ INCREASED: More padding */
+    border-top: 2px solid var(--border-light);
+    flex-wrap: wrap;
+    justify-content: center; /* ✅ ADDED: Center buttons */
+}
+
+.approve-btn,
+.reject-btn,
+.popup-actions .close-btn {
+    flex: 1;
+    min-width: 200px; /* ✅ INCREASED: From 180px */
+    padding: 16px 32px; /* ✅ INCREASED: Bigger buttons */
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 15px; /* ✅ INCREASED: From 14px */
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+}
+
+.approve-btn {
+    background: linear-gradient(135deg, var(--success) 0%, var(--success-light) 100%);
+    color: white;
+    box-shadow: 0 4px 16px var(--success-glow);
+}
+
+.approve-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px var(--success-glow);
+}
+
+.reject-btn {
+    background: linear-gradient(135deg, var(--danger) 0%, var(--danger-light) 100%);
+    color: white;
+    box-shadow: 0 4px 16px var(--danger-glow);
+}
+
+.reject-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px var(--danger-glow);
+}
+
+.popup-actions .close-btn {
+    background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+    color: var(--text-primary);
+    border: 2px solid var(--border);
+    padding: 16px 32px; /* ✅ MATCHED: Same as other buttons */
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 15px; /* ✅ MATCHED: Same as other buttons */
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.popup-actions .close-btn:hover {
+    background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* ================================
+   📱 RESPONSIVE - IMPROVED
+================================ */
+@media (max-width: 768px) {
+    .popup-card {
+        padding: 2rem 1.5rem;
+        max-width: 95%;
+        width: 95%;
+    }
+    
+    .popup-card h3 {
+        font-size: 24px;
+    }
+    
+    .popup-details p {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .popup-details p strong {
+        min-width: auto;
+    }
+    
+    .popup-actions {
+        flex-direction: column;
+    }
+
+    .popup-actions button {
+        width: 100%;
+        min-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .popup-card {
+        padding: 1.5rem 1rem;
+        max-width: 98%;
+    }
+    
+    .popup-card h3 {
+        font-size: 20px;
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .popup-details p {
+        font-size: 14px;
+    }
+    
+    .checklist-item {
+        padding: 0.75rem;
+    }
+    
+    .approve-btn,
+    .reject-btn,
+    .popup-actions .close-btn {
+        padding: 14px 24px;
+        font-size: 14px;
+    }
+}

@@ -1,0 +1,434 @@
+/* ================================================================
+   INDEX.CSS - MASTER BODY STYLES
+   This file controls body/layout for ALL user types:
+   - Inventor
+   - Consultant
+   - Admin
+   - Login/Public
+   
+   DO NOT modify body styles in individual component CSS files!
+   ================================================================ */
+
+/* ================================================================
+   ROOT VARIABLES (Can be overridden by themes.css)
+   ================================================================ */
+:root {
+  /* Typography */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
+  
+  /* Performance */
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+  /* Colors (defaults - overridden by themes.css) */
+  color: #1f2937;
+  background-color: #ffffff;
+}
+
+/* ================================================================
+   UNIVERSAL RESET
+   ================================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ================================================================
+   HTML - Foundation
+   ================================================================ */
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+/* ================================================================
+   BODY - MASTER STYLES (APPLIES TO ALL USER TYPES)
+   ================================================================ */
+body {
+  /* Layout */
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  
+  /* Typography */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #1f2937;
+  
+  /* Background - Uses theme variables if available */
+  background: var(--bg-light, #fff9f8);
+  
+  /* Performance */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  
+  /* Prevent horizontal scroll */
+  overflow-x: hidden;
+  
+  /* ⚠️ REMOVED PROBLEMATIC STYLES */
+  /* display: flex;          ← REMOVED: Breaks layout */
+  /* place-items: center;    ← REMOVED: Breaks layout */
+  /* min-width: 3600px;      ← REMOVED: Breaks mobile! */
+}
+
+/* ================================================================
+   LINKS - Global Styling
+   ================================================================ */
+a {
+  color: var(--primary, #800020);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--secondary, #FF6B5A);
+  text-decoration: underline;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--secondary, #FF6B5A);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ================================================================
+   HEADINGS - Global Styling
+   ================================================================ */
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.2;
+  font-weight: 700;
+  color: var(--text-primary, #800020);
+  margin: 0;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.75rem;
+}
+
+h4 {
+  font-size: 1.5rem;
+}
+
+h5 {
+  font-size: 1.25rem;
+}
+
+h6 {
+  font-size: 1rem;
+}
+
+/* ================================================================
+   BUTTONS - Global Styling
+   ================================================================ */
+button {
+  font-family: inherit;
+  font-size: 1em;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6em 1.2em;
+  transition: all 0.25s ease;
+  background-color: var(--secondary, #FF6B5A);
+  color: white;
+}
+
+button:hover {
+  background-color: var(--primary, #800020);
+  transform: translateY(-2px);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--secondary, #FF6B5A);
+  outline-offset: 2px;
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ================================================================
+   FORM ELEMENTS - Global Styling
+   ================================================================ */
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: 1em;
+  padding: 0.5em;
+  border: 1px solid var(--border, #ffe8e5);
+  border-radius: 4px;
+  transition: border-color 0.2s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--primary, #800020);
+  box-shadow: 0 0 0 3px rgba(128, 0, 32, 0.1);
+}
+
+/* ================================================================
+   ROOT CONTAINER - App Wrapper
+   ================================================================ */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* ================================================================
+   IMAGES - Responsive & Accessible
+   ================================================================ */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ================================================================
+   SCROLLBAR - Global Styling
+   ================================================================ */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-light, #fff9f8);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--secondary, #FF6B5A);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary, #800020);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary, #FF6B5A) var(--bg-light, #fff9f8);
+}
+
+/* ================================================================
+   TEXT SELECTION
+   ================================================================ */
+::selection {
+  background: var(--secondary, #FF6B5A);
+  color: white;
+}
+
+::-moz-selection {
+  background: var(--secondary, #FF6B5A);
+  color: white;
+}
+
+/* ================================================================
+   ACCESSIBILITY - Skip to Content
+   ================================================================ */
+.skip-to-content {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--primary, #800020);
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 0 0 4px 0;
+  z-index: 9999;
+  transition: top 0.3s;
+}
+
+.skip-to-content:focus {
+  top: 0;
+}
+
+/* ================================================================
+   FOCUS VISIBLE (Better Accessibility)
+   ================================================================ */
+:focus-visible {
+  outline: 2px solid var(--secondary, #FF6B5A);
+  outline-offset: 2px;
+}
+
+/* ================================================================
+   PRINT STYLES
+   ================================================================ */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  button {
+    display: none;
+  }
+  
+  a {
+    color: black !important;
+    text-decoration: underline !important;
+  }
+}
+
+/* ================================================================
+   RESPONSIVE TYPOGRAPHY
+   ================================================================ */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.75rem;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+  }
+  
+  h4 {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 13px;
+  }
+  
+  h1 {
+    font-size: 1.75rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* ================================================================
+   THEME-SPECIFIC BODY BACKGROUNDS
+   These work with data-theme attribute set in App.jsx
+   ================================================================ */
+
+/* Inventor Theme */
+:root[data-theme="inventor"] body {
+  background: linear-gradient(135deg, #fff9f8 0%, #ffe8e5 100%);
+}
+
+/* Consultant Theme */
+:root[data-theme="consultant"] body {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+}
+
+/* Admin Theme */
+:root[data-theme="admin"] body {
+  background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+}
+
+/* Public/Login Theme */
+:root[data-theme="public"] body {
+  background: linear-gradient(135deg, #fff9f8 0%, #ffe8e5 100%);
+}
+
+/* ================================================================
+   DARK MODE SUPPORT (Optional - Remove if not needed)
+   ================================================================ */
+@media (prefers-color-scheme: dark) {
+  /* Only applies if user has system dark mode AND no data-theme set */
+  :root:not([data-theme]) {
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #242424;
+  }
+  
+  :root:not([data-theme]) body {
+    background: #1a1a1a;
+    color: rgba(255, 255, 255, 0.87);
+  }
+  
+  :root:not([data-theme]) a {
+    color: #646cff;
+  }
+  
+  :root:not([data-theme]) a:hover {
+    color: #535bf2;
+  }
+  
+  :root:not([data-theme]) button {
+    background-color: #f9f9f9;
+    color: #1a1a1a;
+  }
+}
+
+/* ================================================================
+   LOADING STATE
+   ================================================================ */
+body.loading {
+  cursor: wait;
+}
+
+body.loading * {
+  pointer-events: none;
+}
+
+/* ================================================================
+   MODAL OPEN (Prevent body scroll)
+   ================================================================ */
+body.modal-open {
+  overflow: hidden;
+  padding-right: 0 !important;
+}
+
+/* ================================================================
+   PERFORMANCE OPTIMIZATIONS
+   ================================================================ */
+body {
+  will-change: auto;
+  contain: layout style paint;
+}
+
+/* ================================================================
+   SAFARI/WEBKIT FIXES
+   ================================================================ */
+@supports (-webkit-touch-callout: none) {
+  body {
+    min-height: -webkit-fill-available;
+  }
+}

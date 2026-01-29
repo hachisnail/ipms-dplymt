@@ -1,0 +1,27 @@
+#main {
+  margin-top: 60px;
+  max-width: 1600px;
+  padding: 20px 30px;
+  transition: all 0.3s ease;
+}
+
+/* Large laptops / small desktops */
+@media (max-width: 1200px) {
+  #main {
+    padding: 20px 24px;
+    align-content: space-between;
+  }
+}
+
+/* Tablets & below */
+@media (max-width: 768px) {
+  #main {
+    padding: 16px;
+  }
+}
+/* Mobile devices */
+@media (max-width: 480px) { 
+  #main {
+    padding: 12px;
+  }
+}

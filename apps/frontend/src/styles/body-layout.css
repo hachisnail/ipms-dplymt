@@ -1,0 +1,821 @@
+/* ================================================================
+   BODY-LAYOUT.CSS - COMPLETE FULL VERSION
+   Universal layout system for ALL user types and page types
+   ✅ Inventor, Consultant, Admin (with header/sidebar)
+   ✅ Signup, Login, About (no header/sidebar)
+   ✅ All conflicts resolved
+   ================================================================ */
+
+/* ================================================================
+   BASE RESET - Apply to ALL pages
+   ================================================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ================================================================
+   HTML & BODY - UNIVERSAL BASE
+   ================================================================ */
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  /* Typography */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  
+  /* Colors - Uses CSS variables from themes.css */
+  color: var(--text-dark, #1f2937);
+  background: var(--bg-light, #fff9f8);
+  
+  /* Layout */
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  
+  /* Performance */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Prevent body scroll when modals are open */
+body.modal-open {
+  overflow: hidden;
+  padding-right: 0 !important;
+}
+
+/* ================================================================
+   ROOT CONTAINER - Main App Wrapper
+   ================================================================ */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background: var(--bg-light, #fff9f8);
+}
+
+/* ================================================================
+   PUBLIC PAGES - NO HEADER/SIDEBAR
+   (Signup, Login, About, Landing pages)
+   ================================================================ */
+
+.signup-page,
+.login-page,
+.about-page,
+.public-page,
+.landing-page {
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, #FFF9F8 0%, #FFE5E5 100%);
+}
+
+/* ✅ CRITICAL: Remove all portal elements from public pages */
+.signup-page #header,
+.signup-page .header,
+.signup-page .sidebar,
+.signup-page #sidebar,
+.login-page #header,
+.login-page .header,
+.login-page .sidebar,
+.login-page #sidebar,
+.about-page #header,
+.about-page .header,
+.about-page .sidebar,
+.about-page #sidebar,
+.public-page #header,
+.public-page .header,
+.public-page .sidebar,
+.public-page #sidebar {
+  display: none !important;
+}
+
+/* ✅ Remove all spacing/margins for public pages */
+.signup-page #main,
+.signup-page .main-content,
+.login-page #main,
+.login-page .main-content,
+.about-page #main,
+.about-page .main-content,
+.public-page #main,
+.public-page .main-content {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+}
+
+/* ✅ Ensure clean backgrounds - no gradient bleed */
+.signup-page *,
+.login-page *,
+.about-page *,
+.public-page * {
+  background-clip: padding-box !important;
+}
+
+/* ================================================================
+   PORTAL PAGES - WITH HEADER/SIDEBAR
+   (Inventor, Consultant, Admin dashboards)
+   ================================================================ */
+
+/* Header (fixed at top) */
+#header,
+header.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  z-index: 997;
+  background: var(--bg-white, #ffffff);
+  box-shadow: 0 2px 20px rgba(1, 41, 112, 0.1);
+  padding-left: 20px;
+  transition: all 0.3s ease;
+}
+
+/* Header toggle button */
+.header .toggle-sidebar-btn {
+  font-size: 32px;
+  padding-right: 20px;
+  cursor: pointer;
+  color: var(--primary, #00503C);
+  margin-left: -100px;
+  position: relative;
+  top: 0;
+  transition: color 0.3s ease;
+}
+
+.header .toggle-sidebar-btn:hover {
+  color: var(--secondary, #FF6B5A);
+}
+
+/* Sidebar (fixed at left) - USING CLASS NOT ID */
+.sidebar {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  z-index: 996;
+  transition: left 0.3s ease;
+  background: var(--bg-white, #ffffff);
+  overflow-y: auto;
+  box-shadow: 2px 0 8px rgba(128, 0, 32, 0.08);
+  padding: 20px 15px;
+}
+
+/* Sidebar scrollbar styling */
+@supports (scrollbar-width: thin) {
+  .sidebar {
+    scrollbar-width: thin;
+  }
+}
+
+@supports (scrollbar-color: auto) {
+  .sidebar {
+    scrollbar-color: #FF9C8A transparent;
+  }
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
+  background-color: #fff9f8;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #FF6B5A 0%, #FF8170 100%);
+  border-radius: 10px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #800020 0%, #A0192D 100%);
+}
+
+/* Main Content Area */
+#main,
+.main-content {
+  min-height: 100vh;
+  padding-top: 80px;
+  padding-bottom: 60px;
+  transition: margin-left 0.3s ease;
+}
+
+/* ================================================================
+   DESKTOP LAYOUT (≥ 1200px)
+   ================================================================ */
+@media (min-width: 1200px) {
+  /* With sidebar visible */
+  #main,
+  .main-content {
+    margin-left: 300px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  
+  /* When sidebar is toggled (hidden) */
+  body.toggle-sidebar #main,
+  body.toggle-sidebar .main-content {
+    margin-left: 0;
+  }
+  
+  body.toggle-sidebar .sidebar {
+    left: -300px;
+  }
+  
+  /* Footer follows main content */
+  #footer,
+  .footer {
+    margin-left: 300px;
+  }
+  
+  body.toggle-sidebar #footer,
+  body.toggle-sidebar .footer {
+    margin-left: 0;
+  }
+}
+
+/* ================================================================
+   MOBILE/TABLET LAYOUT (< 1200px)
+   ================================================================ */
+@media (max-width: 1199px) {
+  /* No margin on mobile - full width */
+  #main,
+  .main-content {
+    margin-left: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  
+  /* Sidebar hidden by default on mobile */
+  .sidebar {
+    left: -300px;
+  }
+  
+  /* Show sidebar when toggled */
+  body.toggle-sidebar .sidebar {
+    left: 0;
+  }
+  
+  /* Dark overlay when sidebar is open on mobile */
+  body.toggle-sidebar::before {
+    content: '';
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 995;
+    animation: fadeIn 0.3s ease;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+}
+
+/* Footer */
+#footer,
+.footer {
+  position: relative;
+  background: var(--bg-white, #ffffff);
+  padding: 20px 0;
+  margin-top: auto;
+  border-top: 1px solid var(--border-light, #E8D5D9);
+  transition: margin-left 0.3s ease;
+}
+
+/* ================================================================
+   CONTAINER SYSTEM (Consistent widths)
+   ================================================================ */
+.container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1320px;
+  }
+}
+
+.container-fluid {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* ================================================================
+   PAGE CONTENT WRAPPER
+   ================================================================ */
+.pagetitle {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid var(--border-light, #E8D5D9);
+}
+
+.pagetitle h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-primary, #800020);
+  margin-bottom: 5px;
+}
+
+.pagetitle nav {
+  margin-top: 10px;
+}
+
+/* ================================================================
+   SECTION SPACING
+   ================================================================ */
+section {
+  padding: 20px 0;
+  overflow: hidden;
+}
+
+.section-header {
+  margin-bottom: 30px;
+}
+
+/* ================================================================
+   PREVENT LAYOUT SHIFT
+   ================================================================ */
+img,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ================================================================
+   SCROLLBAR STYLING (Consistent across all pages)
+   ================================================================ */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-light, #fff9f8);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--secondary, #FF6B5A);
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary, #800020);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary, #FF6B5A) var(--bg-light, #fff9f8);
+}
+
+/* ================================================================
+   PRINT STYLES
+   ================================================================ */
+@media print {
+  #header,
+  .header,
+  .sidebar,
+  #sidebar,
+  #footer,
+  .footer,
+  .no-print {
+    display: none !important;
+  }
+  
+  #main,
+  .main-content {
+    margin-left: 0 !important;
+    padding-top: 0 !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+}
+
+/* ================================================================
+   ACCESSIBILITY
+   ================================================================ */
+.skip-to-content {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--primary, #800020);
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 0 0 4px 0;
+  z-index: 9999;
+}
+
+.skip-to-content:focus {
+  top: 0;
+}
+
+/* Focus visible for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--secondary, #FF6B5A);
+  outline-offset: 2px;
+}
+
+/* ================================================================
+   LOADING STATE (Global)
+   ================================================================ */
+body.loading {
+  cursor: wait;
+}
+
+body.loading * {
+  pointer-events: none;
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(128, 0, 32, 0.1);
+  border-top-color: var(--primary, #800020);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ================================================================
+   RESPONSIVE UTILITIES
+   ================================================================ */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+  
+  #main,
+  .main-content {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  
+  .pagetitle h1 {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 576px) {
+  #main,
+  .main-content {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 70px;
+  }
+  
+  .pagetitle h1 {
+    font-size: 20px;
+  }
+}
+
+/* ================================================================
+   THEME-SPECIFIC BODY OVERRIDES
+   ================================================================ */
+
+/* Inventor Theme */
+:root[data-theme="inventor"] body,
+[data-theme="inventor"] body {
+  background: linear-gradient(135deg, #fff9f8 0%, #ffe8e5 100%);
+}
+
+/* Consultant Theme */
+:root[data-theme="consultant"] body,
+[data-theme="consultant"] body {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+}
+
+/* Admin Theme */
+:root[data-theme="admin"] body,
+[data-theme="admin"] body {
+  background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+}
+
+/* Public/Login Theme */
+:root[data-theme="public"] body,
+[data-theme="public"] body {
+  background: linear-gradient(135deg, #fff9f8 0%, #ffe8e5 100%);
+}
+
+/* ================================================================
+   PREVENT MULTIPLE BODY STYLES CONFLICT
+   ================================================================ */
+
+/* Remove any inline styles on body */
+body[style] {
+  background: var(--bg-light, #fff9f8) !important;
+}
+
+/* Ensure only one body element */
+body ~ body {
+  display: none !important;
+}
+
+/* Clear conflicting margins/padding */
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* ================================================================
+   SAFARI/WEBKIT FIXES
+   ================================================================ */
+@supports (-webkit-touch-callout: none) {
+  body {
+    min-height: -webkit-fill-available;
+  }
+}
+
+/* ================================================================
+   PERFORMANCE OPTIMIZATIONS
+   ================================================================ */
+
+/* Only apply containment to static elements */
+#header,
+.header,
+#footer,
+.footer {
+  contain: layout style;
+}
+
+/* ✅ CRITICAL: Do NOT use contain on these - breaks fixed positioning! */
+body,
+#root,
+#main,
+.main-content,
+.sidebar {
+  will-change: auto;
+  /* contain: none; - explicitly no containment */
+}
+
+/* ================================================================
+   MODAL OVERLAY STYLING
+   ================================================================ */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 16px;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================================================================
+   UTILITY CLASSES
+   ================================================================ */
+
+/* Display */
+.d-none { display: none !important; }
+.d-block { display: block !important; }
+.d-flex { display: flex !important; }
+.d-grid { display: grid !important; }
+.d-inline { display: inline !important; }
+.d-inline-block { display: inline-block !important; }
+
+/* Flex utilities */
+.flex-row { flex-direction: row !important; }
+.flex-column { flex-direction: column !important; }
+.justify-content-start { justify-content: flex-start !important; }
+.justify-content-end { justify-content: flex-end !important; }
+.justify-content-center { justify-content: center !important; }
+.justify-content-between { justify-content: space-between !important; }
+.justify-content-around { justify-content: space-around !important; }
+.align-items-start { align-items: flex-start !important; }
+.align-items-end { align-items: flex-end !important; }
+.align-items-center { align-items: center !important; }
+.align-items-stretch { align-items: stretch !important; }
+
+/* Spacing utilities */
+.m-0 { margin: 0 !important; }
+.m-1 { margin: 0.25rem !important; }
+.m-2 { margin: 0.5rem !important; }
+.m-3 { margin: 1rem !important; }
+.m-4 { margin: 1.5rem !important; }
+.m-5 { margin: 3rem !important; }
+
+.mt-0 { margin-top: 0 !important; }
+.mt-1 { margin-top: 0.25rem !important; }
+.mt-2 { margin-top: 0.5rem !important; }
+.mt-3 { margin-top: 1rem !important; }
+.mt-4 { margin-top: 1.5rem !important; }
+.mt-5 { margin-top: 3rem !important; }
+
+.mb-0 { margin-bottom: 0 !important; }
+.mb-1 { margin-bottom: 0.25rem !important; }
+.mb-2 { margin-bottom: 0.5rem !important; }
+.mb-3 { margin-bottom: 1rem !important; }
+.mb-4 { margin-bottom: 1.5rem !important; }
+.mb-5 { margin-bottom: 3rem !important; }
+
+.p-0 { padding: 0 !important; }
+.p-1 { padding: 0.25rem !important; }
+.p-2 { padding: 0.5rem !important; }
+.p-3 { padding: 1rem !important; }
+.p-4 { padding: 1.5rem !important; }
+.p-5 { padding: 3rem !important; }
+
+/* Text alignment */
+.text-left { text-align: left !important; }
+.text-center { text-align: center !important; }
+.text-right { text-align: right !important; }
+.text-justify { text-align: justify !important; }
+
+/* Text transform */
+.text-lowercase { text-transform: lowercase !important; }
+.text-uppercase { text-transform: uppercase !important; }
+.text-capitalize { text-transform: capitalize !important; }
+
+/* Font weight */
+.fw-normal { font-weight: 400 !important; }
+.fw-bold { font-weight: 700 !important; }
+.fw-bolder { font-weight: 800 !important; }
+
+/* Width utilities */
+.w-25 { width: 25% !important; }
+.w-50 { width: 50% !important; }
+.w-75 { width: 75% !important; }
+.w-100 { width: 100% !important; }
+.w-auto { width: auto !important; }
+
+/* Height utilities */
+.h-25 { height: 25% !important; }
+.h-50 { height: 50% !important; }
+.h-75 { height: 75% !important; }
+.h-100 { height: 100% !important; }
+.h-auto { height: auto !important; }
+
+/* ================================================================
+   RESPONSIVE DISPLAY UTILITIES
+   ================================================================ */
+@media (max-width: 575px) {
+  .d-sm-none { display: none !important; }
+  .d-sm-block { display: block !important; }
+  .d-sm-flex { display: flex !important; }
+}
+
+@media (max-width: 767px) {
+  .d-md-none { display: none !important; }
+  .d-md-block { display: block !important; }
+  .d-md-flex { display: flex !important; }
+}
+
+@media (max-width: 991px) {
+  .d-lg-none { display: none !important; }
+  .d-lg-block { display: block !important; }
+  .d-lg-flex { display: flex !important; }
+}
+
+@media (max-width: 1199px) {
+  .d-xl-none { display: none !important; }
+  .d-xl-block { display: block !important; }
+  .d-xl-flex { display: flex !important; }
+}
+
+/* ================================================================
+   CARD COMPONENTS (Universal)
+   ================================================================ */
+.card {
+  background: var(--bg-white, #ffffff);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+.card-header {
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid var(--border-light, #e8d5d9);
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary, #800020);
+  margin: 0;
+}
+
+.card-body {
+  padding: 0;
+}
+
+.card-footer {
+  padding-top: 15px;
+  margin-top: 15px;
+  border-top: 1px solid var(--border-light, #e8d5d9);
+}
+
+/* ================================================================
+   END OF FILE
+   ================================================================ */

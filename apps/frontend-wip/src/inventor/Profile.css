@@ -1,0 +1,582 @@
+/* =========================================
+   PROFILE PAGE - INVENTOR THEME
+   Blue & Teal Theme - Professional & Creative
+   ========================================= */
+
+/* Use Inventor theme variables */
+:root {
+    --primary-color: #1e3a8a;
+    --secondary-color: #0f766e;
+    --accent-color: #3b82f6;
+    --teal-light: #14b8a6;
+    --teal-soft: #5eead4;
+    --background-light: #f8fafc;
+    --card-shadow: 0 8px 24px rgba(30, 58, 138, 0.08);
+    --border-color: #e2e8f0;
+}
+
+/* =========================================
+   PAGE WRAPPER
+   ========================================= */
+.profile-page-wrapper {
+    width: 100%;
+    padding: 0;
+    min-height: calc(100vh - 160px);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* =========================================
+   MAIN CONTAINER - Card Style
+   ========================================= */
+.profile-main-container {
+    width: 100%;
+    max-width: 1000px;
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+    margin: 0;
+}
+
+/* =========================================
+   HEADER - Inventor Blue Theme
+   ========================================= */
+.profile-header {
+    background: linear-gradient(135deg, #f8fafc 0%, #eef2f7 100%);
+    padding: 24px 32px;
+    border-bottom: 2px solid var(--border-color);
+    position: relative;
+}
+
+.profile-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #1e3a8a 0%, #0f766e 100%);
+}
+
+.profile-header h1 {
+    margin: 0 0 8px 0;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    letter-spacing: -0.5px;
+}
+
+.profile-header p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #64748b;
+    font-weight: 400;
+}
+
+/* =========================================
+   CONTENT AREA
+   ========================================= */
+.profile-content {
+    padding: 32px;
+}
+
+/* =========================================
+   TWO-COLUMN LAYOUT
+   ========================================= */
+.profile-columns {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 32px;
+    align-items: start;
+}
+
+/* =========================================
+   LEFT COLUMN - Profile Picture Section
+   ========================================= */
+.profile-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 24px;
+    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+    border-radius: 12px;
+    border: 2px solid var(--border-color);
+    position: sticky;
+    top: 20px;
+}
+
+/* Profile Image */
+.profile-image-wrapper {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid #fff;
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    box-shadow: 0 8px 24px rgba(30, 58, 138, 0.15),
+                0 0 0 2px var(--border-color);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.profile-image-wrapper:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 32px rgba(30, 58, 138, 0.2),
+                0 0 0 3px var(--accent-color);
+}
+
+.profile-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.3s ease;
+}
+
+.profile-image-wrapper:hover img {
+    transform: scale(1.1);
+}
+
+/* Upload Buttons */
+.profile-left > div:nth-child(2) {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    flex-direction: column;
+}
+
+.profile-left .save-button {
+    width: 100%;
+    font-size: 0.9rem;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.profile-left .save-button:first-of-type {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    border: none;
+}
+
+.profile-left .save-button:first-of-type:hover {
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
+}
+
+.profile-left .save-button:last-of-type {
+    background: white;
+    color: var(--primary-color);
+    border: 2px solid var(--border-color);
+}
+
+.profile-left .save-button:last-of-type:hover {
+    border-color: var(--accent-color);
+    background: var(--background-light);
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.small-muted {
+    font-size: 0.85rem;
+    color: #64748b;
+    text-align: center;
+    font-weight: 500;
+    padding: 12px;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    width: 100%;
+}
+
+/* =========================================
+   RIGHT COLUMN - Form Section
+   ========================================= */
+.profile-right {
+    flex: 1;
+}
+
+/* Form Grid */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+/* Form Group */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #334155;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.form-group label .small-muted {
+    color: var(--accent-color);
+    font-size: 1rem;
+    padding: 0;
+    background: none;
+    border: none;
+    width: auto;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    border-radius: 10px;
+    border: 2px solid var(--border-color);
+    background: white;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    color: #0f172a;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #94a3b8;
+}
+
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+    font-family: inherit;
+    line-height: 1.6;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    background: var(--background-light);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+.form-group input:disabled,
+.form-group select:disabled,
+.form-group textarea:disabled {
+    background: #f1f5f9;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* =========================================
+   PASSWORD TOGGLE CHECKBOXES
+   ========================================= */
+div[style*="display: flex"][style*="gap: 8"] label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.875rem;
+    color: #64748b;
+    cursor: pointer;
+    padding: 8px 12px;
+    background: #f8fafc;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+div[style*="display: flex"][style*="gap: 8"] label:hover {
+    background: #eef2f7;
+    color: var(--primary-color);
+}
+
+div[style*="display: flex"][style*="gap: 8"] input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: var(--accent-color);
+}
+
+/* =========================================
+   ACTION BUTTONS
+   ========================================= */
+.profile-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding-top: 24px;
+    margin-top: 24px;
+    border-top: 2px solid var(--border-color);
+}
+
+.save-button {
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 120px;
+}
+
+.save-button:not(.primary) {
+    background: white;
+    color: var(--primary-color);
+    border: 2px solid var(--border-color);
+}
+
+.save-button:not(.primary):hover {
+    border-color: var(--accent-color);
+    background: var(--background-light);
+    transform: translateY(-2px);
+}
+
+.save-button.primary {
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.25);
+}
+
+.save-button.primary:hover {
+    background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(30, 58, 138, 0.35);
+}
+
+.save-button:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.save-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* =========================================
+   MESSAGES
+   ========================================= */
+.message {
+    padding: 14px 18px;
+    font-size: 0.9rem;
+    border-radius: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+    font-weight: 500;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.message.success {
+    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+    color: #065f46;
+    border-left: 4px solid #10b981;
+}
+
+.message.success::before {
+    content: '✓';
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: #10b981;
+    color: white;
+    border-radius: 50%;
+    font-weight: 700;
+}
+
+.message.error {
+    background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+    color: #991b1b;
+    border-left: 4px solid #dc2626;
+}
+
+.message.error::before {
+    content: '!';
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: #dc2626;
+    color: white;
+    border-radius: 50%;
+    font-weight: 700;
+}
+
+/* =========================================
+   LOADING STATE
+   ========================================= */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+    filter: grayscale(50%);
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* =========================================
+   RESPONSIVE DESIGN
+   ========================================= */
+
+/* Tablet */
+@media (max-width: 900px) {
+    .profile-columns {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    
+    .profile-left {
+        position: static;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 20px;
+    }
+    
+    .profile-image-wrapper {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .profile-left > div:nth-child(2) {
+        flex-direction: row;
+        width: auto;
+    }
+    
+    .small-muted {
+        width: 100%;
+    }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+    .profile-page-wrapper {
+        padding: 0;
+    }
+    
+    .profile-main-container {
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+    }
+    
+    .profile-header {
+        padding: 20px 16px;
+    }
+    
+    .profile-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .profile-content {
+        padding: 20px 16px;
+    }
+    
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .profile-left {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .profile-left > div:nth-child(2) {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .profile-actions {
+        flex-direction: column;
+    }
+    
+    .save-button {
+        width: 100%;
+    }
+    
+    .profile-image-wrapper {
+        width: 140px;
+        height: 140px;
+    }
+}
+
+/* Extra Small Mobile */
+@media (max-width: 400px) {
+    .profile-header h1 {
+        font-size: 1.25rem;
+    }
+    
+    .profile-image-wrapper {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        font-size: 16px;
+    }
+}
+
+/* =========================================
+   ACCESSIBILITY
+   ========================================= */
+.save-button:focus-visible,
+.form-group input:focus-visible,
+.form-group select:focus-visible,
+.form-group textarea:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* =========================================
+   PRINT STYLES
+   ========================================= */
+@media print {
+    .save-button,
+    .profile-actions,
+    .image-upload-section {
+        display: none !important;
+    }
+    
+    .profile-main-container {
+        box-shadow: none;
+        border: 1px solid #000;
+    }
+    
+    .profile-header {
+        background: white !important;
+        color: black !important;
+    }
+}

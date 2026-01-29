@@ -1,0 +1,44 @@
+.notification-item:hover {
+                    background-color: #e9ecef !important;
+                }
+                
+                .notification-item.unread {
+                    font-weight: 500;
+                }
+                
+                .badge-number {
+                    position: absolute;
+                    top: -5px;
+                    right: -5px;
+                    font-size: 10px;
+                    padding: 3px 6px;
+                    border-radius: 50%;
+                }
+                
+                .notifications {
+                    max-height: 500px;
+                    overflow-y: auto;
+                    width: 350px;
+                }
+                
+                .notification-item {
+                    padding: 10px 15px;
+                }
+                
+                .notification-item i {
+                    font-size: 24px;
+                    margin-right: 10px;
+                }
+                
+                .notification-item h4 {
+                    font-size: 14px;
+                    font-weight: 600;
+                    margin: 0;
+                    color: #333;
+                }
+                
+                .notification-item p {
+                    font-size: 12px;
+                    margin: 3px 0;
+                    color: #666;
+                }

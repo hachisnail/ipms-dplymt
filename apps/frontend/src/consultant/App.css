@@ -1,0 +1,25 @@
+/* ================================================================
+   CONSULTANT APP.CSS - CLEANED VERSION
+   No body/layout styles - handled by body-layout.css
+   Only component-specific styles remain
+   ================================================================ */
+
+/* ================================================================
+   CONSULTANT-SPECIFIC OVERRIDES
+   Use CSS variables from themes.css
+   ================================================================ */
+
+/* Empty by default - add overrides only if needed */
+.consultant-specific {
+  color: var(--primary);
+}
+
+/* ================================================================
+   THAT'S IT!
+   
+   All other styles (cards, buttons, forms, etc.) should be:
+   - In global-base.css (shared across all user types)
+   - In component-specific CSS files (Profile.css, ProjectList.css, etc.)
+   
+   Do NOT duplicate body, #main, #header, #footer here!
+   ================================================================ */

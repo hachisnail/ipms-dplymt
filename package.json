@@ -1,0 +1,15 @@
+{
+  "name": "ipms",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "install:all": "npm install",
+   "dev": "concurrently -k -t -n BACKEND,FRONTEND -c blue,green \"npm run dev -w backend\" \"npm run dev -w frontend\""
+
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0"
+  }
+}

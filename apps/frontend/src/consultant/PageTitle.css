@@ -1,0 +1,24 @@
+/* ================================================================
+   PAGETITLE.CSS - CONSULTANT GREEN/TEAL THEME
+   Uses CSS variables from themes.css
+   ================================================================ */
+
+.pagetitle {
+    margin-bottom: 10px;
+}
+
+.pagetitle h1 {
+    font-size: 24px;
+    margin-bottom: 0;
+    font-weight: 600;
+    color: var(--primary);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    transition: var(--transition);
+}
+
+.pagetitle h1:hover {
+    transform: translateY(-2px);
+}

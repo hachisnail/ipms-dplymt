@@ -1,0 +1,187 @@
+/* ================================================================
+   FAQS.CSS - INVENTOR THEME INTEGRATION
+   Synced with index.css variables and branding.
+   ================================================================ */
+
+/* --- MAIN CONTAINER STYLES --- */
+.faq-container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 18px;
+    background: var(--bg-light, #fff9f8);
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(128, 0, 32, 0.08);
+    border: 1px solid var(--border, #ffe8e5);
+    transition: box-shadow 0.3s ease;
+}
+
+.faq-container:hover {
+    box-shadow: 0 12px 32px rgba(128, 0, 32, 0.12);
+}
+
+/* --- HEADER AND SEARCH STYLES --- */
+.faq-header {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--border, #ffe8e5);
+    padding-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.faq-header h2 {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--primary, #800020);
+    flex-grow: 1;
+}
+
+.faq-controls {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.faq-search {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 2px solid var(--border, #ffe8e5);
+    min-width: 250px;
+    font-size: 0.9rem;
+    color: #1f2937;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.faq-search:focus {
+    outline: none;
+    border-color: var(--secondary, #FF6B5A);
+    box-shadow: 0 0 0 3px rgba(128, 0, 32, 0.1);
+}
+
+/* --- CATEGORY STYLES --- */
+.faq-category {
+    margin-top: 20px;
+}
+
+.faq-category-row {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.faq-category-title {
+    margin: 0;
+    color: var(--primary, #800020);
+    font-size: 1.1rem;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 4px;
+    border-bottom: 2px solid var(--secondary, #FF6B5A);
+}
+
+/* --- ACCORDION ITEM STYLES --- */
+.accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.faq-item {
+    background: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border, #ffe8e5);
+    box-shadow: 0 2px 6px rgba(128, 0, 32, 0.05);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* Inventor Gradient Accent Strip */
+.faq-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--primary, #800020) 0%, var(--secondary, #FF6B5A) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.faq-item.open {
+    border-color: var(--secondary, #FF6B5A);
+}
+
+.faq-item.open::before {
+    opacity: 1;
+}
+
+.faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: transparent;
+    border: 0;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font-weight: 600;
+    color: #1f2937;
+    transition: all 0.2s ease;
+}
+
+.faq-item.open .faq-question {
+    color: var(--primary, #800020);
+    background: linear-gradient(to right, var(--bg-light, #fff9f8), #ffffff);
+}
+
+.faq-q-state {
+    font-size: 1.2rem;
+    color: var(--secondary, #FF6B5A);
+    transition: transform 0.3s ease;
+}
+
+.faq-answer {
+    padding: 12px 16px;
+    border-top: 1px solid var(--border, #ffe8e5);
+    color: #4b5563;
+    background: #ffffff;
+    font-size: 0.85rem;
+    line-height: 1.6;
+}
+
+/* --- EMPTY STATE --- */
+.faq-empty {
+    padding: 20px;
+    text-align: center;
+    color: #6b7280;
+    font-style: italic;
+    background: var(--border, #ffe8e5);
+    border-radius: 8px;
+}
+
+/* --- RESPONSIVENESS --- */
+@media (max-width: 640px) {
+    .faq-container {
+        margin: 0;
+        border-radius: 0;
+        border: none;
+    }
+
+    .faq-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .faq-search {
+        min-width: 100%;
+        order: 2;
+    }
+}

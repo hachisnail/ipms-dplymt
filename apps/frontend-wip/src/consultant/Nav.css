@@ -1,0 +1,307 @@
+/* NAV.CSS - CONSULTANT THEME
+   Professional Dark Slate & Cyan Blue */
+
+.header-nav ul {
+    list-style: none;
+}
+
+.header-nav > ul {
+    margin: 0;
+    padding: 0;
+}
+
+.header-nav .nav-icon {
+    font-size: 22px;
+    color: #0f172a;  /* Dark Slate */
+    margin-right: 25px;
+    position: relative;
+    transition: all 0.3s ease;
+    padding: 8px;
+    border-radius: 6px;
+}
+
+.header-nav .nav-icon:hover {
+    color: #0369a1;  /* Cyan Blue */
+    background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(3, 105, 161, 0.15);
+}
+
+.header-nav .nav-profile {
+    color: #0f172a;
+    transition: all 0.3s ease;
+}
+
+.header-nav .nav-profile:hover {
+    color: #0369a1;
+}
+
+.header-nav .nav-profile img {
+    max-height: 36px;
+    border-radius: 50%;
+    border: 2px solid #0f172a;
+    transition: all 0.3s ease;
+}
+
+.header-nav .nav-profile:hover img {
+    border-color: #0284c7;
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+    transform: scale(1.05);
+}
+
+.header-nav.nav-profile span{
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.header-nav .badge-number {
+    position: absolute;
+    inset: -2px -5px auto auto;
+    font-weight: normal;
+    font-size: 12px;
+    padding: 3px 6px;
+    background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%);
+    color: white;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(3, 105, 161, 0.4);
+    animation: badgePulse 2s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+    0%, 100% {
+        box-shadow: 0 2px 8px rgba(3, 105, 161, 0.4);
+    }
+    50% {
+        box-shadow: 0 4px 12px rgba(3, 105, 161, 0.6);
+    }
+}
+
+.header-nav .notifications {
+    inset: 8px -15px auto auto !important;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15);
+    border: 1px solid #d1d5db;
+}
+
+.header-nav .notifications .notification-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 10px;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.header-nav .notifications .notification-item:last-child {
+    border-bottom: none;
+}
+
+.header-nav .notifications .notification-item i {
+    margin: 0 20px 0 10px;
+    font-size: 24px;
+    color: #0f172a;
+    transition: all 0.3s ease;
+}
+
+.header-nav .notifications .notification-item:hover i {
+    color: #0369a1;
+    transform: scale(1.1);
+}
+
+.header-nav .notifications .notification-item h4 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #0f172a;
+}
+
+.header-nav .notifications .notification-item p {
+    font-size: 13px;
+    margin-bottom: 3px;
+    color: #334155;
+}
+
+.header-nav .notifications .notification-item:hover {
+    background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+    transform: translateX(5px);
+}
+
+.header-nav .messages {
+    inset: 8px -15px auto auto !important;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15);
+    border: 1px solid #d1d5db;
+}
+
+.header-nav .messages .message-item {
+    padding: 15px 10px;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.header-nav .messages .message-item:last-child {
+    border-bottom: none;
+}
+
+.header-nav .messages .message-item a {
+    display: flex;
+    text-decoration: none;
+}
+
+.header-nav .messages .message-item img {
+    margin: 0 20px 0 10px;
+    max-height: 40px;
+    border-radius: 50%;
+    border: 2px solid #0f172a;
+    transition: all 0.3s ease;
+}
+
+.header-nav .messages .message-item:hover img {
+    border-color: #0369a1;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(3, 105, 161, 0.3);
+}
+
+.header-nav .messages .message-item h4 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #0f172a;
+    transition: color 0.3s ease;
+}
+
+.header-nav .messages .message-item p {
+    font-size: 13px;
+    margin-bottom: 3px;
+    color: #334155;
+}
+
+.header-nav .messages .message-item:hover {
+    background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+    transform: translateX(5px);
+}
+
+.header-nav .messages .message-item:hover h4 {
+    color: #0284c7;
+}
+
+.header-nav .profile {
+    min-width: 240px;
+    padding-bottom: 0;
+    top: 8px !important;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15);
+    border: 1px solid #d1d5db;
+}
+
+.header .profile .dropdown-header h6 {
+    font-size: 18px;
+    margin-bottom: 0;
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.header-nav .profile .dropdown-header span {
+    font-size: 14px;
+    color: #334155;
+}
+
+.header-nav .profile .dropdown-item {
+    font-size: 14px;
+    padding: 10px 15px;
+    transition: all 0.3s ease;
+    color: #334155;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.header-nav .profile .dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.header-nav .profile .dropdown-item i {
+    margin-right: 10px;
+    font-size: 18px;
+    line-height: 0;
+    color: #0f172a;
+    transition: all 0.3s ease;
+}
+
+.header-nav .profile .dropdown-item:hover {
+    background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+    color: #0f172a;
+    transform: translateX(5px);
+}
+
+.header-nav .profile .dropdown-item:hover i {
+    color: #0369a1;
+    transform: scale(1.1);
+}
+
+.badge-number {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    font-size: 10px;
+    padding: 3px 6px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%);
+    color: white;
+    box-shadow: 0 2px 8px rgba(3, 105, 161, 0.4);
+}
+
+.notifications {
+    max-height: 500px;
+    overflow-y: auto;
+    width: 350px;
+}
+
+/* Custom scrollbar */
+.notifications::-webkit-scrollbar {
+    width: 8px;
+}
+
+.notifications::-webkit-scrollbar-track {
+    background: #f8fafc;
+    border-radius: 9999px;
+}
+
+.notifications::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #0369a1, #0284c7);
+    border-radius: 9999px;
+    transition: all 0.3s ease;
+}
+
+.notifications::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #0284c7, #0369a1);
+}
+
+.notification-item {
+    padding: 10px 15px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.notification-item:hover {
+    background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%) !important;
+}
+
+.notification-item.unread {
+    background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
+    font-weight: 500;
+    border-left: 3px solid #0369a1;
+    position: relative;
+}
+
+.notification-item.unread::before {
+    content: '';
+    position: absolute;
+    left: -3px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, #0369a1 0%, #0284c7 100%);
+}
+
+.notification-item.unread:hover {
+    background: linear-gradient(135deg, #bfdbfe 0%, #dbeafe 100%) !important;
+    border-left-color: #0284c7;
+}

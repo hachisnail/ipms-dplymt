@@ -1,0 +1,21 @@
+/* PAGETITLE.CSS - ADMIN THEME */
+
+.pagetitle {
+    margin-bottom: 10px;
+}
+
+.pagetitle h1 {
+    font-size: 24px;
+    margin-bottom: 0;
+    font-weight: 600;
+    color: #0f172a;  /* Admin Dark Slate */
+    background: linear-gradient(135deg, #0f172a 0%, #4f46e5 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    transition: all 0.3s ease;
+}
+
+.pagetitle h1:hover {
+    transform: translateY(-2px);
+}

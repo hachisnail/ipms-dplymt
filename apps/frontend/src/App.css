@@ -1,0 +1,4 @@
+/* Empty by default - add overrides only if needed */
+.login-specific {
+  color: var(--primary);
+}

@@ -1,0 +1,331 @@
+/* Portfolio.css - Updated for Bar Chart Visualization */
+
+.portfolio-page {
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.portfolio-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.portfolio-header h2 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 28px;
+}
+
+.portfolio-header p {
+    margin: 5px 0 0 0;
+    color: #7f8c8d;
+    font-size: 14px;
+}
+
+.year-filter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.year-filter label {
+    font-weight: 600;
+    color: #34495e;
+}
+
+.year-dropdown {
+    padding: 8px 15px;
+    border: 2px solid #dfe6e9;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+.year-dropdown:hover {
+    border-color: #3498db;
+}
+
+.year-dropdown:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+.stat-card.green::before {
+    background: #27ae60;
+}
+
+.stat-card.red::before {
+    background: #e74c3c;
+}
+
+.stat-card.yellow::before {
+    background: #f39c12;
+}
+
+.stat-card.purple::before {
+    background: #8e44ad;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.stat-card:hover::before {
+    width: 8px;
+}
+
+.stat-card h3 {
+    margin: 0 0 15px 0;
+    font-size: 16px;
+    color: #34495e;
+    font-weight: 600;
+}
+
+.stat-value {
+    font-size: 36px;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #2c3e50;
+}
+
+.stat-card.green .stat-value {
+    color: #27ae60;
+}
+
+.stat-card.red .stat-value {
+    color: #e74c3c;
+}
+
+.stat-card.yellow .stat-value {
+    color: #f39c12;
+}
+
+.stat-card.purple .stat-value {
+    color: #8e44ad;
+}
+
+.stat-label {
+    display: block;
+    font-size: 13px;
+    color: #7f8c8d;
+    margin-top: 5px;
+}
+
+.total-summary {
+    background: linear-gradient(135deg, #800020 0%, #A0192D 100%);
+    padding: 16px 24px; /* Reduced from 20px 30px */
+    border-radius: 10px; /* Slightly reduced from 12px */
+    margin-bottom: 30px;
+    box-shadow: 0 4px 12px rgba(128, 0, 32, 0.15);
+    display: inline-block; /* Makes it only as wide as content */
+    width: auto; /* Don't stretch full width */
+}
+
+.total-summary h3 {
+    margin: 0;
+    color: white;
+    font-size: 16px; /* Reduced from 20px */
+    font-weight: 600;
+    display: inline; /* Keep on same line */
+}
+
+.total-summary span {
+    font-size: 22px; /* Reduced from 28px */
+    font-weight: bold;
+    margin-left: 8px; /* Slightly reduced */
+}
+
+/* Enhanced Chart Container for Bar Charts */
+.chart-container {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    height: 550px; /* Increased height for better bar visibility */
+    position: relative;
+}
+
+/* Add subtle background pattern for visual interest */
+.chart-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(90deg, rgba(52, 152, 219, 0.02) 1px, transparent 1px),
+        linear-gradient(rgba(52, 152, 219, 0.02) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    border-radius: 12px;
+}
+
+.portfolio-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+}
+
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.portfolio-container p {
+    color: #7f8c8d;
+    font-size: 16px;
+}
+
+/* Add visual cue for interactive elements */
+.year-dropdown option {
+    padding: 10px;
+}
+
+/* Enhance total summary with subtle animation */
+.total-summary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(128, 0, 32, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .chart-container {
+        height: 500px;
+    }
+}
+
+@media (max-width: 768px) {
+    .portfolio-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .year-filter {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .chart-container {
+        padding: 20px;
+        height: 450px;
+    }
+    
+    .portfolio-header h2 {
+        font-size: 24px;
+    }
+    
+    .stat-value {
+        font-size: 32px;
+    }
+    
+    .total-summary {
+        padding: 12px 18px; /* Further reduced for mobile */
+        text-align: center; /* Center on mobile */
+        width: 100%; /* Full width on mobile for better appearance */
+    }
+    
+    .total-summary h3 {
+        font-size: 15px; /* Reduced from 18px */
+    }
+    
+    .total-summary span {
+        font-size: 20px; /* Reduced from 24px */
+        display: block; /* Stack on mobile */
+        margin-left: 0;
+        margin-top: 4px;
+    }
+}
+
+@media (max-width: 480px) {
+    .portfolio-page {
+        padding: 15px;
+    }
+    
+    .chart-container {
+        padding: 15px;
+        height: 400px;
+    }
+    
+    .stat-card {
+        padding: 20px;
+    }
+    
+    .stat-value {
+        font-size: 28px;
+    }
+}
+
+/* Print styles */
+@media print {
+    .portfolio-page {
+        padding: 0;
+    }
+    
+    .year-filter,
+    .portfolio-header p {
+        display: none;
+    }
+    
+    .stat-card {
+        break-inside: avoid;
+    }
+    
+    .chart-container {
+        height: 400px;
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+}

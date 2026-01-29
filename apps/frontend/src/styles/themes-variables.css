@@ -1,0 +1,226 @@
+/* ================================================================
+   🔵 INVENTOR THEME - Creative but Calm
+   ================================================================ */
+:root[data-theme="inventor"],
+.theme-inventor {
+  --primary: #1e3a8a;
+  --primary-dark: #1e293b;
+  --primary-light: #3b82f6;
+
+  --secondary: #0f766e;
+  --secondary-light: #14b8a6;
+  --secondary-soft: #5eead4;
+
+  --bg-light: #f8fafc;
+  --bg-dark: #eef2f7;
+  --bg-white: #ffffff;
+
+  --border: #e2e8f0;
+  --border-light: #f1f5f9;
+
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --text-dark: #020617;
+
+  --shadow-sm: 0 1px 4px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 10px 24px rgba(15, 23, 42, 0.1);
+  --shadow-xl: 0 20px 40px rgba(15, 23, 42, 0.12);
+
+  --glow-primary: rgba(59, 130, 246, 0.25);
+  --glow-secondary: rgba(20, 184, 166, 0.25);
+
+  --gradient-primary: linear-gradient(135deg, #1e3a8a, #3b82f6);
+  --gradient-secondary: linear-gradient(135deg, #0f766e, #14b8a6);
+  --gradient-mixed: linear-gradient(135deg, #1e3a8a, #0f766e);
+
+  --success: #16a34a;
+  --warning: #f59e0b;
+  --error: #dc2626;
+  --info: #2563eb;
+}
+
+
+/* ================================================================
+   🟢 CONSULTANT THEME - Professional & Trustworthy
+   ================================================================ */
+:root[data-theme="consultant"],
+.theme-consultant {
+  --primary: #0f172a;
+  --primary-dark: #020617;
+  --primary-light: #334155;
+
+  --secondary: #0369a1;
+  --secondary-light: #0284c7;
+  --secondary-soft: #7dd3fc;
+
+  --bg-light: #f8fafc;
+  --bg-dark: #e5e7eb;
+  --bg-white: #ffffff;
+
+  --border: #d1d5db;
+  --border-light: #e5e7eb;
+
+  --text-primary: #020617;
+  --text-secondary: #334155;
+  --text-muted: #6b7280;
+  --text-dark: #020617;
+
+  --shadow-sm: 0 1px 3px rgba(2, 6, 23, 0.06);
+  --shadow-md: 0 4px 10px rgba(2, 6, 23, 0.08);
+  --shadow-lg: 0 12px 24px rgba(2, 6, 23, 0.1);
+  --shadow-xl: 0 24px 40px rgba(2, 6, 23, 0.12);
+
+  --glow-primary: rgba(2, 132, 199, 0.25);
+  --glow-secondary: rgba(14, 165, 233, 0.25);
+
+  --gradient-primary: linear-gradient(135deg, #0f172a, #334155);
+  --gradient-secondary: linear-gradient(135deg, #0369a1, #0284c7);
+  --gradient-mixed: linear-gradient(135deg, #0f172a, #0369a1);
+
+  --success: #16a34a;
+  --warning: #f59e0b;
+  --error: #dc2626;
+  --info: #0284c7;
+}
+
+
+/* ================================================================
+   🟣 ADMIN THEME - Authority without Visual Stress
+   ================================================================ */
+:root[data-theme="admin"],
+.theme-admin {
+  --primary: #0f172a;
+  --primary-dark: #020617;
+  --primary-light: #334155;
+
+  --secondary: #4f46e5;
+  --secondary-light: #6366f1;
+  --secondary-soft: #c7d2fe;
+
+  --bg-light: #f8fafc;
+  --bg-dark: #eef2f7;
+  --bg-white: #ffffff;
+
+  --border: #d1d5db;
+  --border-light: #e5e7eb;
+
+  --text-primary: #020617;
+  --text-secondary: #1e293b;
+  --text-muted: #64748b;
+  --text-dark: #020617;
+
+  --shadow-sm: 0 1px 3px rgba(2, 6, 23, 0.06);
+  --shadow-md: 0 4px 12px rgba(2, 6, 23, 0.08);
+  --shadow-lg: 0 12px 28px rgba(79, 70, 229, 0.12);
+  --shadow-xl: 0 24px 48px rgba(79, 70, 229, 0.15);
+
+  --glow-primary: rgba(79, 70, 229, 0.25);
+  --glow-secondary: rgba(99, 102, 241, 0.25);
+
+  --gradient-primary: linear-gradient(135deg, #0f172a, #334155);
+  --gradient-secondary: linear-gradient(135deg, #4f46e5, #6366f1);
+  --gradient-mixed: linear-gradient(135deg, #0f172a, #4f46e5);
+
+  --success: #16a34a;
+  --warning: #f59e0b;
+  --error: #dc2626;
+  --info: #6366f1;
+}
+
+
+/* ================================================================
+   🌐 PUBLIC / LOGIN THEME - Clean & Welcoming
+   ================================================================ */
+:root,
+:root[data-theme="public"],
+.theme-public {
+  --primary: #2563eb;
+  --primary-dark: #1e40af;
+  --primary-light: #60a5fa;
+
+  --secondary: #0f766e;
+  --secondary-light: #14b8a6;
+  --secondary-soft: #5eead4;
+
+  --bg-light: #f9fafb;
+  --bg-dark: #e5e7eb;
+  --bg-white: #ffffff;
+
+  --border: #e5e7eb;
+  --border-light: #f3f4f6;
+
+  --text-primary: #020617;
+  --text-secondary: #334155;
+  --text-muted: #6b7280;
+  --text-dark: #020617;
+
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 10px rgba(0,0,0,0.08);
+  --shadow-lg: 0 12px 24px rgba(0,0,0,0.1);
+  --shadow-xl: 0 24px 40px rgba(0,0,0,0.12);
+
+  --success: #16a34a;
+  --warning: #f59e0b;
+  --error: #dc2626;
+  --info: #2563eb;
+}
+
+
+/* ================================================================
+   SHARED DESIGN TOKENS (ALL THEMES)
+   ================================================================ */
+:root {
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.5s ease;
+
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+
+  scroll-behavior: smooth;
+}
+
+
+/* ================================================================
+   UTILITY CLASSES
+   ================================================================ */
+.bg-primary { background: var(--primary); }
+.bg-secondary { background: var(--secondary); }
+.bg-light { background: var(--bg-light); }
+.bg-white { background: var(--bg-white); }
+
+.text-primary { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-muted { color: var(--text-muted); }
+
+.gradient-primary { background: var(--gradient-primary); }
+.gradient-secondary { background: var(--gradient-secondary); }
+.gradient-mixed { background: var(--gradient-mixed); }
+
+.shadow-sm { box-shadow: var(--shadow-sm); }
+.shadow-md { box-shadow: var(--shadow-md); }
+.shadow-lg { box-shadow: var(--shadow-lg); }
+.shadow-xl { box-shadow: var(--shadow-xl); }

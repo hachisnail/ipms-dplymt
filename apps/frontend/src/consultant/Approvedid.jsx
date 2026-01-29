@@ -1,0 +1,105 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import ApprovedRow from './ApprovedRow';
+import './TableView.css';
+
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3006/api';
+
+const Approvedid = () => {
+    const [submissions, setSubmissions] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    const fetchSubmissions = async () => {
+        try {
+            const response = await axios.get(`${API_BASE_URL}/id-submissions-approved`);
+            console.log('✅ Fetched Approved ID submissions:', response.data);
+            setSubmissions(response.data);
+            setLoading(false);
+        } catch (err) {
+            console.error('❌ Error fetching data:', err);
+            setError('Failed to fetch Approved Industrial Design submissions.');
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        let isMounted = true;
+        const safeFetchSubmissions = async () => {
+            if (isMounted) {
+                await fetchSubmissions();
+            }
+        };
+        safeFetchSubmissions();
+        const interval = setInterval(safeFetchSubmissions, 5000);
+        return () => {
+            isMounted = false;
+            clearInterval(interval);
+        };
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="Table-container">
+                <div className="loader">
+                    <div className="spinner"></div>
+                    <p>Loading submissions...</p>
+                </div>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="Table-container">
+                <div className="error-message">❌ {error}</div>
+            </div>
+        );
+    }
+
+    return (
+        <div className="Table-container">
+            <h2>
+                <i className="bi bi-check-circle me-2" aria-hidden="true"></i>
+                Approved for Filing - Industrial Design
+            </h2>
+
+            {submissions.length === 0 ? (
+                <div className="error-message">
+                    No approved Industrial Design submissions found.
+                </div>
+            ) : (
+                <>
+                    <div className="table-wrapper">
+                        <table className="responsive-table">
+                            <thead>
+                                <tr>
+                                    <th><i className="bi bi-hash me-1" aria-hidden="true"></i>ID</th>
+                                    <th><i className="bi bi-envelope me-1" aria-hidden="true"></i>TITLE</th>
+                                    <th><i className="bi bi-file-text me-1" aria-hidden="true"></i>DESCRIPTION</th>
+                                    <th><i className="bi bi-tag me-1" aria-hidden="true"></i>STATUS</th>
+                                    <th><i className="bi bi-brush me-1" aria-hidden="true"></i>DESIGN TYPE</th>
+                                    <th><i className="bi bi-calendar me-1" aria-hidden="true"></i>APPROVAL DATE</th>
+                                    <th><i className="bi bi-image me-1" aria-hidden="true"></i>IMAGE</th>
+                                    <th><i className="bi bi-file-earmark-pdf me-1" aria-hidden="true"></i>PDF FILE</th>
+                                    <th><i className="bi bi-list-ul me-1" aria-hidden="true"></i>ACTION</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {submissions.map((project) => (
+                                    <ApprovedRow
+                                        key={project.id}
+                                        project={project}
+                                    />
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </>
+            )}
+        </div>
+    );
+};
+
+export default Approvedid;

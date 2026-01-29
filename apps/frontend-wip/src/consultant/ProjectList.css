@@ -1,0 +1,216 @@
+/* ================================================================
+   PROJECTLIST.CSS - CONSULTANT GREEN/TEAL THEME
+   Uses CSS variables from themes.css
+   ================================================================ */
+
+.project-list-container {
+    padding: 20px;
+    background: var(--bg-light);
+    border-radius: var(--radius-md);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: var(--bg-white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+th, td {
+    border: 1px solid var(--border);
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: white;
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Status specific colors */
+.status-pending {
+    color: var(--warning);
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    background: rgba(245, 158, 11, 0.1);
+    border-radius: var(--radius-md);
+}
+
+.status-pending::before {
+    content: '●';
+    font-size: 1.2em;
+}
+
+.status-approved {
+    color: var(--success);
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    background: rgba(16, 185, 129, 0.1);
+    border-radius: var(--radius-md);
+}
+
+.status-approved::before {
+    content: '✓';
+    font-size: 1.2em;
+}
+
+.status-rejected {
+    color: var(--error);
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    background: rgba(239, 68, 68, 0.1);
+    border-radius: var(--radius-md);
+}
+
+.status-rejected::before {
+    content: '✗';
+    font-size: 1.2em;
+}
+
+.status-radio-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.status-radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.status-radio-group input[type="radio"] {
+    cursor: pointer;
+    accent-color: var(--primary);
+}
+
+.status-radio-group label:hover {
+    color: var(--primary);
+}
+
+.update-button, .view-button {
+    padding: 8px 16px;
+    margin-left: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: var(--radius);
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: white;
+    font-weight: 600;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.update-button:hover:not(:disabled) {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.update-button:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.update-button:disabled {
+    background: var(--border);
+    color: var(--text-muted);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.view-button {
+    background: linear-gradient(135deg, var(--info), #2563eb);
+}
+
+.view-button:hover {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.update-message {
+    margin-left: 10px;
+    font-size: 0.85em;
+    color: var(--success);
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.update-message::before {
+    content: '✓';
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background: var(--success);
+    color: white;
+    border-radius: var(--radius-full);
+    text-align: center;
+    line-height: 18px;
+    font-size: 12px;
+}
+
+/* Table row hover effect */
+tbody tr {
+    transition: var(--transition);
+}
+
+tbody tr:hover {
+    background: var(--bg-light);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .project-list-container {
+        padding: 10px;
+    }
+    
+    table {
+        font-size: 0.85rem;
+    }
+    
+    th, td {
+        padding: 8px 6px;
+    }
+    
+    .update-button, .view-button {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+}

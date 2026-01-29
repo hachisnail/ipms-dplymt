@@ -1,0 +1,36 @@
+ /*maroon: #500014;
+  --green: #00503C;
+  --lightBG: #F2F2F2;
+  --darkBG: #CBCBCB;*/
+
+.logo{
+line-height: 1;
+}
+
+@media (min-width: 1200px) {
+    
+    .logo{
+        width: 380px;
+    }
+}
+
+.logo img {
+    max-height: 36px;
+    margin-right: 6px;
+}
+
+.logo span {
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 700;
+    color: #00503C;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+   
+   }
+    
+
+
+.d-flex.align-items-center.justify-content-between > a {
+  text-decoration: none !important;
+  color: #00503C !important;
+}

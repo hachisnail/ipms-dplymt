@@ -1,0 +1,205 @@
+/* ================================================================
+   HEADER.CSS - CONSULTANT/ADMIN/INVENTOR
+   Fixed logo positioning and toggle button spacing
+   ================================================================ */
+
+header {
+    transition: all 0.5s ease;
+    z-index: 997;
+    height: 60px;
+    box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
+    background-color: #fff;
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+/* Logo/Brand Section */
+.header-logo,
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: 0;
+    padding-left: 0;
+    z-index: 998;
+}
+
+.header-logo img {
+    height: 40px;
+    width: auto;
+}
+
+.header-title,
+.header-brand-text {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--primary, #0f172a);
+    margin: 0;
+    white-space: nowrap;
+}
+
+/* Toggle Sidebar Button - FIXED POSITIONING */
+.header .toggle-sidebar-btn {
+    font-size: 32px;
+    padding: 0 20px;
+    cursor: pointer;
+    color: var(--primary, #00503C);
+    margin-left: 0;  /* ✅ FIXED: Removed negative margin */
+    margin-right: 20px;  /* ✅ Space between toggle and logo */
+    position: relative;
+    top: 0;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    line-height: 1;
+}
+
+.header .toggle-sidebar-btn:hover {
+    color: var(--secondary, #0369a1);
+}
+
+/* Navigation Section (Right side) */
+.header-nav {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-right: 20px;
+}
+
+/* ================================================================
+   CONSULTANT THEME SPECIFIC
+   ================================================================ */
+[data-theme="consultant"] header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+[data-theme="consultant"] .header .toggle-sidebar-btn {
+    color: #0f172a;
+}
+
+[data-theme="consultant"] .header .toggle-sidebar-btn:hover {
+    color: #0369a1;
+}
+
+[data-theme="consultant"] .header-title {
+    color: #0f172a;
+}
+
+/* ================================================================
+   INVENTOR THEME SPECIFIC
+   ================================================================ */
+[data-theme="inventor"] header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+[data-theme="inventor"] .header .toggle-sidebar-btn {
+    color: #1e3a8a;
+}
+
+[data-theme="inventor"] .header .toggle-sidebar-btn:hover {
+    color: #3b82f6;
+}
+
+[data-theme="inventor"] .header-title {
+    color: #1e3a8a;
+}
+
+/* ================================================================
+   ADMIN THEME SPECIFIC
+   ================================================================ */
+[data-theme="admin"] header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+[data-theme="admin"] .header .toggle-sidebar-btn {
+    color: #0f172a;
+}
+
+[data-theme="admin"] .header .toggle-sidebar-btn:hover {
+    color: #4f46e5;
+}
+
+[data-theme="admin"] .header-title {
+    color: #0f172a;
+}
+
+/* ================================================================
+   RESPONSIVE DESIGN
+   ================================================================ */
+
+@media (max-width: 768px) {
+    header {
+        padding-left: 10px;
+    }
+    
+    .header .toggle-sidebar-btn {
+        padding: 0 10px;
+        margin-right: 10px;
+        font-size: 28px;
+    }
+    
+    .header-title,
+    .header-brand-text {
+        font-size: 16px;
+    }
+    
+    .header-nav {
+        padding-right: 10px;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-title,
+    .header-brand-text {
+        font-size: 14px;
+        max-width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .header .toggle-sidebar-btn {
+        font-size: 24px;
+        padding: 0 8px;
+        margin-right: 8px;
+    }
+}
+
+/* ================================================================
+   ACCESSIBILITY
+   ================================================================ */
+.header .toggle-sidebar-btn:focus {
+    outline: 2px solid var(--secondary, #0369a1);
+    outline-offset: 2px;
+}
+
+.header .toggle-sidebar-btn:active {
+    transform: scale(0.95);
+}
+
+/* ================================================================
+   PRINT STYLES
+   ================================================================ */
+@media print {
+    header {
+        position: static;
+        box-shadow: none;
+        border-bottom: 1px solid #e5e7eb;
+    }
+    
+    .header .toggle-sidebar-btn {
+        display: none;
+    }
+}
