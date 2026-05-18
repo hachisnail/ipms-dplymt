@@ -25,7 +25,7 @@ import AdminApp from './admin/App';
 
 // Landing/Home Page
 import HomePage from './components/HomePage';
-import DynamicPage from './components/DynamicPage';
+import DynamicPage from './components/Dynamicpage';
 
 function App() {
   return (

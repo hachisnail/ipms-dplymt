@@ -10,7 +10,7 @@ import HomePage from './components/HomePage'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import AboutIPMS from './pages/AboutIPMS'
-import DynamicPage from './components/DynamicPage'
+import DynamicPage from './components/Dynamicpage'
 import './styles/main2.css'
 
 // Import styles
