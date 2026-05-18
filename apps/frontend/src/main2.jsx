@@ -10,6 +10,7 @@ import HomePage from './components/HomePage'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import AboutIPMS from './pages/AboutIPMS'
+import DynamicPage from './components/DynamicPage'
 import './styles/main2.css'
 
 // Import styles
@@ -35,6 +36,7 @@ function Main2() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/about" element={<AboutIPMS />} />
+        <Route path="/:slug" element={<DynamicPage />} />
       </Routes>
     </Router>
   )

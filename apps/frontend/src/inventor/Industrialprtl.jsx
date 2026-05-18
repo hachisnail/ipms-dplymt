@@ -127,8 +127,12 @@ export default function IndustrialPortal() {
         }
         
         try {
+            const token = localStorage.getItem('token');
             const response = await fetch(API_URL, {
                 method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
                 body: submissionData,
             });
             if (response.ok) {

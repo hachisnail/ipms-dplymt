@@ -112,9 +112,11 @@ function FinalizedProjects() {
     if (loading) {
         return (
             <div className="project-container">
+                <div className="project-container-inner">
                 <div className="loading-spinner">
                     <div className="spinner"></div>
                     <p>Loading Finalized Projects...</p>
+                </div>
                 </div>
             </div>
         );
@@ -123,6 +125,7 @@ function FinalizedProjects() {
     if (error) {
         return (
             <div className="project-container">
+                <div className="project-container-inner">
                 <div className="error-message">
                     <i className="bi bi-exclamation-triangle"></i>
                     <p>{error}</p>
@@ -130,12 +133,14 @@ function FinalizedProjects() {
                         Retry
                     </button>
                 </div>
+                </div>
             </div>
         );
     }
 
     return (
         <div className="project-container">
+            <div className="project-container-inner">
             <div className="project-header">
                 <div className="header-left">
                     <h2>
@@ -451,6 +456,7 @@ function FinalizedProjects() {
                     </div>
                 </div>
             )}
+            </div>
         </div>
     );
 }

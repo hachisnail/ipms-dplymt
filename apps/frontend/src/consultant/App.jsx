@@ -14,7 +14,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import SideBar from './ConsultantSideBar';
 import Main2 from './main2';
-import Footer from './Footer';
 import BacktoTopButton from './BacktoTopButton';
 
 function App() {
@@ -26,7 +25,6 @@ function App() {
       <Header/>
       <SideBar/>
       <Main2/>
-      <Footer/>
       <BacktoTopButton/>
     </>
   );

@@ -24,7 +24,7 @@ function Logo() {
             <a href="#Dashboard" className="logo d-flex align-items-center">
                 <img src={IPMOLogo} alt="IPMO Logo"></img>
                 <span className="d-none d-lg-block" spellCheck="false">
-                    WELCOME INVENTOR
+                    WELCOME IP-APPLICANT
                 </span>
             </a>
             <i

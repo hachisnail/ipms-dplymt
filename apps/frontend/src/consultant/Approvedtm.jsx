@@ -1,105 +1,78 @@
-import React, { useState, useEffect } from 'react';
+// Approvedtm.jsx — Trademark
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import ApprovedRow from './ApprovedRow';
-import './TableView.css';
+import './UnderReview.css';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3006/api';
+const API  = import.meta.env.VITE_API_URL || 'http://localhost:3006/api';
+const hdrs = () => ({ Authorization: `Bearer ${localStorage.getItem('token') || ''}` });
 
-const Approvedtm = () => {
+export default function Approvedtm() {
     const [submissions, setSubmissions] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [loading,     setLoading]     = useState(true);
+    const [error,       setError]       = useState(null);
 
-    const fetchSubmissions = async () => {
+    const load = useCallback(async () => {
         try {
-            const response = await axios.get(`${API_BASE_URL}/tm-submissions-approved`);
-            console.log('✅ Fetched Approved TM submissions:', response.data);
-            setSubmissions(response.data);
-            setLoading(false);
+            const res  = await axios.get(`${API}/tm-submissions-approved`, { headers: hdrs() });
+            const data = Array.isArray(res.data) ? res.data : (res.data?.data || []);
+            setSubmissions(data);
+            setError(null);
         } catch (err) {
-            console.error('❌ Error fetching data:', err);
-            setError('Failed to fetch Approved Trademark submissions.');
+            console.error('❌', err);
+            setError('Failed to load Trademark submissions.');
+        } finally {
             setLoading(false);
         }
-    };
-
-    useEffect(() => {
-        let isMounted = true;
-        const safeFetchSubmissions = async () => {
-            if (isMounted) {
-                await fetchSubmissions();
-            }
-        };
-        safeFetchSubmissions();
-        const interval = setInterval(safeFetchSubmissions, 5000);
-        return () => {
-            isMounted = false;
-            clearInterval(interval);
-        };
     }, []);
 
-    if (loading) {
-        return (
-            <div className="Table-container">
-                <div className="loader">
-                    <div className="spinner"></div>
-                    <p>Loading submissions...</p>
-                </div>
-            </div>
-        );
-    }
+    useEffect(() => {
+        load();
+        const t = setInterval(load, 30000);
+        return () => clearInterval(t);
+    }, [load]);
 
-    if (error) {
-        return (
-            <div className="Table-container">
-                <div className="error-message">❌ {error}</div>
-            </div>
-        );
-    }
-
-    return (
-        <div className="Table-container">
-            <h2>
-                <i className="bi bi-check-circle me-2" aria-hidden="true"></i>
-                Approved for Filing - Trademark
-            </h2>
-
-            {submissions.length === 0 ? (
-                <div className="error-message">
-                    No approved Trademark submissions found.
-                </div>
-            ) : (
-                <>
-                    <div className="table-wrapper">
-                        <table className="responsive-table">
-                            <thead>
-                                <tr>
-                                    <th><i className="bi bi-hash me-1" aria-hidden="true"></i>ID</th>
-                                    <th><i className="bi bi-envelope me-1" aria-hidden="true"></i>TITLE</th>
-                                    <th><i className="bi bi-file-text me-1" aria-hidden="true"></i>DESCRIPTION</th>
-                                    <th><i className="bi bi-tag me-1" aria-hidden="true"></i>STATUS</th>
-                                    <th><i className="bi bi-brush me-1" aria-hidden="true"></i>DESIGN TYPE</th>
-                                    <th><i className="bi bi-calendar me-1" aria-hidden="true"></i>APPROVAL DATE</th>
-                                    <th><i className="bi bi-image me-1" aria-hidden="true"></i>IMAGE</th>
-                                    <th><i className="bi bi-file-earmark-pdf me-1" aria-hidden="true"></i>PDF FILE</th>
-                                    <th><i className="bi bi-list-ul me-1" aria-hidden="true"></i>ACTION</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                {submissions.map((project) => (
-                                    <ApprovedRow
-                                        key={project.id}
-                                        project={project}
-                                    />
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                </>
-            )}
+    if (loading) return (
+        <div className="ur-page">
+            <div className="ur-loader"><div className="ur-spinner"></div><p>Loading…</p></div>
         </div>
     );
-};
 
-export default Approvedtm;
+    return (
+        <div className="ur-page">
+            {error && <div className="ur-error"><i className="bi bi-exclamation-triangle me-2"></i>{error}</div>}
+
+            <div className="ur-table-card">
+                {submissions.length === 0 ? (
+                    <div className="ur-empty">
+                        <i className="bi bi-inbox"></i>
+                        <p>No approved Trademark submissions found.</p>
+                    </div>
+                ) : (
+                    <table className="ur-table">
+                        <thead>
+                            <tr>
+                                <th><i className="bi bi-hash"></i>REF</th>
+                                <th><i className="bi bi-card-heading"></i>TITLE</th>
+                                <th><i className="bi bi-person"></i>INVENTOR</th>
+                                <th><i className="bi bi-shield-check"></i>STATUS</th>
+                                <th><i className="bi bi-tag"></i>TYPE</th>
+                                <th><i className="bi bi-calendar-check"></i>APPROVED</th>
+                                <th><i className="bi bi-lightning"></i>ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {submissions.map(s => (
+                                <ApprovedRow
+                                    key={s.id}
+                                    project={s}
+                                    ipType="tm"
+                                />
+                            ))}
+                        </tbody>
+                    </table>
+                )}
+            </div>
+        </div>
+    );
+}

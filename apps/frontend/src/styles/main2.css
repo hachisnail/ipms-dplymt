@@ -1,4 +1,80 @@
 /* ============================================
+   LAYOUT — Sidebar + Main Content
+   Sidebar is position:fixed; only #main scrolls.
+   ============================================ */
+
+/* App wrapper — full viewport, no overflow */
+.app-layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* ── Main content area ── 
+   - Offset by sidebar width (300px NiceAdmin default)
+   - Only this element scrolls — body/html are locked
+   - Scrollbar is invisible but functional
+*/
+#main,
+.main {
+  margin-left: 300px;          /* match your sidebar width */
+  margin-top: 60px;            /* match your navbar height */
+  padding: 20px 24px 40px;
+  width: calc(100% - 300px);
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  /* Hide scrollbar — content still scrolls */
+  scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;    /* IE / Edge */
+}
+
+#main::-webkit-scrollbar,
+.main::-webkit-scrollbar {
+  display: none;               /* Chrome / Safari / Opera */
+}
+
+/* ── Responsive: collapse sidebar offset on small screens ── */
+@media (max-width: 1199px) {
+  #main,
+  .main {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+/* ── DynamicPage public scroll unlock ──────────────────────
+   When .dp-wrap renders inside #main (the portal scroll
+   container), it must break out of the fixed-height box so
+   the page scrolls naturally — exactly like .hp-root does
+   for the homepage.
+   We reset margin/padding/height on #main when it contains
+   a public CMS page, and let .dp-wrap itself control scroll.
+────────────────────────────────────────────────────────── */
+#main:has(.dp-wrap),
+.main:has(.dp-wrap) {
+  padding: 0;
+  margin-top: 0;
+  height: 100vh;               /* full viewport — dp-wrap scrolls internally */
+  overflow: hidden;            /* dp-wrap takes over scrolling */
+}
+
+.dp-wrap {
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  /* Hide scrollbar — content still scrolls */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.dp-wrap::-webkit-scrollbar {
+  display: none;
+}
+
+/* ============================================
    MAIN2.CSS - Design Preview System Styles
    ============================================ */
 
@@ -315,14 +391,6 @@
   background: linear-gradient(135deg, #FFF9F8 0%, #FFE5E5 100%);
 }
 
-.loading-spinner {
-  width: 60px;
-  height: 60px;
-  border: 4px solid rgba(128, 0, 32, 0.1);
-  border-top-color: #800020;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
 
 @keyframes spin {
   to {

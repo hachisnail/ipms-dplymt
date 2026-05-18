@@ -5,14 +5,17 @@
 
 /* --- MAIN CONTAINER --- */
 .reference-container {
-    padding: 30px;
-    max-width: 1200px; /* ✅ Increased width to prevent compression */
-    margin: 20px auto;
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 8px 30px rgba(128, 0, 32, 0.08);
-    border: 1px solid var(--border, #ffe8e5);
-    min-height: 600px;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 28px 28px 40px;
+    min-height: 100vh;
+    background: #F8F9FC;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    box-sizing: border-box;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
 }
 
 /* --- HEADER SECTION --- */
@@ -214,7 +217,7 @@
 
 /* --- MODAL STYLES (Popup) --- */
 .modal-overlay {
-    background: rgba(128, 0, 32, 0.4);
+    background: #fff9f879;
     backdrop-filter: blur(4px);
 }
 
@@ -253,7 +256,7 @@
 @media (max-width: 768px) {
     .reference-container {
         padding: 15px;
-        margin: 10px;
+        margin: 0;
     }
     
     .reference-header {

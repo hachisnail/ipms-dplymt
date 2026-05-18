@@ -11,7 +11,7 @@ function TermsConditions() {
             {
                 id: 1,
                 title: 'Acceptance of Terms',
-                icon: 'bi-check-circle',
+                icon: 'bi bi-check-circle',
                 content: [
                     'By accessing and using the Intellectual Property Management System (IPMS), you agree to be bound by these Terms and Conditions.',
                     'If you do not agree with any part of these terms, you must not use this system.',
@@ -21,7 +21,7 @@ function TermsConditions() {
             {
                 id: 2,
                 title: 'Administrator Responsibilities',
-                icon: 'bi-shield-check',
+                icon: 'bi bi-shield-check',
                 content: [
                     'Administrators must maintain the confidentiality of their account credentials.',
                     'Administrators are responsible for all activities conducted under their account.',
@@ -33,7 +33,7 @@ function TermsConditions() {
             {
                 id: 3,
                 title: 'Data Privacy and Protection',
-                icon: 'bi-lock',
+                icon: 'bi bi-lock',
                 content: [
                     'All intellectual property submissions are treated as confidential information.',
                     'User data is protected in accordance with applicable data protection laws.',
@@ -45,7 +45,7 @@ function TermsConditions() {
             {
                 id: 4,
                 title: 'Intellectual Property Rights',
-                icon: 'bi-file-earmark-lock',
+                icon: 'bi bi-file-earmark-lock',
                 content: [
                     'All intellectual property submitted through the system remains the property of the submitter.',
                     'The system does not claim ownership of any submitted intellectual property.',
@@ -57,7 +57,7 @@ function TermsConditions() {
             {
                 id: 5,
                 title: 'System Usage Guidelines',
-                icon: 'bi-book',
+                icon: 'bi bi-book',
                 content: [
                     'The system must be used only for legitimate IP management purposes.',
                     'Users must not attempt to compromise system security or integrity.',
@@ -70,7 +70,7 @@ function TermsConditions() {
             {
                 id: 6,
                 title: 'Submission Guidelines',
-                icon: 'bi-upload',
+                icon: 'bi bi-upload',
                 content: [
                     'All submissions must be original work or properly authorized.',
                     'Submitters must have the legal right to submit the intellectual property.',
@@ -82,7 +82,7 @@ function TermsConditions() {
             {
                 id: 7,
                 title: 'Review and Evaluation Process',
-                icon: 'bi-clipboard-check',
+                icon: 'bi bi-clipboard-check',
                 content: [
                     'All submissions undergo review by qualified consultants.',
                     'The review process follows established evaluation criteria.',
@@ -95,7 +95,7 @@ function TermsConditions() {
             {
                 id: 8,
                 title: 'Limitation of Liability',
-                icon: 'bi-exclamation-triangle',
+                icon: 'bi bi-exclamation-triangle',
                 content: [
                     'The system is provided "as is" without warranties of any kind.',
                     'The system is not liable for any direct, indirect, or consequential damages.',
@@ -107,7 +107,7 @@ function TermsConditions() {
             {
                 id: 9,
                 title: 'Termination of Access',
-                icon: 'bi-x-circle',
+                icon: 'bi bi-x-circle',
                 content: [
                     'The system reserves the right to suspend or terminate user access.',
                     'Violation of these terms may result in immediate account suspension.',
@@ -119,7 +119,7 @@ function TermsConditions() {
             {
                 id: 10,
                 title: 'Changes to Terms',
-                icon: 'bi-arrow-repeat',
+                icon: 'bi bi-arrow-repeat',
                 content: [
                     'These terms may be updated periodically to reflect changes in the system or law.',
                     'Users will be notified of significant changes to these terms.',
@@ -131,7 +131,7 @@ function TermsConditions() {
             {
                 id: 11,
                 title: 'Contact and Support',
-                icon: 'bi-envelope',
+                icon: 'bi bi-envelope',
                 content: [
                     'For questions about these terms, contact the system administrator.',
                     'Technical support is available through the system\'s support channels.',
@@ -154,13 +154,14 @@ function TermsConditions() {
 
     return (
         <div className="terms-container">
+            <div className="terms-container-inner">
             {/* Header */}
             <div className="terms-header">
                 <div className="header-content">
                     <h2>
                         <i className="bi bi-file-text"></i> Terms and Conditions
                     </h2>
-                    <p className="subtitle">Please read these terms carefully before using the system</p>
+                    <p className="subtitle">Please read these terms carefully before using the system.</p>
                     <div className="last-updated">
                         <i className="bi bi-calendar-check"></i>
                         Last Updated: {termsData.lastUpdated}
@@ -233,6 +234,7 @@ function TermsConditions() {
                         and agree to be bound by these Terms and Conditions.
                     </p>
                 </div>
+            </div>
             </div>
         </div>
     );

@@ -14,7 +14,7 @@
     z-index: 996;
     background: #fff;
     overflow-y: auto;
-    box-shadow: 2px 0 8px rgba(79, 70, 229, 0.08);
+    box-shadow: 2px 0 8px rgba(128, 0, 0, 0.06);
     padding: 20px 15px;
 }
 
@@ -28,7 +28,7 @@
 /* Apply scrollbar-color only in browsers that support it (Firefox) */
 @supports (scrollbar-color: auto) {
     .sidebar {
-        scrollbar-color: #a5b4fc transparent;
+        scrollbar-color: #cbcbcb transparent;
     }
 }
 
@@ -36,16 +36,16 @@
 .sidebar::-webkit-scrollbar {
     width: 5px;
     height: 8px;
-    background-color: #f8fafc;
+    background-color: #f8f8f8;
 }
 
 .sidebar::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #6366f1 0%, #818cf8 100%);
+    background: linear-gradient(180deg, #800000 0%, #800000 100%);
     border-radius: 10px;
 }
 
 .sidebar::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #0f172a 0%, #334155 100%);
+    background: linear-gradient(180deg, #800000 0%, #800000 100%);
 }
 
 /* ============================================
@@ -108,7 +108,7 @@
     padding: 0;
     margin: 0;
     list-style: none;
-    color: #0f172a;
+    color: #800000;
 }
 
 .sidebar-nav .nav-item {
@@ -118,7 +118,7 @@
 .sidebar-nav .nav-heading {
     font-size: 11px;
     text-transform: uppercase;
-    color: #334155;
+    color: #800000;
     font-weight: 600;
     margin: 10px 0 5px 15px;
     letter-spacing: 0.5px;
@@ -129,9 +129,9 @@
     align-items: center;
     font-size: 15px;
     font-weight: 600;
-    color: #0f172a;
+    color: #800000;
     transition: all 0.3s ease;
-    background: linear-gradient(to right, #f8fafc, #ffffff);
+    background: linear-gradient(to right, #f8f8f8, #ffffff);
     padding: 10px 15px;
     border-radius: 4px;
     position: relative;
@@ -147,7 +147,7 @@
     top: 0;
     width: 3px;
     height: 100%;
-    background: linear-gradient(180deg, #0f172a 0%, #6366f1 100%);
+    background: linear-gradient(180deg, #800000 0%, #800000 100%);
     opacity: 0;
     transition: opacity 0.3s ease;
 }
@@ -160,30 +160,30 @@
 .sidebar-nav .nav-link i {
     font-size: 16px;
     margin-right: 10px;
-    color: #0f172a;
+    color: #800000;
     transition: all 0.3s ease;
 }
 
 /* Collapsed state */
 .sidebar-nav .nav-link.collapsed { 
-    color: #6b7280;
+    color: #555555;
     background-color: #ffff;
 }
 
 .sidebar-nav .nav-link.collapsed i {
-    color: #a5b4fc;
+    color: #cbcbcb;
 }
 
 /* Hover state */
 .sidebar-nav .nav-link:hover {
-    color: #0f172a;
-    background: linear-gradient(to right, #e5e7eb, #f8fafc);
+    color: #800000;
+    background: linear-gradient(to right, #f2f2f2, #ffffff);
     transform: translateX(3px);
     text-decoration: none !important;
 }
 
 .sidebar-nav .nav-link:hover i {
-    color: #6366f1;
+    color: #800000;
     transform: scale(1.1);
 }
 
@@ -192,12 +192,12 @@
     margin-right: 0;
     margin-left: auto;
     transition: transform 0.2s ease-in-out;
-    color: #818cf8;
+    color: #800000;
 }
 
 .sidebar-nav .nav-link:not(.collapsed) .bi-chevron-down {
     transform: rotate(180deg);
-    color: #0f172a;
+    color: #800000;
 }
 
 /* Dropdown content */
@@ -212,7 +212,7 @@
     align-items: center;
     font-size: 14px;
     font-weight: 600;
-    color: #6b7280;
+    color: #555555;
     transition: all 0.3s ease;
     padding: 10px 0 10px 40px;
     position: relative;
@@ -229,7 +229,7 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: #e5e7eb;
+    background: #e8e8e8;
     transition: all 0.3s ease;
 }
 
@@ -244,50 +244,50 @@
 /* Hover and active states for dropdown items */
 .sidebar-nav .nav-content a:hover,
 .sidebar-nav .nav-content a.active {
-    color: #0f172a;
+    color: #800000;
     padding-left: 45px;
     text-decoration: none !important;
 }
 
 .sidebar-nav .nav-content a:hover::before,
 .sidebar-nav .nav-content a.active::before {
-    background: linear-gradient(135deg, #0f172a 0%, #6366f1 100%);
+    background: linear-gradient(135deg, #800000 0%, #800000 100%);
     width: 8px;
     height: 8px;
-    box-shadow: 0 0 8px rgba(255, 107, 90, 0.5);
+    box-shadow: 0 0 8px rgba(128, 0, 0, 0.35);
 }
 
 .sidebar-nav .nav-content a.active i {
-    background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
+    background: linear-gradient(135deg, #800000 0%, #800000 100%);
     color: white;
     padding: 3px;
 }
 
 .sidebar-nav .nav-content a:hover i {
-    color: #6366f1;
+    color: #800000;
     transform: scale(1.15);
 }
 
 /* Active state for main nav items */
 .sidebar-nav .nav-link:not(.collapsed) {
-    background: linear-gradient(to right, #e5e7eb, #f8fafc);
-    color: #0f172a;
-    box-shadow: 0 2px 8px rgba(79, 70, 229, 0.1);
+    background: linear-gradient(to right, #f2f2f2, #ffffff);
+    color: #800000;
+    box-shadow: 0 2px 8px rgba(128, 0, 0, 0.08);
 }
 
 .sidebar-nav .nav-link:not(.collapsed) i {
-    color: #6366f1;
+    color: #800000;
 }
 
 /* Divider between nav sections */
 .sidebar-nav .nav-item + .nav-heading {
-    border-top: 1px solid #e5e7eb;
+    border-top: 1px solid #e8e8e8;
     padding-top: 15px;
 }
 
 /* Badge/notification styling */
 .sidebar-nav .badge {
-    background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
+    background: linear-gradient(135deg, #800000 0%, #800000 100%);
     color: white;
     padding: 3px 8px;
     border-radius: 12px;
@@ -298,13 +298,13 @@
 /* Focus states for accessibility */
 .sidebar-nav .nav-link:focus,
 .sidebar-nav .nav-content a:focus {
-    outline: 2px solid #6366f1;
+    outline: 2px solid #800000;
     outline-offset: 2px;
 }
 
 /* Hover effect on nav-item container */
 .sidebar-nav .nav-item:hover {
-    background: rgba(255, 107, 90, 0.02);
+    background: rgba(128, 0, 0, 0.02);
     border-radius: 4px;
 }
 

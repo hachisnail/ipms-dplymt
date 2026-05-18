@@ -10,7 +10,7 @@ function Footer() {
             . All Rights Reserved
         </div>
         <div className="credits">
-            Designed by <a href='#'>BSIS-4B</a>
+            Designed by <a href='#'>Tormes and Macal</a>
         </div>
     </footer>
   )

@@ -1,59 +1,63 @@
 /* ================================
    🎨 GLOBAL STYLES & CSS VARIABLES
+   Aligned with CNSC-IPMO HomePage
+   Playfair Display + DM Sans
+   Maroon #800000 · Teal #005555 · Bg #f2f2f2
 ================================ */
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap');
 
 :root {
-    /* Brand Colors */
-    --primary: #800020;
-    --primary-dark: #6B0019;
-    --primary-light: #FF6B5A;
-    --primary-glow: rgba(128, 0, 32, 0.3);
-    
-    /* Secondary Colors */
-    --secondary: #0891b2;
-    --secondary-light: #06b6d4;
-    
-    /* Status Colors */
-    --success: #10b981;
+    /* ── Brand — Maroon (primary) ── */
+    --primary:        #800000;
+    --primary-dark:   #660000;
+    --primary-light:  rgba(128, 0, 0, 0.08);
+    --primary-glow:   rgba(128, 0, 0, 0.18);
+
+    /* ── Brand — Teal (secondary, from HomePage #005555) ── */
+    --secondary:       #005555;
+    --secondary-light: rgba(0, 85, 85, 0.08);
+
+    /* ── Status Colors ── */
+    --success:       #10b981;
     --success-light: #34d399;
-    --warning: #f59e0b;
-    --danger: #ef4444;
-    --info: #3b82f6;
-    
-    /* Purple/Admin Colors */
-    --purple: #7c3aed;
-    --purple-light: #a855f7;
-    
-    /* Neutral Palette */
-    --bg-primary: #FAFAFA;
-    --bg-secondary: #ffffff;
-    --text-primary: #0f172a;
-    --text-secondary: #475569;
-    --text-muted: #94a3b8;
-    
-    /* Border & Shadow */
-    --border: #E8D5D9;
-    --border-light: #f1f5f9;
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-    --shadow-lg: 0 10px 24px rgba(0, 0, 0, 0.1);
-    --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.12);
-    
-    /* Radius */
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 16px;
-    --radius-xl: 24px;
+    --warning:       #f59e0b;
+    --danger:        #ef4444;
+    --info:          #3b82f6;
+
+    /* ── Neutral Palette (HomePage lightBg / darkerBg / black / white) ── */
+    --bg-primary:    #f2f2f2;
+    --bg-secondary:  #ffffff;
+    --bg-darker:     #cbcbcb;
+    --text-primary:  #000000;
+    --text-secondary:#555555;
+    --text-muted:    #888888;
+
+    /* ── Border & Shadow ── */
+    --border:        #cbcbcb;
+    --border-light:  #e8e8e8;
+    --shadow-sm:  0 2px 8px  rgba(0, 0, 0, 0.06);
+    --shadow-md:  0 4px 12px rgba(0, 0, 0, 0.07);
+    --shadow-lg:  0 10px 24px rgba(0, 0, 0, 0.10);
+    --shadow-xl:  0 20px 40px rgba(0, 0, 0, 0.13);
+
+    /* ── Radius ── */
+    --radius-sm:   6px;
+    --radius-md:   10px;
+    --radius-lg:   14px;
+    --radius-xl:   20px;
     --radius-full: 9999px;
-    
-    /* Spacing */
-    --space-xs: 4px;
-    --space-sm: 8px;
-    --space-md: 16px;
-    --space-lg: 24px;
-    --space-xl: 32px;
+
+    /* ── Spacing ── */
+    --space-xs:  4px;
+    --space-sm:  8px;
+    --space-md:  16px;
+    --space-lg:  24px;
+    --space-xl:  32px;
     --space-2xl: 48px;
+
+    /* ── Typography (HomePage font tokens) ── */
+    --font-display: 'Playfair Display', serif;
+    --font-body:    'DM Sans', sans-serif;
 }
 
 /* ================================
@@ -66,13 +70,24 @@
 }
 
 body {
-    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #FFF9F8 0%, #FFE8EC 50%, #FFF9F8 100%);
+    font-family: var(--font-body);
+    background: var(--bg-primary);
     color: var(--text-primary);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
+}
+
+/* Display font for headings — mirrors hp-section-title */
+h1, h2, h3 {
+    font-family: var(--font-display);
+    line-height: 1.2;
+}
+
+h4, h5, h6 {
+    font-family: var(--font-body);
+    font-weight: 600;
 }
 
 .App {
@@ -85,8 +100,8 @@ body {
    🎯 CUSTOM SCROLLBAR
 ================================ */
 ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -94,21 +109,20 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, var(--primary-light), var(--primary));
+    background: var(--bg-darker);
     border-radius: var(--radius-full);
     border: 2px solid var(--bg-primary);
+    transition: background 0.2s;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    background: var(--primary);
 }
 
 /* ================================
    🎨 UTILITY CLASSES
 ================================ */
-.text-center {
-    text-align: center;
-}
+.text-center { text-align: center; }
 
 .mb-1 { margin-bottom: 8px; }
 .mb-2 { margin-bottom: 16px; }
@@ -120,87 +134,57 @@ body {
 .mt-3 { margin-top: 24px; }
 .mt-4 { margin-top: 32px; }
 
+/* mirrors hp-section-eyebrow */
+.eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--secondary);
+    display: block;
+}
+
 /* ================================
    🎭 ANIMATIONS
 ================================ */
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes slideInLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+    from { opacity: 0; transform: translateX(-24px); }
+    to   { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes slideInRight {
-    from {
-        opacity: 0;
-        transform: translateX(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+    from { opacity: 0; transform: translateX(24px); }
+    to   { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes scaleIn {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+    from { opacity: 0; transform: scale(0.95); }
+    to   { opacity: 1; transform: scale(1); }
 }
 
 @keyframes pulse {
-    0%, 100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.05);
-    }
+    0%, 100% { transform: scale(1); }
+    50%       { transform: scale(1.04); }
 }
 
 @keyframes float {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-8px); }
 }
 
 @keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
 }
 
 @keyframes shimmer {
-    0% {
-        background-position: -1000px 0;
-    }
-    100% {
-        background-position: 1000px 0;
-    }
+    0%   { background-position: -1000px 0; }
+    100% { background-position:  1000px 0; }
 }
 
 /* ================================
@@ -208,28 +192,25 @@ body {
 ================================ */
 @media (max-width: 1200px) {
     :root {
-        --space-xl: 28px;
+        --space-xl:  28px;
         --space-2xl: 40px;
     }
 }
 
 @media (max-width: 768px) {
     :root {
-        --space-lg: 20px;
-        --space-xl: 24px;
+        --space-lg:  20px;
+        --space-xl:  24px;
         --space-2xl: 32px;
     }
-    
-    body {
-        font-size: 14px;
-    }
+    body { font-size: 14px; }
 }
 
 @media (max-width: 480px) {
     :root {
-        --space-md: 12px;
-        --space-lg: 16px;
-        --space-xl: 20px;
+        --space-md:  12px;
+        --space-lg:  16px;
+        --space-xl:  20px;
         --space-2xl: 24px;
     }
 }
@@ -239,22 +220,31 @@ body {
 ================================ */
 .Toastify__toast {
     border-radius: var(--radius-md) !important;
-    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-family: var(--font-body) !important;
+    font-size: 14px !important;
     box-shadow: var(--shadow-lg) !important;
 }
 
 .Toastify__toast--success {
-    background: linear-gradient(135deg, var(--success) 0%, var(--success-light) 100%) !important;
+    background: var(--success) !important;
+    color: #ffffff !important;
 }
 
 .Toastify__toast--error {
-    background: linear-gradient(135deg, var(--danger) 0%, #f87171 100%) !important;
+    background: var(--danger) !important;
+    color: #ffffff !important;
+}
+
+.Toastify__toast--warning {
+    background: var(--warning) !important;
+    color: #ffffff !important;
 }
 
 .Toastify__toast--info {
-    background: linear-gradient(135deg, var(--info) 0%, #60a5fa 100%) !important;
+    background: var(--info) !important;
+    color: #ffffff !important;
 }
 
 .Toastify__progress-bar {
-    background: rgba(255, 255, 255, 0.7) !important;
+    background: rgba(255, 255, 255, 0.55) !important;
 }

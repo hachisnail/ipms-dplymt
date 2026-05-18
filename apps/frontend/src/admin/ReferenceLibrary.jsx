@@ -161,6 +161,7 @@ function ReferenceLibrary() {
 
     return (
         <div className="reference-container">
+            <div className="reference-container-inner">
             {/* Header */}
             <div className="reference-header">
                 <div className="header-left">
@@ -312,6 +313,7 @@ function ReferenceLibrary() {
                     </div>
                 </div>
             )}
+            </div>
         </div>
     );
 }

@@ -1,15 +1,18 @@
 /* SystemAudit.css - Simplified Version */
 
 .audit-container {
-    padding: 20px;
-    max-width: 1400px;
-    margin: 15px auto;
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(10px);
-    border-radius: 16px;
-    box-shadow: 0 6px 24px rgba(79, 70, 229, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    min-height: 500px;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 28px 28px 40px;
+    min-height: 100vh;
+    background: #F8F9FC;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    box-sizing: border-box;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    backdrop-filter: none;
 }
 
 .audit-header {
@@ -18,12 +21,12 @@
     align-items: flex-start;
     margin-bottom: 20px;
     padding: 0 0 15px 0;
-    border-bottom: 2px solid rgba(79, 70, 229, 0.1);
+    border-bottom: 2px solid rgba(128, 0, 0, 0.08);
 }
 
 .header-left h2 {
     margin: 0 0 6px 0;
-    color: #0f172a;
+    color: #800000;
     font-size: 24px;
     display: flex;
     align-items: center;
@@ -44,7 +47,7 @@
 
 .btn-export, .btn-refresh {
     padding: 8px 16px;
-    background: #0f172a;
+    background: #800000;
     color: white;
     border: none;
     border-radius: 6px;
@@ -66,7 +69,7 @@
 }
 
 .btn-refresh:hover {
-    background: #020617;
+    background: #660000;
 }
 
 .btn-export:hover:not(:disabled) {
@@ -110,7 +113,7 @@
 
 .search-bar input:focus {
     outline: none;
-    border-color: #0f172a;
+    border-color: #800000;
 }
 
 .filter-group {
@@ -152,11 +155,11 @@
 }
 
 .btn-apply-filters {
-    background: #007bff;
+    background: #005555;
 }
 
 .btn-apply-filters:hover {
-    background: #0056b3;
+    background: #004444;
 }
 
 .btn-clear-dates {
@@ -176,7 +179,7 @@
 }
 
 .stat-card {
-    background: rgba(255, 255, 255, 0.95);
+    background: #ffffff;
     padding: 16px;
     border-radius: 10px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
@@ -193,7 +196,7 @@
     align-items: center;
     justify-content: center;
     font-size: 24px;
-    background: linear-gradient(135deg, #0f172a, #1e293b);
+    background: linear-gradient(135deg, #800000, #800000);
     color: white;
 }
 
@@ -227,7 +230,7 @@
 }
 
 .activity-table thead {
-    background: linear-gradient(135deg, #0f172a, #1e293b);
+    background: linear-gradient(135deg, #800000, #800000);
     color: white;
 }
 
@@ -235,7 +238,7 @@
     padding: 14px 12px;
     text-align: left;
     font-weight: 600;
-    border-bottom: 2px solid #0f172a;
+    border-bottom: 2px solid #800000;
     white-space: nowrap;
 }
 
@@ -245,7 +248,7 @@
 }
 
 .activity-table tbody tr:hover {
-    background: #f8f9fa;
+    background: #f8f8f8;
     transform: translateX(2px);
 }
 
@@ -284,12 +287,12 @@
     align-items: center;
     gap: 8px;
     font-weight: 600;
-    color: #0f172a;
+    color: #800000;
 }
 
 .user-cell i {
     font-size: 20px;
-    color: #0f172a;
+    color: #800000;
 }
 
 .description-cell {
@@ -346,8 +349,8 @@
 }
 
 .spinner {
-    border: 4px solid rgba(79, 70, 229, 0.1);
-    border-top: 4px solid #0f172a;
+    border: 4px solid rgba(128, 0, 0, 0.08);
+    border-top: 4px solid #800000;
     border-radius: 50%;
     width: 50px;
     height: 50px;
@@ -371,7 +374,7 @@
 
 .btn-retry {
     padding: 10px 24px;
-    background: #0f172a;
+    background: #800000;
     color: white;
     border: none;
     border-radius: 6px;
@@ -381,7 +384,7 @@
 }
 
 .btn-retry:hover {
-    background: #020617;
+    background: #660000;
 }
 
 /* No Data */
@@ -413,7 +416,7 @@
 @media (max-width: 768px) {
     .audit-container {
         padding: 15px;
-        margin: 10px;
+        margin: 0;
     }
 
     .filters-row, .date-filter-row {

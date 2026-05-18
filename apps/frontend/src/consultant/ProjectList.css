@@ -20,7 +20,7 @@ table {
 }
 
 th, td {
-    border: 1px solid var(--border);
+    border: 1px solid #cbcbcb;
     padding: 10px;
     text-align: left;
 }
@@ -134,7 +134,7 @@ th {
 }
 
 .update-button:disabled {
-    background: var(--border);
+    background: #cbcbcb;
     color: var(--text-muted);
     cursor: not-allowed;
     transform: none;
@@ -142,11 +142,11 @@ th {
 }
 
 .view-button {
-    background: linear-gradient(135deg, var(--info), #2563eb);
+    background: linear-gradient(135deg, #005555, #004444);
 }
 
 .view-button:hover {
-    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    background: linear-gradient(135deg, #004444, #003333);
     transform: translateY(-2px);
     box-shadow: var(--shadow);
 }

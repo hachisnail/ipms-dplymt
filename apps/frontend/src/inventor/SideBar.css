@@ -20,28 +20,20 @@
 
 /* Scrollbar styling */
 @supports (scrollbar-width: thin) {
-    .sidebar {
-        scrollbar-width: thin;
-    }
+    .sidebar { scrollbar-width: thin; }
 }
-
 @supports (scrollbar-color: auto) {
-    .sidebar {
-        scrollbar-color: #5eead4 transparent;
-    }
+    .sidebar { scrollbar-color: #5eead4 transparent; }
 }
-
 .sidebar::-webkit-scrollbar {
     width: 5px;
     height: 8px;
     background-color: #f8fafc;
 }
-
 .sidebar::-webkit-scrollbar-thumb {
     background: linear-gradient(180deg, #3b82f6 0%, #14b8a6 100%);
     border-radius: 10px;
 }
-
 .sidebar::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(180deg, #1e3a8a 0%, #0f766e 100%);
 }
@@ -49,66 +41,37 @@
 /* ============================================
    RESPONSIVE BEHAVIOR
    ============================================ */
-
-/* Mobile: Sidebar hidden by default */
 @media (max-width: 1199px) {
-    .sidebar {
-        left: -300px;
-    }
-    
-    body.toggle-sidebar .sidebar {
-        left: 0;
-    }
-    
-    #main,
-    #footer {
-        margin-left: 0 !important;
-    }
+    .sidebar { left: -300px; }
+    body.toggle-sidebar .sidebar { left: 0; }
+    #main, #footer { margin-left: 0 !important; }
 }
-
-/* Desktop: Sidebar visible, main has margin */
 @media (min-width: 1200px) {
-    .sidebar {
-        left: 0;
-    }
-    
-    #main,
-    #footer {
+    .sidebar { left: 0; }
+    #main, #footer {
         margin-left: 300px;
         transition: margin-left 0.3s ease;
     }
-    
-    body.toggle-sidebar .sidebar {
-        left: -300px;
-    }
-    
+    body.toggle-sidebar .sidebar { left: -300px; }
     body.toggle-sidebar #main,
-    body.toggle-sidebar #footer {
-        margin-left: 0;
-    }
+    body.toggle-sidebar #footer { margin-left: 0; }
 }
 
 /* ============================================
    SIDEBAR NAVIGATION STYLES
    ============================================ */
-
 .sidebar-nav {
     padding: 0;
     margin: 0;
     list-style: none;
 }
-
 .sidebar-nav li {
     padding: 0;
     margin: 0;
     list-style: none;
     color: #1e3a8a;
 }
-
-.sidebar-nav .nav-item {
-    margin-bottom: 5px;
-}
-
+.sidebar-nav .nav-item { margin-bottom: 5px; }
 .sidebar-nav .nav-heading {
     font-size: 11px;
     text-transform: uppercase;
@@ -137,19 +100,15 @@
 .sidebar-nav .nav-link::before {
     content: '';
     position: absolute;
-    left: 0;
-    top: 0;
+    left: 0; top: 0;
     width: 3px;
     height: 100%;
     background: linear-gradient(180deg, #1e3a8a 0%, #0f766e 100%);
     opacity: 0;
     transition: opacity 0.3s ease;
 }
-
 .sidebar-nav .nav-link:hover::before,
-.sidebar-nav .nav-link:not(.collapsed)::before {
-    opacity: 1;
-}
+.sidebar-nav .nav-link:not(.collapsed)::before { opacity: 1; }
 
 .sidebar-nav .nav-link i {
     font-size: 16px;
@@ -159,14 +118,11 @@
 }
 
 /* Collapsed state */
-.sidebar-nav .nav-link.collapsed { 
+.sidebar-nav .nav-link.collapsed {
     color: #64748b;
     background-color: #ffff;
 }
-
-.sidebar-nav .nav-link.collapsed i {
-    color: #5eead4;
-}
+.sidebar-nav .nav-link.collapsed i { color: #5eead4; }
 
 /* Hover state */
 .sidebar-nav .nav-link:hover {
@@ -175,20 +131,15 @@
     transform: translateX(3px);
     text-decoration: none !important;
 }
+.sidebar-nav .nav-link:hover i { color: #3b82f6; transform: scale(1.1); }
 
-.sidebar-nav .nav-link:hover i {
-    color: #3b82f6;
-    transform: scale(1.1);
-}
-
-/* Chevron icon */
+/* Chevron */
 .sidebar-nav .nav-link .bi-chevron-down {
     margin-right: 0;
     margin-left: auto;
     transition: transform 0.2s ease-in-out;
     color: #14b8a6;
 }
-
 .sidebar-nav .nav-link:not(.collapsed) .bi-chevron-down {
     transform: rotate(180deg);
     color: #1e3a8a;
@@ -200,7 +151,6 @@
     margin: 0;
     list-style: none;
 }
-
 .sidebar-nav .nav-content a {
     display: flex;
     align-items: center;
@@ -212,21 +162,17 @@
     position: relative;
     text-decoration: none !important;
 }
-
-/* Dot before dropdown items */
 .sidebar-nav .nav-content a::before {
     content: '';
     position: absolute;
     left: 25px;
     top: 50%;
     transform: translateY(-50%);
-    width: 6px;
-    height: 6px;
+    width: 6px; height: 6px;
     border-radius: 50%;
     background: #e2e8f0;
     transition: all 0.3s ease;
 }
-
 .sidebar-nav .nav-content a i {
     font-size: 13px;
     margin-right: 8px;
@@ -234,52 +180,40 @@
     border-radius: 50%;
     transition: all 0.3s ease;
 }
-
-/* Hover and active states for dropdown items */
 .sidebar-nav .nav-content a:hover,
 .sidebar-nav .nav-content a.active {
     color: #1e3a8a;
     padding-left: 45px;
     text-decoration: none !important;
 }
-
 .sidebar-nav .nav-content a:hover::before,
 .sidebar-nav .nav-content a.active::before {
     background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-    width: 8px;
-    height: 8px;
-    box-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
+    width: 8px; height: 8px;
+    box-shadow: 0 0 8px rgba(59,130,246,0.5);
 }
-
 .sidebar-nav .nav-content a.active i {
     background: linear-gradient(135deg, #3b82f6 0%, #14b8a6 100%);
     color: white;
     padding: 3px;
 }
-
-.sidebar-nav .nav-content a:hover i {
-    color: #3b82f6;
-    transform: scale(1.15);
-}
+.sidebar-nav .nav-content a:hover i { color: #3b82f6; transform: scale(1.15); }
 
 /* Active state for main nav items */
 .sidebar-nav .nav-link:not(.collapsed) {
     background: linear-gradient(to right, #dbeafe, #f8fafc);
     color: #1e3a8a;
-    box-shadow: 0 2px 8px rgba(30, 58, 138, 0.1);
+    box-shadow: 0 2px 8px rgba(30,58,138,0.1);
 }
+.sidebar-nav .nav-link:not(.collapsed) i { color: #3b82f6; }
 
-.sidebar-nav .nav-link:not(.collapsed) i {
-    color: #3b82f6;
-}
-
-/* Divider between nav sections */
+/* Divider */
 .sidebar-nav .nav-item + .nav-heading {
     border-top: 1px solid #e2e8f0;
     padding-top: 15px;
 }
 
-/* Badge/notification styling */
+/* Legacy .badge (kept for backward compat) */
 .sidebar-nav .badge {
     background: linear-gradient(135deg, #3b82f6 0%, #14b8a6 100%);
     color: white;
@@ -289,17 +223,53 @@
     margin-left: auto;
 }
 
-/* Focus states for accessibility */
+/* Focus states */
 .sidebar-nav .nav-link:focus,
 .sidebar-nav .nav-content a:focus {
     outline: 2px solid #3b82f6;
     outline-offset: 2px;
 }
-
-/* Hover effect on nav-item container */
 .sidebar-nav .nav-item:hover {
-    background: rgba(59, 130, 246, 0.02);
+    background: rgba(59,130,246,0.02);
     border-radius: 4px;
+}
+
+/* ============================================
+   SIDE NAV BADGE
+   Matches the bell-badge pulse from InventorNotification.css
+   ============================================ */
+
+/* Reuse the same keyframe name so both badges pulse in sync */
+@keyframes pulse-badge {
+    0%, 100% { transform: scale(1); }
+    50%       { transform: scale(1.12); }
+}
+
+.side-nav-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 9px;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    box-shadow: 0 2px 6px rgba(239, 68, 68, 0.35);
+    margin-left: auto;
+    flex-shrink: 0;
+    animation: pulse-badge 2.2s ease-in-out infinite;
+    /* Prevent the pulse from affecting the parent link's layout */
+    transform-origin: center center;
+}
+
+/* When the nav link is active/expanded the badge stays visible */
+.sidebar-nav .nav-link:not(.collapsed) .side-nav-badge,
+.sidebar-nav .nav-link:hover .side-nav-badge {
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.5);
 }
 
 /* ============================================
@@ -309,17 +279,13 @@
     body.toggle-sidebar::before {
         content: '';
         position: fixed;
-        top: 60px;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.5);
+        top: 60px; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.5);
         z-index: 995;
         animation: fadeIn 0.3s ease;
     }
-    
     @keyframes fadeIn {
         from { opacity: 0; }
-        to { opacity: 1; }
+        to   { opacity: 1; }
     }
 }

@@ -1,15 +1,14 @@
- /*maroon: #500014;
+/*maroon: #500014;
   --green #00503C;
   --lightB:G: #F2F2F2;
   --darkBG: #CBCBCB;*/
 
-.logo{
-line-height: 1;
+.logo {
+    line-height: 1;
 }
 
 @media (min-width: 1200px) {
-    
-    .logo{
+    .logo {
         width: 380px;
     }
 }
@@ -25,12 +24,54 @@ line-height: 1;
     font-weight: 700;
     color: #00503C;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-   
-   }
-    
-
+}
 
 .d-flex.align-items-center.justify-content-between > a {
-  text-decoration: none !important;
-  color: #00503C !important;
+    text-decoration: none !important;
+    color: #00503C !important;
+}
+
+/* ===================================
+   RESPONSIVE FIXES FOR MOBILE
+   =================================== */
+
+/* Tablet and below - Hide full text, show shorter version */
+@media (max-width: 1199px) {
+    .logo {
+        width: auto;
+    }
+    
+    .logo span {
+        font-size: 14px;
+    }
+}
+
+/* Mobile devices - Further reduce logo size */
+@media (max-width: 768px) {
+    .logo img {
+        max-height: 30px;
+        margin-right: 4px;
+    }
+    
+    .logo span {
+        font-size: 12px;
+    }
+}
+
+/* Small mobile devices - Hide text completely, keep icon only */
+@media (max-width: 576px) {
+    .logo img {
+        max-height: 28px;
+        margin-right: 0;
+    }
+    
+    /* Option 1: Hide the text completely on very small screens */
+    .logo span {
+        display: none;
+    }
+    
+    /* Option 2: Or show abbreviated text (uncomment if you prefer) */
+    /* .logo span {
+        font-size: 11px;
+    } */
 }

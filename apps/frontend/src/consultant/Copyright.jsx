@@ -10,15 +10,43 @@ const Copyright = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    // ✅ Get authentication token from localStorage
+    const getAuthToken = () => {
+        return localStorage.getItem('token') || sessionStorage.getItem('token');
+    };
+
+    // ✅ Create axios instance with auth headers
+    const createAuthAxios = () => {
+        const token = getAuthToken();
+        return axios.create({
+            baseURL: API_BASE_URL,
+            headers: {
+                'Authorization': token ? `Bearer ${token}` : '',
+                'Content-Type': 'application/json'
+            }
+        });
+    };
+
     const fetchSubmissions = async () => {
         try {
-            const response = await axios.get(`${API_BASE_URL}/cr-submissions-new`);
+            const authAxios = createAuthAxios();
+            const response = await authAxios.get('/cr-submissions-new');
             console.log('✅ Fetched NEW Copyright data:', response.data);
             setSubmissions(response.data);
             setLoading(false);
         } catch (err) {
             console.error('❌ Error fetching data:', err);
-            setError('Failed to fetch Copyright submissions.');
+            
+            // ✅ Handle authentication errors
+            if (err.response?.status === 401) {
+                setError('Session expired. Please log in again.');
+                // Optional: Redirect to login
+                // window.location.href = '/login';
+            } else if (err.response?.status === 403) {
+                setError('You do not have permission to view these submissions.');
+            } else {
+                setError('Failed to fetch Copyright submissions.');
+            }
             setLoading(false);
         }
     };
@@ -28,12 +56,20 @@ const Copyright = () => {
         if (!confirmReceive) return;
 
         try {
-            await axios.put(`${API_BASE_URL}/cr-receive/${projectId}`);
+            const authAxios = createAuthAxios();
+            await authAxios.put(`/cr-receive/${projectId}`);
             setSubmissions(prev => prev.filter(p => p.id !== projectId));
             alert(`Project ${projectId} successfully moved to 'Under Review'.`);
         } catch (err) {
             console.error('❌ Error receiving project:', err);
-            alert('Failed to receive project. Please check the backend connection.');
+            
+            if (err.response?.status === 401) {
+                alert('Session expired. Please log in again.');
+            } else if (err.response?.status === 403) {
+                alert('You do not have permission to perform this action.');
+            } else {
+                alert('Failed to receive project. Please check the backend connection.');
+            }
         }
     };
 

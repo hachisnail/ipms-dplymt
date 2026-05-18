@@ -1,6 +1,6 @@
 import './Nav.css';
-import NavNotice from './NavNotice';
-import NavAvatar from './NavAvatar';
+import NavNotice from './ConsultantNotice';
+import NavAvatar from './ConsultantAvatar';
 
 function Nav() {
     return (

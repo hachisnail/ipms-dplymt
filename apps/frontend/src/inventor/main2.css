@@ -1,27 +1,48 @@
+/* ============================================================
+   main2.css — layout (Sidebar: 300px fixed, Navbar: 60px fixed)
+   Footer is INSIDE #main — scrolls with content, never overlaps
+   ============================================================ */
+
 #main {
+  margin-left: 300px;
   margin-top: 60px;
-  max-width: 1600px;
-  padding: 20px 30px;
-  transition: all 0.3s ease;
+  padding: 20px 30px 0;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  /* Invisible scrollbar */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-/* Large laptops / small desktops */
-@media (max-width: 1200px) {
+#main::-webkit-scrollbar { display: none; }
+
+/* Content area grows to fill space, pushing footer to bottom */
+#main > *:not(#footer) {
+  flex-shrink: 0;
+}
+
+#footer {
+  margin-top: auto;
+  flex-shrink: 0;
+}
+
+@media (max-width: 1199px) {
   #main {
-    padding: 20px 24px;
-    align-content: space-between;
+    margin-left: 0;
+    width: 100%;
+    padding: 16px 16px 0;
   }
 }
 
-/* Tablets & below */
 @media (max-width: 768px) {
-  #main {
-    padding: 16px;
-  }
+  #main { padding: 14px 14px 0; }
 }
-/* Mobile devices */
-@media (max-width: 480px) { 
-  #main {
-    padding: 12px;
-  }
+
+@media (max-width: 480px) {
+  #main { padding: 12px 12px 0; }
 }
+
+body.toggle-sidebar #main { margin-left: 0; }

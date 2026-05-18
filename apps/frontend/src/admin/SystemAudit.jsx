@@ -6,7 +6,7 @@ const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3006/api';
 
 function SystemAudit() {
     const [logs, setLogs] = useState([]);
-    const [loading, setLoading] = useState(true);
+
     const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [filterAction, setFilterAction] = useState('all');
@@ -33,30 +33,86 @@ function SystemAudit() {
             setLoading(false);
         }
     };
+    
+const handleExportCSV = async () => {
 
-    const handleExportCSV = () => {
-        const csvData = filteredLogs.map(log => ({
-            'Timestamp': formatTimestamp(log.timestamp),
-            'User Name': log.user_name || 'System',
-            'Role': log.user_type || 'N/A',
-            'Action': log.action_type,
-            'Description': log.description,
-            'Status': log.activity_status || 'SUCCESS',
-            'Flag': log.flag_type || 'NORMAL'
-        }));
+    // 0. Require date range (matches backend safety guard)
+    if (!dateRange.start || !dateRange.end) {
+        alert("Please select a date range before exporting logs.");
+        return;
+    }
 
-        const csv = [
-            Object.keys(csvData[0]).join(','),
-            ...csvData.map(row => Object.values(row).map(val => `"${val}"`).join(','))
-        ].join('\n');
+    // 1. Ask for confirmation
+    const confirmCleanup = window.confirm(
+        "You are about to export these logs. The system will PERMANENTLY DELETE these records from the system after the download."
+    );
 
-        const blob = new Blob([csv], { type: 'text/csv' });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `ipms-activity-log-${new Date().toISOString().split('T')[0]}.csv`;
-        a.click();
-    };
+    
+    if (!confirmCleanup) return;
+
+    if (!filteredLogs.length) {
+        alert("No logs to export.");
+        return;
+    }
+
+    // 2. Map CSV data
+    const csvData = filteredLogs.map(log => ({
+        Timestamp: formatTimestamp(log.timestamp),
+        "User Name": log.user_name || "System",
+        Role: log.user_type || "N/A",
+        Action: log.action_type,
+        Description: log.description,
+        Status: log.activity_status || "SUCCESS",
+        Flag: log.flag_type || "NORMAL"
+    }));
+
+    // 3. Build CSV
+    const csv = [
+        Object.keys(csvData[0]).join(","),
+        ...csvData.map(row =>
+            Object.values(row)
+                .map(val => `"${String(val).replace(/"/g, '""')}"`)
+                .join(",")
+        )
+    ].join("\n");
+
+    // 4. Download file
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = window.URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `ipms-activity-log-${new Date().toISOString().split("T")[0]}.csv`;
+    document.body.appendChild(a);
+    a.click();
+
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+
+    // 5. Delete logs (matches backend DELETE)
+    try {
+        const token = localStorage.getItem("token");
+
+        const response = await axios.delete(`${API_URL}/admin/system-audit`, {
+            headers: { Authorization: `Bearer ${token}` },
+            params: {
+                action_type: filterAction,
+                user_type: filterRole,
+                start_date: dateRange.start,
+                end_date: dateRange.end
+            }
+        });
+
+        alert(response.data.message);
+        fetchLogs();
+
+    } catch (err) {
+        console.error(err);
+        alert("Export succeeded, but deletion failed.");
+    }
+};
+
+
 
     const formatTimestamp = (timestamp) => {
         const date = new Date(timestamp);
@@ -117,9 +173,11 @@ function SystemAudit() {
     if (loading) {
         return (
             <div className="audit-container">
+                <div className="audit-container-inner">
                 <div className="loading-spinner">
                     <div className="spinner"></div>
                     <p>Loading Activity Logs...</p>
+                </div>
                 </div>
             </div>
         );
@@ -128,17 +186,38 @@ function SystemAudit() {
     if (error) {
         return (
             <div className="audit-container">
+                <div className="audit-container-inner">
                 <div className="error-message">
                     <i className="bi bi-exclamation-triangle"></i>
                     <p>{error}</p>
                     <button onClick={fetchLogs} className="btn-retry">Retry</button>
                 </div>
+                </div>
             </div>
         );
     }
 
+    const handleDeleteLogs = async (logIds) => {
+    try {
+        const token = localStorage.getItem('token');
+        // Sending the IDs of the exported logs to be deleted
+        await axios.delete(`${API_URL}/admin/system-audit`, {
+            headers: { Authorization: `Bearer ${token}` },
+            data: { ids: logIds } // Pass the IDs of the filtered logs
+        });
+        
+        // Refresh the local list after deletion
+        fetchLogs();
+        alert("Logs have been successfully exported and deleted from the system.");
+    } catch (err) {
+        console.error('Error deleting logs:', err);
+        setError('Data was exported, but failed to delete from the server.');
+    }
+};
+
     return (
         <div className="audit-container">
+            <div className="audit-container-inner">
             {/* Header */}
             <div className="audit-header">
                 <div className="header-left">
@@ -222,7 +301,7 @@ function SystemAudit() {
                         }} 
                         className="btn-clear-dates"
                     >
-                        <i className="bi bi-x-circle"></i> Clear All
+                        <i className="bi bi-x-circle"></i> Clear Dates
                     </button>
                 </div>
             </div>
@@ -317,6 +396,7 @@ function SystemAudit() {
                     </table>
                 </div>
             )}
+            </div>
         </div>
     );
 }

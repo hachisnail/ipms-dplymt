@@ -1,19 +1,14 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import SideBar from './InventorSideBar.jsx';
 import Dashboard from './Dashboard.jsx';
-import Profile from './Profile.jsx';
-import Faqs from './FAQS.jsx';
-import Contacts from './Contacts.jsx'
+import Tracker from './Tracker.jsx';
+import Profile from './InventorProfile.jsx';
+import Resubmission from './Resubmission.jsx';
 import navDropList from './Data/navDropList.jsx'; 
-import PageTitle from './PageTitle.jsx'; 
-import UtilityPortal from './Utilityprtl.jsx';
-import IndustrialPortal from './Industrialprtl.jsx';
+import UMIDPortal from './UMIDprtl.jsx';
 import TrademarkPortal from './Trademarkprtl.jsx';
 import CopyrightPortal from './Copyrightprtl.jsx'; 
-import Trademarkguide from './Trademarkguide.jsx';
-import Copyrightguide from './Copyrightguide.jsx';
-import Utilitymodelguide from './Utilitymodelguide.jsx';
-import Industrialdesignguide from './Industrialguide.jsx';
+import SubmissionGuide from './SubmissionGuide.jsx';
 import './main2.css';
 import './PdfViewer.css';
 
@@ -103,7 +98,7 @@ const PdfViewerContent = ({ url, title }) => {
 
 function InventorMain2() {
     const getViewFromHash = () => {
-        const h = window.location.hash.replace('#', '');
+        const h = decodeURIComponent(window.location.hash.replace('#', ''));
         return h || 'Dashboard';
     };
 
@@ -131,55 +126,47 @@ function InventorMain2() {
         }
         return false;
     }, []);
-    
     const renderView = () => {
         console.log('InventorMain2 renderView:', view);
-        
-        // 1. PDF VIEWER ROUTE
-        if (view === 'PDF_VIEWER' && pdfUrl) {
-            return <PdfViewerContent url={pdfUrl} title={pdfTitle} />;
+
+        switch (view) {
+            case 'Tracker':
+                return <Tracker />;
+            
+            case 'Resubmission':
+                return <Resubmission />;
+            
+            case 'Submission Guide':
+                return <SubmissionGuide />;
+
+            case 'PDF_VIEWER':
+                // Only render if pdfUrl is present, otherwise fall through/default to Dashboard
+                if (pdfUrl) {
+                    return <PdfViewerContent url={pdfUrl} title={pdfTitle} />;
+                }
+                break; // If no url, it breaks and hits the default Dashboard
+
+            case 'Profile':
+                return <Profile />;
+
+            case 'UMIDPortal':
+                return <UMIDPortal />;
+
+            case 'TrademarkPortal':
+                return <TrademarkPortal />;
+
+            case 'CopyrightPortal':
+                return <CopyrightPortal />;
+
+            default:
+                // This acts as your "Dashboard" fallback and error boundary wrapper
+                return (
+                    <ErrorBoundary componentName="Dashboard">
+                        <Dashboard />
+                    </ErrorBoundary>
+                );
         }
-        
-        // 2. STANDARD ROUTES (NO error boundaries)
-        if (view === 'Profile') return <Profile />;
-        if (view === 'FAQS') return <Faqs />;
-        if (view === 'Contacts') return <Contacts />;
-        
-        // Portal Routes (NO error boundaries)
-        if (view === 'UtilityModelPortal') return <UtilityPortal />; 
-        if (view === 'IndustrialDesignPortal') return <IndustrialPortal />; 
-        if (view === 'TrademarkPortal') return <TrademarkPortal />; 
-        if (view === 'CopyrightPortal') return <CopyrightPortal />; 
-
-        // Guide Routes (NO error boundaries)
-        if (view === 'TrademarkExaminationGuide') return <Trademarkguide />;
-        if (view === 'IndustrialDesignExaminationGuide') return <Industrialdesignguide />;
-        if (view === 'CopyrightExaminationGuide') return <Copyrightguide />;
-        if (view === 'UtilityModelExaminationGuide') return <Utilitymodelguide />;
-
-        // 3. DEFAULT - Dashboard (ONLY ONE with error boundary)
-        return (
-            <ErrorBoundary componentName="Dashboard">
-                <Dashboard />
-            </ErrorBoundary>
-        );
     };
-
-    const pageTitle = {
-        Dashboard: 'Dashboard',
-        Profile: 'User Profile',
-        FAQS: 'FAQs',
-        Contacts: 'Contacts',
-        UtilityModelPortal: 'Utility Model Portal',
-        IndustrialDesignPortal: 'Industrial Design Portal',
-        TrademarkPortal: 'Trademark Portal',
-        CopyrightPortal: 'Copyright Portal',
-        TrademarkExaminationGuide: 'Trademark Examination Guide',
-        CopyrightExaminationGuide: 'Copyright Examination Guide',
-        UtilityModelExaminationGuide: 'Utility Model Examination Guide',
-        IndustrialDesignExaminationGuide: 'Industrial Design Examination Guide',
-        PDF_VIEWER: pdfTitle || 'Document Viewer',
-    }[view] || view;
 
     return (
         <>
@@ -187,7 +174,6 @@ function InventorMain2() {
                 <SideBar navList={navDropList} onPdfClick={handlePdfClick} />
                 
                 <main id="main" className="main" style={{ flex: 1 }}>
-                    <PageTitle page={pageTitle} /> 
                     {renderView()}
                 </main>
             </div>

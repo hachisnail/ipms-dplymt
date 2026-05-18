@@ -1,0 +1,1128 @@
+/* ── Variables — same as UnderReview.css ── */
+.pas-page {
+    --maroon:       #800000;
+    --maroon-mid:   #6B0000;
+    --maroon-light: #FFF5F5;
+    --maroon-tint:  #FCEAEA; 
+    --maroon-bd:    #F5C6C6;
+
+    --teal:         #0D7377;
+    --teal-dark:    #0A5E61;
+    --teal-light:   #E8F6F7;
+    --teal-bd:      #B2DFDF;
+
+    --green:        #16A34A;
+    --green-dark:   #15803D;
+    --green-light:  #F0FDF4;
+    --green-bd:     #BBF7D0;
+
+    --amber:        #D97706;
+    --amber-dark:   #B45309;
+    --amber-light:  #FFFBEB;
+    --amber-bd:     #FDE68A;
+
+    --red:          #DC2626;
+    --red-dark:     #B91C1C;
+    --red-light:    #FEF2F2;
+    --red-bd:       #FECACA;
+
+    --blue:         #2563EB;
+    --blue-light:   #EFF6FF;
+    --blue-bd:      #BFDBFE;
+
+    --surface:      #FFFFFF;
+    --surface-2:    #F8F9FC;
+    --surface-3:    #F1F3F8;
+    --border:       #E2E8F0;
+    --border-mid:   #CBD5E1;
+
+    --text:         #0F172A;
+    --text-sec:     #334155;
+    --text-soft:    #64748B;
+    --text-faint:   #94A3B8;
+
+    --mono: 'SFMono-Regular', 'Fira Mono', 'Courier New', monospace;
+
+    --shadow-sm: 0 1px 3px rgba(15,23,42,0.07), 0 1px 2px rgba(15,23,42,0.04);
+    --shadow-md: 0 4px 16px rgba(15,23,42,0.09), 0 2px 6px rgba(15,23,42,0.05);
+    --shadow-lg: 0 8px 28px rgba(15,23,42,0.11), 0 2px 8px rgba(15,23,42,0.05);
+}
+
+/* ── Page wrapper ── */
+.pas-page {
+    padding:     28px 20px;
+    min-height:  100%;
+    background:  var(--surface-2);
+    font-family: 'DM Sans', system-ui, sans-serif;
+    color:       var(--text);
+}
+
+.pas-page-inner { max-width: 1400px; }
+
+/* ── Page title ── */
+.pas-title {
+    display:        flex;
+    align-items:    center;
+    gap:            10px;
+    font-size:      1.35rem;
+    font-weight:    800;
+    color:          var(--text);
+    margin-bottom:  6px;
+    padding-bottom: 14px;
+    border-bottom:  2px solid var(--border);
+    letter-spacing: -0.3px;
+}
+.pas-title i { color: var(--maroon); font-size: 1.3rem; }
+
+.pas-count {
+    background:    var(--maroon);
+    color:         #fff;
+    border-radius: 9999px;
+    padding:       2px 11px;
+    font-size:     12px;
+    font-weight:   700;
+    margin-left:   4px;
+}
+
+/* ── Summary chips ── */
+.pas-summary-row {
+    display:       flex;
+    gap:           10px;
+    flex-wrap:     wrap;
+    margin-bottom: 18px;
+    margin-top:    14px;
+}
+
+.pas-summary-chip {
+    display:       inline-flex;
+    align-items:   center;
+    gap:           8px;
+    padding:       8px 16px;
+    border-radius: 10px;
+    font-size:     13px;
+    font-weight:   600;
+    border:        1px solid transparent;
+}
+.pas-summary-chip i      { font-size: 14px; }
+.pas-summary-chip strong { font-weight: 800; }
+
+.pas-summary-chip.total   { background: var(--teal-light);   color: var(--teal-dark);   border-color: var(--teal-bd); }
+.pas-summary-chip.has-pas { background: var(--green-light);  color: var(--green-dark);  border-color: var(--green-bd); }
+.pas-summary-chip.no-pas  { background: var(--amber-light);  color: var(--amber-dark);  border-color: var(--amber-bd); }
+
+/* ── Toolbar ── */
+.pas-toolbar {
+    display:         flex;
+    align-items:     center;
+    justify-content: space-between;
+    flex-wrap:       wrap;
+    gap:             10px;
+    margin-bottom:   16px;
+}
+
+.pas-filter-group {
+    display:     flex;
+    align-items: center;
+    gap:         8px;
+}
+
+.pas-filter-label {
+    font-size:   12.5px;
+    font-weight: 600;
+    color:       var(--text-soft);
+    white-space: nowrap;
+}
+
+.pas-dropdown {
+    appearance:          none;
+    -webkit-appearance:  none;
+    background:          var(--surface);
+    border:              1.5px solid var(--border-mid);
+    border-radius:       6px;
+    padding:             8px 32px 8px 12px;
+    font-size:           13px;
+    font-weight:         600;
+    font-family:         'DM Sans', system-ui, sans-serif;
+    color:               var(--text);
+    cursor:              pointer;
+    background-image:    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%230D7377' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat:   no-repeat;
+    background-position: right 10px center;
+    min-width:           180px;
+    transition:          border-color .15s, box-shadow .15s;
+}
+.pas-dropdown:focus {
+    outline:      none;
+    border-color: var(--teal);
+    box-shadow:   0 0 0 3px rgba(13,115,119,0.12);
+}
+
+.pas-result-count { font-size: 12.5px; color: var(--text-soft); font-weight: 500; }
+.pas-result-count strong { color: var(--text); font-weight: 700; }
+
+/* ── Error ── */
+.pas-error {
+    background:    var(--red-light);
+    border:        1px solid var(--red-bd);
+    border-radius: 8px;
+    padding:       10px 16px;
+    color:         var(--red-dark);
+    font-size:     13.5px;
+    font-weight:   600;
+    margin-bottom: 16px;
+    display:       flex;
+    align-items:   center;
+    gap:           8px;
+}
+
+/* ── Loader ── */
+.pas-loader {
+    display:         flex;
+    flex-direction:  column;
+    align-items:     center;
+    justify-content: center;
+    padding:         80px 24px;
+    gap:             16px;
+    color:           var(--text-soft);
+    font-size:       14px;
+}
+
+.pas-spinner {
+    width:            38px;
+    height:           38px;
+    border:           3px solid var(--border);
+    border-top-color: var(--maroon);
+    border-radius:    50%;
+    animation:        pas-spin 0.8s linear infinite;
+}
+@keyframes pas-spin { to { transform: rotate(360deg); } }
+
+/* ── Empty ── */
+.pas-empty {
+    text-align:      center;
+    padding:         60px 24px;
+    color:           var(--text-soft);
+    display:         flex;
+    flex-direction:  column;
+    align-items:     center;
+    gap:             10px;
+}
+.pas-empty i { font-size: 44px; color: var(--border-mid); }
+.pas-empty p { font-size: 14px; margin: 0; }
+
+/* ── Table card ── */
+.pas-table-card {
+    background:    var(--surface);
+    border:        1px solid var(--border);
+    border-radius: 12px;
+    overflow:      auto;
+    box-shadow:    var(--shadow-md);
+    animation:     pas-fadeUp 0.3s ease;
+}
+@keyframes pas-fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.pas-table-card::-webkit-scrollbar         { width: 5px; height: 5px; }
+.pas-table-card::-webkit-scrollbar-track   { background: var(--surface-2); }
+.pas-table-card::-webkit-scrollbar-thumb   { background: var(--border-mid); border-radius: 9999px; }
+
+/* ── Table ── */
+.pas-table {
+    width:           100%;
+    border-collapse: separate;
+    border-spacing:  0;
+    font-size:       13.5px;
+}
+
+.pas-table thead tr { background: var(--maroon); }
+
+.pas-table th {
+    padding:        12px 16px;
+    color:          rgba(255,255,255,0.85);
+    font-size:      10.5px;
+    font-weight:    700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-family:    var(--mono);
+    border-bottom:  2px solid var(--maroon-mid);
+    white-space:    nowrap;
+    text-align:     left;
+    position:       sticky;
+    top:            0;
+    z-index:        5;
+}
+.pas-table th > i { color: rgba(255,255,255,0.55); margin-right: 5px; }
+
+.pas-table td {
+    padding:        12px 16px;
+    border-bottom:  1px solid var(--border);
+    color:          var(--text);
+    vertical-align: middle;
+    transition:     background .12s;
+}
+
+.pas-table tbody tr:last-child td        { border-bottom: none; }
+.pas-table tbody tr:nth-child(even) td   { background: var(--surface-2); }
+.pas-table tbody tr:hover td             { background: var(--maroon-light); }
+
+/* ── Table cell elements ── */
+.pas-ref-badge {
+    display:        inline-block;
+    padding:        3px 10px;
+    background:     var(--maroon);
+    color:          #fff;
+    border-radius:  9999px;
+    font-size:      11px;
+    font-weight:    700;
+    font-family:    var(--mono);
+    letter-spacing: 0.4px;
+    white-space:    nowrap;
+}
+
+.pas-row-title  { font-weight: 700; color: var(--text); font-size: 13.5px; }
+.pas-row-name   { font-weight: 700; font-size: 13px; color: var(--text); }
+.pas-row-email  { font-size: 11px; color: var(--text-soft); margin-top: 2px; }
+
+.pas-ip-badge {
+    display:       inline-flex;
+    align-items:   center;
+    padding:       4px 10px;
+    border-radius: 9999px;
+    font-size:     11.5px;
+    font-weight:   700;
+    white-space:   nowrap;
+}
+.pas-ip-um  { background: var(--amber-light); color: var(--amber-dark); border: 1px solid var(--amber-bd); }
+.pas-ip-id  { background: var(--maroon-light); color: var(--maroon);   border: 1px solid var(--maroon-bd); }
+.pas-ip-tm  { background: var(--blue-light);   color: var(--blue);     border: 1px solid var(--blue-bd); }
+.pas-ip-cr  { background: var(--green-light);  color: var(--green-dark); border: 1px solid var(--green-bd); }
+.pas-ip-def { background: var(--teal-light);   color: var(--teal-dark); border: 1px solid var(--teal-bd); }
+
+.pas-consultant-name { font-size: 13px; font-weight: 600; color: var(--text-sec); }
+.pas-date            { font-size: 12.5px; font-family: var(--mono); color: var(--text-soft); }
+
+.pas-has-badge {
+    display:       inline-flex;
+    align-items:   center;
+    gap:           5px;
+    padding:       4px 10px;
+    background:    var(--green-light);
+    color:         var(--green-dark);
+    border:        1px solid var(--green-bd);
+    border-radius: 9999px;
+    font-size:     11.5px;
+    font-weight:   700;
+}
+
+.pas-none-badge {
+    display:       inline-flex;
+    align-items:   center;
+    gap:           5px;
+    padding:       4px 10px;
+    background:    var(--amber-light);
+    color:         var(--amber-dark);
+    border:        1px solid var(--amber-bd);
+    border-radius: 9999px;
+    font-size:     11.5px;
+    font-weight:   700;
+}
+
+.pas-view-btn {
+    display:       inline-flex;
+    align-items:   center;
+    gap:           6px;
+    padding:       7px 14px;
+    background:    var(--teal);
+    color:         #fff;
+    border:        none;
+    border-radius: 7px;
+    font-size:     12.5px;
+    font-weight:   600;
+    font-family:   'DM Sans', system-ui, sans-serif;
+    cursor:        pointer;
+    white-space:   nowrap;
+    transition:    all .2s ease;
+    box-shadow:    0 2px 6px rgba(13,115,119,0.25);
+}
+.pas-view-btn:hover {
+    background:  var(--teal-dark);
+    transform:   translateY(-1px);
+    box-shadow:  0 4px 12px rgba(13,115,119,0.3);
+}
+
+/* ──────────────────────────────────────────────
+   DETAIL PANEL — matches triage-overlay/panel
+────────────────────────────────────────────── */
+.pas-overlay {
+    position:        fixed;
+    inset:           0;
+    background:      rgba(15,23,42,0.5);
+    backdrop-filter: blur(4px);
+    z-index:         1000;
+    display:         flex;
+    align-items:     stretch;
+    animation:       pas-overlay-in .2s ease;
+}
+@keyframes pas-overlay-in { from { opacity: 0; } to { opacity: 1; } }
+
+.pas-panel {
+    background:     var(--surface);
+    border-left:    1px solid var(--border);
+    width:          100%;
+    height:         100vh;
+    display:        flex;
+    flex-direction: column;
+    overflow:       hidden;
+    animation:      pas-panel-in .26s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow:     var(--shadow-lg);
+}
+@keyframes pas-panel-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Panel Header — same as .triage-header */
+.pas-panel-header {
+    display:       flex;
+    align-items:   center;
+    gap:           14px;
+    padding:       14px 24px;
+    background:    var(--maroon);
+    border-bottom: 3px solid var(--maroon-mid);
+    flex-shrink:   0;
+}
+
+.pas-panel-header-icon {
+    width:           42px;
+    height:          42px;
+    background:      rgba(255,255,255,0.15);
+    border:          1px solid rgba(255,255,255,0.25);
+    border-radius:   10px;
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    flex-shrink:     0;
+}
+.pas-panel-header-icon i { color: #fff; font-size: 19px; }
+
+.pas-panel-header-info { flex: 1; min-width: 0; }
+
+.pas-panel-title {
+    font-size:      16px;
+    font-weight:    700;
+    color:          #fff;
+    margin:         0 0 5px;
+    white-space:    nowrap;
+    overflow:       hidden;
+    text-overflow:  ellipsis;
+}
+
+.pas-panel-meta {
+    display:     flex;
+    gap:         12px;
+    flex-wrap:   wrap;
+    font-size:   12px;
+    color:       rgba(255,255,255,0.75);
+}
+.pas-panel-meta span { display: flex; align-items: center; gap: 5px; }
+.pas-panel-meta i    { color: rgba(255,255,255,0.5); font-size: 11px; }
+
+.pas-panel-close {
+    width:           34px;
+    height:          34px;
+    background:      rgba(255,255,255,0.12);
+    border:          1px solid rgba(255,255,255,0.2);
+    border-radius:   8px;
+    color:           rgba(255,255,255,0.85);
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    cursor:          pointer;
+    font-size:       14px;
+    transition:      all .15s;
+    flex-shrink:     0;
+}
+.pas-panel-close:hover { background: var(--red-dark); border-color: var(--red-dark); color: #fff; }
+
+/* Panel Body — 3 columns, same as triage-body */
+.pas-panel-body {
+    display:               grid;
+    grid-template-columns: 280px 1fr 300px;
+    flex:                  1;
+    overflow:              hidden;
+}
+
+.pas-col-details,
+.pas-col-docs,
+.pas-col-report {
+    padding:    20px;
+    overflow-y: auto;
+    display:    flex;
+    flex-direction: column;
+    gap:        12px;
+}
+.pas-col-details::-webkit-scrollbar,
+.pas-col-docs::-webkit-scrollbar,
+.pas-col-report::-webkit-scrollbar      { width: 4px; }
+.pas-col-details::-webkit-scrollbar-track,
+.pas-col-docs::-webkit-scrollbar-track,
+.pas-col-report::-webkit-scrollbar-track { background: transparent; }
+.pas-col-details::-webkit-scrollbar-thumb,
+.pas-col-docs::-webkit-scrollbar-thumb,
+.pas-col-report::-webkit-scrollbar-thumb { background: var(--border-mid); border-radius: 9999px; }
+
+.pas-col-details { border-right: 1px solid var(--border); background: var(--surface); }
+.pas-col-docs    { border-right: 1px solid var(--border); background: var(--surface-2); }
+.pas-col-report  { background: var(--surface); }
+
+/* Section title — same as triage-section-title */
+.pas-section-title {
+    display:        flex;
+    align-items:    center;
+    gap:            7px;
+    font-size:      10.5px;
+    font-weight:    800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color:          var(--text-soft);
+    padding-bottom: 10px;
+    border-bottom:  1.5px solid var(--border);
+    flex-shrink:    0;
+}
+.pas-section-title i { color: var(--maroon); font-size: 13px; }
+.pas-section-title .pas-doc-count {
+    margin-left:   auto;
+    padding:       2px 8px;
+    background:    var(--teal);
+    color:         #fff;
+    border-radius: 9999px;
+    font-size:     10px;
+    font-weight:   700;
+}
+
+/* Info list */
+.pas-info-list {
+    background:    var(--surface-2);
+    border:        1px solid var(--border);
+    border-radius: 8px;
+    overflow:      hidden;
+    flex-shrink:   0;
+}
+.pas-info-row {
+    display:       flex;
+    align-items:   center;
+    gap:           8px;
+    padding:       9px 12px;
+    border-bottom: 1px solid var(--border);
+    font-size:     13px;
+}
+.pas-info-row:last-child { border-bottom: none; }
+.pas-info-row i          { color: var(--teal); font-size: 12px; flex-shrink: 0; width: 15px; }
+.pas-info-label {
+    min-width:      80px;
+    font-size:      10.5px;
+    font-weight:    700;
+    color:          var(--text-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    flex-shrink:    0;
+}
+.pas-info-value { color: var(--text-sec); font-size: 13px; }
+
+/* Reviewer notes */
+.pas-notes-box {
+    background:  var(--amber-light);
+    border:      1.5px solid var(--amber-bd);
+    border-left: 3px solid var(--amber);
+    border-radius: 8px;
+    padding:     10px 13px;
+    font-size:   12.5px;
+    color:       var(--amber-dark);
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-break:  break-word;
+    flex-shrink: 0;
+}
+
+/* Documents list */
+.pas-doc-list { display: flex; flex-direction: column; gap: 8px; }
+
+.pas-doc-item {
+    display:       flex;
+    align-items:   center;
+    justify-content: space-between;
+    gap:           10px;
+    padding:       10px 12px;
+    background:    var(--surface);
+    border:        1.5px solid var(--border);
+    border-radius: 8px;
+    transition:    border-color .15s, box-shadow .15s;
+}
+.pas-doc-item:hover          { border-color: var(--teal-bd); box-shadow: var(--shadow-sm); }
+.pas-doc-item.pas-doc-missing { background: var(--surface-2); opacity: 0.65; }
+
+.pas-doc-info     { flex: 1; min-width: 0; }
+.pas-doc-label    { font-weight: 600; color: var(--text); font-size: 13px; }
+.pas-doc-filename { font-size: 11px; color: var(--text-faint); font-family: var(--mono); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.pas-open-btn {
+    display:         inline-flex;
+    align-items:     center;
+    gap:             5px;
+    padding:         5px 12px;
+    background:      var(--teal-light);
+    color:           var(--teal-dark);
+    border:          1.5px solid var(--teal-bd);
+    border-radius:   6px;
+    font-size:       12px;
+    font-weight:     600;
+    text-decoration: none;
+    white-space:     nowrap;
+    flex-shrink:     0;
+    transition:      all .15s;
+    font-family:     'DM Sans', system-ui, sans-serif;
+}
+.pas-open-btn:hover { background: var(--teal); color: #fff; border-color: var(--teal); text-decoration: none; }
+
+.pas-missing-tag {
+    font-size:   11.5px;
+    color:       var(--text-faint);
+    display:     flex;
+    align-items: center;
+    gap:         4px;
+    flex-shrink: 0;
+}
+
+/* PAS Report card */
+.pas-report-card {
+    background:     var(--surface);
+    border:         2px solid var(--green-bd);
+    border-radius:  10px;
+    padding:        20px 16px;
+    display:        flex;
+    flex-direction: column;
+    align-items:    center;
+    gap:            10px;
+    text-align:     center;
+    flex-shrink:    0;
+}
+
+.pas-report-icon { font-size: 38px; }
+
+.pas-report-info { display: flex; flex-direction: column; gap: 4px; }
+.pas-report-label    { font-weight: 700; color: var(--text); font-size: 14px; }
+.pas-report-filename { font-size: 11.5px; color: var(--text-soft); word-break: break-all; font-family: var(--mono); }
+.pas-report-meta     { font-size: 12px; color: var(--text-faint); font-style: italic; }
+
+.pas-report-open-btn {
+    display:         inline-flex;
+    align-items:     center;
+    gap:             6px;
+    padding:         9px 20px;
+    background:      var(--green);
+    color:           #fff;
+    border:          none;
+    border-radius:   8px;
+    font-size:       13px;
+    font-weight:     600;
+    font-family:     'DM Sans', system-ui, sans-serif;
+    text-decoration: none;
+    transition:      all .2s;
+    cursor:          pointer;
+    box-shadow:      0 2px 8px rgba(22,163,74,0.28);
+}
+.pas-report-open-btn:hover {
+    background:     var(--green-dark);
+    color:          #fff;
+    text-decoration: none;
+    transform:      translateY(-1px);
+    box-shadow:     0 4px 12px rgba(22,163,74,0.32);
+}
+
+.pas-report-empty {
+    padding:       36px 16px;
+    text-align:    center;
+    color:         var(--text-soft);
+    border:        1.5px dashed var(--border-mid);
+    border-radius: 10px;
+    flex-shrink:   0;
+}
+.pas-report-empty i    { font-size: 36px; color: var(--border-mid); display: block; margin-bottom: 10px; }
+.pas-report-empty p    { font-weight: 600; font-size: 14px; color: var(--text-soft); margin-bottom: 4px; }
+.pas-report-empty span { font-size: 12px; color: var(--text-faint); }
+
+.pas-filed-badge {
+    display:       inline-flex;
+    align-items:   center;
+    gap:           6px;
+    padding:       8px 14px;
+    background:    var(--teal-light);
+    color:         var(--teal-dark);
+    border:        1px solid var(--teal-bd);
+    border-radius: 9999px;
+    font-size:     12px;
+    font-weight:   700;
+    width:         fit-content;
+    margin:        0 auto;
+}
+
+/* Panel Footer */
+.pas-panel-footer {
+    display:         flex;
+    align-items:     center;
+    justify-content: space-between;
+    gap:             10px;
+    padding:         14px 24px;
+    background:      var(--surface);
+    border-top:      1.5px solid var(--border);
+    flex-shrink:     0;
+    flex-wrap:       wrap;
+    box-shadow:      0 -2px 8px rgba(15,23,42,0.06);
+}
+
+.pas-footer-close {
+    display:       inline-flex;
+    align-items:   center;
+    gap:           6px;
+    padding:       9px 18px;
+    background:    var(--surface-2);
+    border:        1.5px solid var(--border-mid);
+    border-radius: 8px;
+    color:         var(--text-soft);
+    font-size:     13px;
+    font-weight:   600;
+    font-family:   'DM Sans', system-ui, sans-serif;
+    cursor:        pointer;
+    transition:    all .15s;
+}
+.pas-footer-close:hover { border-color: var(--text-soft); color: var(--text); background: var(--surface-3); }
+
+.pas-footer-download {
+    display:         inline-flex;
+    align-items:     center;
+    gap:             6px;
+    padding:         9px 18px;
+    background:      var(--green);
+    color:           #fff;
+    border:          none;
+    border-radius:   8px;
+    font-size:       13px;
+    font-weight:     600;
+    font-family:     'DM Sans', system-ui, sans-serif;
+    text-decoration: none;
+    cursor:          pointer;
+    transition:      all .2s;
+    box-shadow:      0 2px 8px rgba(22,163,74,0.25);
+}
+.pas-footer-download:hover {
+    background:     var(--green-dark);
+    color:          #fff;
+    text-decoration: none;
+    transform:      translateY(-1px);
+    box-shadow:     0 4px 12px rgba(22,163,74,0.30);
+}
+
+.pas-footer-note {
+    display:     inline-flex;
+    align-items: center;
+    gap:         6px;
+    padding:     9px 16px;
+    background:  var(--blue-light);
+    color:       var(--blue);
+    border:      1px solid var(--blue-bd);
+    border-radius: 8px;
+    font-size:   13px;
+    font-weight: 600;
+}
+
+.pas-footer-filed {
+    display:     inline-flex;
+    align-items: center;
+    gap:         6px;
+    padding:     9px 16px;
+    background:  var(--green-light);
+    color:       var(--green-dark);
+    border:      1px solid var(--green-bd);
+    border-radius: 8px;
+    font-size:   13px;
+    font-weight: 700;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1100px) {
+    .pas-panel-body { grid-template-columns: 260px 1fr 280px; }
+}
+
+@media (max-width: 860px) {
+    .pas-page       { padding: 16px; }
+    .pas-panel-body { grid-template-columns: 1fr; overflow-y: auto; }
+    .pas-col-details { border-right: none; border-bottom: 1px solid var(--border); }
+    .pas-col-docs    { border-right: none; border-bottom: 1px solid var(--border); }
+}
+
+@media (max-width: 600px) {
+    .pas-toolbar     { flex-direction: column; align-items: flex-start; }
+    .pas-dropdown    { width: 100%; }
+    .pas-summary-row { flex-direction: column; }
+    .pas-panel-footer { flex-direction: column; }
+    .pas-panel-footer > * { width: 100%; justify-content: center; }
+}
+/* ══════════════════════════════════════════════════════
+   PASReports.css — ADDITIONS for Inventor PAS section
+   Append these to your existing PASReports.css
+══════════════════════════════════════════════════════ */
+
+/* Label above inventor's PAS block */
+.pas-inventor-pas-block {
+    margin-bottom: 16px;
+}
+
+.pas-inventor-pas-label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.10em;
+    color: #d97706;
+    margin-bottom: 8px;
+    padding-bottom: 7px;
+    border-bottom: 1px dashed rgba(217,119,6,0.28);
+}
+
+.pas-inventor-pas-label i { font-size: 13px; }
+
+/* "Submitted by inventor" amber pill */
+.pas-inventor-pill {
+    margin-left: auto;
+    padding: 2px 9px;
+    background: rgba(217,119,6,0.12);
+    border: 1px solid rgba(217,119,6,0.28);
+    border-radius: 9999px;
+    color: #92400e;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+/* Inventor PAS card — amber tinted variant */
+.pas-report-card--inventor {
+    background: rgba(217,119,6,0.04) !important;
+    border: 1px solid rgba(217,119,6,0.20) !important;
+    margin-bottom: 14px;
+}
+
+/* Amber open button */
+.pas-report-open-btn--amber {
+    background: rgba(217,119,6,0.10) !important;
+    color: #92400e !important;
+    border: 1px solid rgba(217,119,6,0.25) !important;
+}
+
+.pas-report-open-btn--amber:hover {
+    background: rgba(217,119,6,0.20) !important;
+    color: #78350f !important;
+}
+
+/* "Not submitted" fallback for inventor PAS */
+.pas-inventor-pas-none {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 14px;
+    background: #f8fafc;
+    border: 1px dashed #e2e8f0;
+    border-radius: 8px;
+    font-size: 12.5px;
+    color: #94a3b8;
+    margin-bottom: 16px;
+    font-style: italic;
+}
+
+.pas-inventor-pas-none i { flex-shrink: 0; }
+
+/* Label above specialist's PAS block */
+.pas-specialist-pas-label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.10em;
+    color: #005555;
+    margin-bottom: 8px;
+    padding-bottom: 7px;
+    border-bottom: 1px dashed rgba(0,85,85,0.22);
+}
+
+.pas-specialist-pas-label i { font-size: 13px; }
+/* ============================================================
+   DONE BUTTON & CONFIRM MODAL
+   ============================================================ */
+
+/* ── Done button in panel footer ── */
+.pas-done-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 20px;
+    background: #16a34a;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 13.5px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(22,163,74,0.28);
+    white-space: nowrap;
+    letter-spacing: 0.1px;
+}
+.pas-done-btn:hover {
+    background: #15803d;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(22,163,74,0.35);
+}
+.pas-done-btn:active { transform: translateY(0); }
+.pas-done-btn i { font-size: 15px; }
+
+/* ── Overlay ── */
+.pas-done-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 10, 20, 0.55);
+    backdrop-filter: blur(4px);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: pas-done-fade-in 0.18s ease;
+}
+
+@keyframes pas-done-fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* ── Modal box ── */
+.pas-done-modal {
+    background: #fff;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 520px;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.20);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: pas-done-slide-up 0.22s ease;
+}
+
+@keyframes pas-done-slide-up {
+    from { opacity: 0; transform: translateY(16px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+
+/* ── Modal header ── */
+.pas-done-modal-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 22px 24px 18px;
+    background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+    border-bottom: 1.5px solid #bbf7d0;
+}
+
+.pas-done-modal-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: #16a34a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(22,163,74,0.3);
+}
+.pas-done-modal-icon i {
+    font-size: 24px;
+    color: #fff;
+}
+
+.pas-done-modal-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: #14532d;
+    margin-bottom: 3px;
+    line-height: 1.2;
+}
+.pas-done-modal-sub {
+    font-size: 12px;
+    color: #16a34a;
+    font-weight: 500;
+    font-family: 'Courier New', monospace;
+    word-break: break-all;
+}
+
+.pas-done-x-btn {
+    background: rgba(0,0,0,0.06);
+    border: none;
+    border-radius: 7px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #374151;
+    font-size: 13px;
+    flex-shrink: 0;
+    transition: background 0.15s;
+    margin-left: auto;
+}
+.pas-done-x-btn:hover { background: rgba(220,38,38,0.12); color: #dc2626; }
+
+/* ── Modal body ── */
+.pas-done-modal-body {
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.pas-done-modal-msg {
+    font-size: 13.5px;
+    color: #374151;
+    line-height: 1.65;
+    margin: 0;
+}
+.pas-done-modal-msg strong { color: #111827; }
+
+/* ── File list ── */
+.pas-done-file-list {
+    background: #f8fafc;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.pas-done-file-label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 14px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    background: #f1f5f9;
+    border-bottom: 1px solid #e2e8f0;
+}
+.pas-done-file-label i { color: #800000; font-size: 13px; }
+
+.pas-done-no-files {
+    padding: 14px 16px;
+    font-size: 13px;
+    color: #9ca3af;
+    font-style: italic;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.pas-done-file-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 14px;
+    border-bottom: 1px solid #f3f4f6;
+    font-size: 12.5px;
+}
+.pas-done-file-row:last-child { border-bottom: none; }
+.pas-done-file-row i { color: #800000; font-size: 15px; flex-shrink: 0; }
+
+.pas-done-file-doc-label {
+    color: #374151;
+    font-weight: 600;
+    flex: 1;
+    min-width: 0;
+}
+
+.pas-done-file-name {
+    font-size: 11px;
+    font-family: 'Courier New', monospace;
+    color: #9ca3af;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 160px;
+}
+
+/* ── Modal footer ── */
+.pas-done-modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 16px 24px;
+    background: #f8fafc;
+    border-top: 1.5px solid #e2e8f0;
+}
+
+.pas-done-cancel-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 18px;
+    background: #fff;
+    color: #6b7280;
+    border: 1.5px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+.pas-done-cancel-btn:hover {
+    background: #f9fafb;
+    border-color: #9ca3af;
+    color: #374151;
+}
+
+.pas-done-confirm-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 22px;
+    background: #16a34a;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.15s;
+    box-shadow: 0 2px 8px rgba(22,163,74,0.3);
+}
+.pas-done-confirm-btn:hover {
+    background: #15803d;
+    box-shadow: 0 4px 14px rgba(22,163,74,0.35);
+    transform: translateY(-1px);
+}
+.pas-done-confirm-btn:active { transform: translateY(0); }
+
+@media (max-width: 560px) {
+    .pas-done-modal { max-width: 100%; border-radius: 12px 12px 0 0; }
+    .pas-done-modal-footer { flex-direction: column-reverse; }
+    .pas-done-cancel-btn,
+    .pas-done-confirm-btn { width: 100%; justify-content: center; }
+}

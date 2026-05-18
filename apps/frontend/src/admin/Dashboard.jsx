@@ -37,7 +37,7 @@ function Dashboard() {
             } else if (Object.keys(response.data.data.usersByDeliveryUnit).length === 0) {
                 console.error('❌ usersByDeliveryUnit is empty {}! Users might not be active/approved!');
             } else {
-                console.log('✅ usersByDeliveryUnit has data:', response.data.data.usersByDeliveryUnit);
+                console.log(' usersByDeliveryUnit has data:', response.data.data.usersByDeliveryUnit);
             }
             
             setStats(response.data.data || null);
@@ -49,17 +49,6 @@ function Dashboard() {
             setLoading(false);
         }
     };
-
-    if (loading && !stats) {
-        return (
-            <div className="dashboard-container">
-                <div className="loading-spinner">
-                    <div className="spinner"></div>
-                    <p>Loading Dashboard...</p>
-                </div>
-            </div>
-        );
-    }
 
     if (error && !stats) {
         return (
@@ -300,16 +289,18 @@ function Dashboard() {
                                     .sort((a, b) => b[1] - a[1])
                                     .map(([unit, count], index) => {
                                         const unitColors = {
-                                            'CCMS': '#1e88e5',
-                                            'COTT': '#43a047',
-                                            'CANR': '#f4511e',
-                                            'CAS': '#8e24aa',
-                                            'COED': '#fbc02d',
-                                            'COENG': '#00acc1',
-                                            'CBPA': '#6d4c41',
-                                            'GAD': '#d81b60',
-                                            'CFAST': '#5e35b1',
-                                            'ETEINZA': '#00897b'
+                                            'CCMS':    '#1e88e5',
+                                            'COTT':    '#43a047',
+                                            'CANR':    '#f4511e',
+                                            'CAS':     '#8e24aa',
+                                            'COED':    '#fbc02d',
+                                            'COENG':   '#00acc1',
+                                            'CBPA':    '#6d4c41',
+                                            'CFAST':   '#5e35b1',
+                                            'ETIENZA': '#00897b',
+                                            'CEID':    '#e53935',
+                                            'GS':      '#039be5',
+                                            'GASS':    '#7cb342',
                                         };
                                         
                                         const color = unitColors[unit] || '#455a64';
@@ -324,17 +315,19 @@ function Dashboard() {
                                                         {unit}
                                                     </span>
                                                     <span style={{ fontSize: '0.875rem', color: '#666' }}>
-                                                        {unit === 'CCMS' && 'College of Computer and Multimedia Studies'}
-                                                        {unit === 'COTT' && 'College of Trades and Technology'}
-                                                        {unit === 'CANR' && 'College of Agriculture and Natural Resources'}
-                                                        {unit === 'CAS' && 'College of Arts and Sciences'}
-                                                        {unit === 'COED' && 'College of Education'}
-                                                        {unit === 'COENG' && 'College of Engineering'}
-                                                        {unit === 'CBPA' && 'College of Business and Public Administration'}
-                                                        {unit === 'GAD' && 'Gender and Development'}
-                                                        {unit === 'CFAST' && 'College of Fisheries, Aquatic Sciences and Technology'}
-                                                        {unit === 'ETEINZA' && 'ETEINZA'}
-                                                        {!['CCMS', 'COTT', 'CANR', 'CAS', 'COED', 'COENG', 'CBPA', 'GAD', 'CFAST', 'ETEINZA'].includes(unit) && 'Other Unit'}
+                                                        {unit === 'CCMS'    && 'College of Computer and Multimedia Studies'}
+                                                        {unit === 'COTT'    && 'College of Trades and Technology'}
+                                                        {unit === 'CANR'    && 'College of Agriculture and Natural Resources'}
+                                                        {unit === 'CAS'     && 'College of Arts and Sciences'}
+                                                        {unit === 'COED'    && 'College of Education'}
+                                                        {unit === 'COENG'   && 'College of Engineering'}
+                                                        {unit === 'CBPA'    && 'College of Business and Public Administration'}
+                                                        {unit === 'CFAST'   && 'College of Fisheries, Aquatic Sciences and Technology'}
+                                                        {unit === 'ETIENZA' && 'ETIENZA'}
+                                                        {unit === 'CEID'    && 'CEID'}
+                                                        {unit === 'GS'      && 'Graduate School'}
+                                                        {unit === 'GASS'    && 'GASS'}
+                                                        {!['CCMS','COTT','CANR','CAS','COED','COENG','CBPA','CFAST','ETIENZA','CEID','GS','GASS'].includes(unit) && 'Other Unit'}
                                                     </span>
                                                 </div>
                                                 <div className="item-value">

@@ -1,0 +1,232 @@
+.apr-triage-overlay {
+    --navy:      #800000;
+    --navy-mid:  #660000;
+    --cyan:      #005555;
+    --cyan-2:    #007070;
+    --cyan-glow: rgba(0,85,85,0.15);
+    --green:     #059669; --green-bg: #ecfdf5; --green-bd: #6ee7b7;
+    --amber:     #d97706; --amber-bg: #fffbeb; --amber-bd: #fde68a;
+    --orange:    #ea580c; --orange-bg: #fff7ed; --orange-bd: #fdba74;
+    --red:       #dc2626; --red-bg: #fef2f2;
+    --bg-card:   #ffffff;
+    --bg-row:    #f8f8f8;
+    --border:    #cbcbcb;
+    --border-2:  #cbcbcb;
+    --text:      #800000;
+    --text-mid:  #800000;
+    --text-soft: #555555;
+    --text-xs:   #888888;
+    --r-sm: 6px; --r-md: 10px; --r-lg: 14px; --r-xl: 20px; --r-pill: 9999px;
+    --shadow-xl: 0 20px 64px rgba(128,0,0,0.18);
+    --font: 'DM Sans', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.65); backdrop-filter: blur(6px);
+    z-index: 9999; display: flex; align-items: stretch;
+    animation: apr-ov .22s ease;
+}
+@keyframes apr-ov { from { opacity:0; } to { opacity:1; } }
+
+/* ── Panel ──────────────────────────────────────────────────── */
+.apr-triage-panel {
+    background: var(--bg-card); width: 100%; height: 100%;
+    display: flex; flex-direction: column; overflow: hidden;
+    animation: apr-slide .3s cubic-bezier(.34,1.56,.64,1);
+    font-family: var(--font);
+}
+@keyframes apr-slide {
+    from { transform: translateY(40px) scale(.98); opacity:0; }
+    to   { transform: translateY(0) scale(1); opacity:1; }
+}
+
+/* ── Header ─────────────────────────────────────────────────── */
+.apr-triage-header {
+    background: linear-gradient(135deg, var(--navy) 0%, #660000 100%);
+    padding: 16px 28px; border-bottom: 3px solid #059669;
+    display: flex; align-items: center; gap: 16px; flex-shrink: 0;
+}
+.apr-triage-header-icon {
+    width: 44px; height: 44px;
+    background: rgba(5,150,105,.22); border: 1px solid rgba(52,211,153,.35);
+    border-radius: var(--r-md); display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0;
+}
+.apr-triage-header-icon i { color: #34d399; font-size: 20px; }
+.apr-triage-header-info { flex: 1; min-width: 0; }
+.apr-triage-header-info h2 {
+    color: #fff; font-size: 17px; font-weight: 800; margin: 0 0 4px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.apr-triage-meta { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.apr-triage-meta-item {
+    display: flex; align-items: center; gap: 5px;
+    font-size: 12px; color: rgba(255,255,255,.6);
+}
+.apr-triage-meta-item i      { color: var(--cyan-2); font-size: 11px; }
+.apr-triage-meta-item strong { color: rgba(255,255,255,.88); font-weight: 600; }
+.apr-meta-approved i      { color: #34d399 !important; }
+.apr-meta-approved strong { color: #6ee7b7 !important; }
+
+.apr-triage-close-btn {
+    background: rgba(255,255,255,.12); border: 1.5px solid rgba(255,255,255,.25);
+    color: rgba(255,255,255,.85); width: 36px; height: 36px;
+    border-radius: var(--r-pill); display: flex; align-items: center;
+    justify-content: center; cursor: pointer; font-size: 15px;
+    transition: all .18s; flex-shrink: 0;
+}
+.apr-triage-close-btn:hover { background: #ef4444; border-color: #ef4444; color: #fff; }
+
+/* ── Body — 3 columns ───────────────────────────────────────── */
+.apr-triage-body {
+    flex: 1; display: grid;
+    grid-template-columns: 300px 1fr 320px;
+    overflow: hidden;
+}
+.apr-triage-col {
+    overflow-y: auto; padding: 22px 22px;
+    border-right: 1px solid #cbcbcb;
+}
+.apr-triage-col:last-child { border-right: none; }
+.apr-triage-col::-webkit-scrollbar          { width: 5px; }
+.apr-triage-col::-webkit-scrollbar-track    { background: transparent; }
+.apr-triage-col::-webkit-scrollbar-thumb    { background: var(--border-2); border-radius: var(--r-pill); }
+
+/* ── Section heading — identical to triage-section-title ───── */
+.apr-triage-section-title {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .1em; color: var(--navy);
+    padding-bottom: 10px; border-bottom: 2px solid #cbcbcb;
+    margin-bottom: 16px;
+}
+.apr-triage-section-title i { color: var(--cyan); font-size: 14px; }
+
+/* ── Doc count badge ────────────────────────────────────────── */
+.apr-doc-count-badge {
+    margin-left: auto;
+    background: var(--navy); color: #fff;
+    font-size: 10px; padding: 2px 8px; border-radius: var(--r-pill);
+    font-weight: 700;
+}
+
+/* ── COL 1 — Submission Details ─────────────────────────────── */
+.apr-info-block {
+    background: var(--bg-row); border: 1px solid #cbcbcb;
+    border-radius: var(--r-md); padding: 2px 16px; margin-bottom: 20px;
+}
+.apr-info-row {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 10px 0; border-bottom: 1px solid #cbcbcb; font-size: 13px;
+}
+.apr-info-row:last-child { border-bottom: none; }
+.apr-info-row i { color: var(--cyan); width: 14px; font-size: 12px; flex-shrink: 0; margin-top: 2px; }
+.apr-tir-label {
+    min-width: 88px; font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .06em; color: var(--navy); flex-shrink: 0;
+}
+.apr-tir-value { color: var(--text-mid); font-weight: 500; word-break: break-word; }
+
+.apr-reviewer-notes {
+    background: var(--amber-bg); border: 1px solid var(--amber-bd);
+    border-radius: var(--r-md); padding: 14px 16px;
+    font-size: 13px; color: #78350f; line-height: 1.6; white-space: pre-wrap;
+}
+
+/* ── COL 2 — Document cards (reuse triage-doc-card) ─────────── */
+/* triage-doc-card, triage-doc-info, triage-doc-name, triage-doc-sub,
+   triage-doc-open, triage-doc-missing are all in UnderReview.css — reused directly */
+.apr-doc-card-missing { opacity: .65; }
+.apr-optional-tag { font-weight: 400; color: var(--text-xs); }
+
+/* ── COL 3 — PAS Upload ─────────────────────────────────────── */
+.apr-upload-desc {
+    font-size: 13px; color: var(--text-mid);
+    line-height: 1.65; margin-bottom: 18px;
+}
+.apr-dropzone {
+    border: 2px dashed var(--border-2); border-radius: var(--r-lg);
+    padding: 28px 20px; text-align: center; cursor: pointer;
+    transition: all .2s; background: var(--bg-row); margin-bottom: 14px;
+}
+.apr-dropzone:hover, .apr-dropzone-active {
+    border-color: #005555; background: rgba(0,85,85,0.04);
+}
+.apr-dropzone-has-file {
+    border-style: solid; border-color: var(--green); background: var(--green-bg);
+}
+.apr-dropzone-empty i { font-size: 40px; color: var(--border-2); display: block; margin-bottom: 10px; }
+.apr-dropzone-empty p { font-size: 14px; font-weight: 700; color: var(--text-mid); margin-bottom: 4px; }
+.apr-dropzone-empty span { font-size: 12.5px; color: #666666; }
+.apr-dropzone-hint {
+    margin-top: 10px; font-size: 11px; color: var(--text-xs);
+    background: #cbcbcb; padding: 4px 12px;
+    border-radius: var(--r-pill); display: inline-block;
+}
+.apr-dropzone-file { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.apr-dropzone-file i { font-size: 36px; color: var(--green); }
+.apr-dropzone-filename {
+    font-size: 13px; font-weight: 700; color: var(--text);
+    word-break: break-all; text-align: center;
+}
+.apr-dropzone-filesize { font-size: 11.5px; color: #666666; }
+.apr-dropzone-remove {
+    background: none; border: 1px solid #fca5a5; color: var(--red);
+    border-radius: var(--r-sm); padding: 4px 12px; font-size: 12px;
+    cursor: pointer; display: flex; align-items: center; gap: 4px;
+    margin-top: 4px; font-family: var(--font); transition: all .15s;
+}
+.apr-dropzone-remove:hover { background: var(--red-bg); }
+.apr-upload-error {
+    background: var(--red-bg); border: 1px solid #fca5a5;
+    border-radius: var(--r-md); padding: 10px 14px;
+    font-size: 12.5px; color: var(--red);
+    display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
+}
+.apr-submit-btn {
+    width: 100%; padding: 12px;
+    background: linear-gradient(135deg, #005555 0%, #007070 100%);
+    color: #fff; border: none; border-radius: var(--r-md);
+    font-size: 13.5px; font-weight: 700; font-family: var(--font);
+    cursor: pointer; display: flex; align-items: center;
+    justify-content: center; gap: 8px; transition: all .18s;
+}
+.apr-submit-btn:hover:not(:disabled) { filter: brightness(1.08); transform: translateY(-1px); }
+.apr-submit-btn:disabled { opacity: .45; cursor: not-allowed; }
+.apr-spinner {
+    width: 15px; height: 15px; border: 2.5px solid rgba(255,255,255,.3);
+    border-top-color: #fff; border-radius: 50%;
+    animation: apr-spin .7s linear infinite; display: inline-block;
+}
+@keyframes apr-spin { to { transform: rotate(360deg); } }
+.apr-upload-success {
+    background: var(--green-bg); border: 1px solid var(--green-bd);
+    border-radius: var(--r-lg); padding: 32px 20px; text-align: center;
+}
+.apr-upload-success i { font-size: 40px; color: var(--green); display: block; margin-bottom: 12px; }
+.apr-upload-success p { font-size: 15px; font-weight: 700; color: #065f46; margin-bottom: 4px; }
+.apr-upload-success span { font-size: 12.5px; color: var(--green); }
+
+/* ── Footer ─────────────────────────────────────────────────── */
+/* triage-back-btn is reused from UnderReview.css */
+.apr-triage-footer {
+    background: var(--bg-row); border-top: 1px solid #cbcbcb;
+    padding: 14px 28px; display: flex; align-items: center;
+    justify-content: space-between; gap: 12px; flex-shrink: 0; flex-wrap: wrap;
+}
+.apr-footer-status {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 13px; font-weight: 700; color: var(--green);
+    background: var(--green-bg); border: 1px solid var(--green-bd);
+    border-radius: var(--r-pill); padding: 7px 16px;
+}
+.apr-footer-status i { font-size: 14px; }
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 1100px) {
+    .apr-triage-body { grid-template-columns: 260px 1fr 290px; }
+}
+@media (max-width: 860px) {
+    .apr-triage-body { grid-template-columns: 1fr; overflow-y: auto; }
+    .apr-triage-col  { border-right: none; border-bottom: 1px solid #cbcbcb; }
+}

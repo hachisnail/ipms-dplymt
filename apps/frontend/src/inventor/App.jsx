@@ -12,7 +12,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import SideBar from './InventorSideBar'
 import Main2 from './InventorMain2';
-import Footer from './Footer';
 import BacktoTopButton from './BacktoTopButton';
 
 function App() {
@@ -24,7 +23,6 @@ function App() {
       <Header/>
       <SideBar/>
       <Main2/>
-      <Footer/>
       <BacktoTopButton/>
     </>
   );

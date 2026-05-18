@@ -81,7 +81,7 @@ body.modal-open {
 .landing-page {
   min-height: 100vh;
   width: 100%;
-  background: linear-gradient(135deg, #FFF9F8 0%, #FFE5E5 100%);
+  background: linear-gradient(135deg, #FFF9F8 0%, #e5f5ff 100%);
 }
 
 /* ✅ CRITICAL: Remove all portal elements from public pages */
@@ -164,7 +164,7 @@ header.header {
 }
 
 .header .toggle-sidebar-btn:hover {
-  color: var(--secondary, #FF6B5A);
+  color: var(--secondary, #5acbff);
 }
 
 /* Sidebar (fixed at left) - USING CLASS NOT ID */
@@ -191,7 +191,7 @@ header.header {
 
 @supports (scrollbar-color: auto) {
   .sidebar {
-    scrollbar-color: #FF9C8A transparent;
+    scrollbar-color: #8ac6ff transparent;
   }
 }
 
@@ -202,12 +202,12 @@ header.header {
 }
 
 .sidebar::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #FF6B5A 0%, #FF8170 100%);
+  background: linear-gradient(180deg, #5ab5ff 0%, #70bfff 100%);
   border-radius: 10px;
 }
 
 .sidebar::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #800020 0%, #A0192D 100%);
+  background: linear-gradient(180deg, #006280 0%, #1953a0 100%);
 }
 
 /* Main Content Area */
@@ -366,7 +366,7 @@ header.header {
 .pagetitle h1 {
   font-size: 28px;
   font-weight: 700;
-  color: var(--text-primary, #800020);
+  color: var(--text-primary, #004280);
   margin-bottom: 5px;
 }
 
@@ -378,7 +378,7 @@ header.header {
    SECTION SPACING
    ================================================================ */
 section {
-  padding: 20px 0;
+  padding: 1px 0;
   overflow: hidden;
 }
 
@@ -410,19 +410,19 @@ video {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--secondary, #FF6B5A);
+  background: var(--secondary, #5a8eff);
   border-radius: 5px;
   transition: background 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary, #800020);
+  background: var(--primary, #004280);
 }
 
 /* Firefox scrollbar */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--secondary, #FF6B5A) var(--bg-light, #fff9f8);
+  scrollbar-color: var(--secondary, #5aa7ff) var(--bg-light, #fff9f8);
 }
 
 /* ================================================================
@@ -458,7 +458,7 @@ video {
   position: absolute;
   top: -40px;
   left: 0;
-  background: var(--primary, #800020);
+  background: var(--primary, #004280);
   color: white;
   padding: 8px 16px;
   text-decoration: none;
@@ -472,7 +472,7 @@ video {
 
 /* Focus visible for keyboard navigation */
 :focus-visible {
-  outline: 2px solid var(--secondary, #FF6B5A);
+  outline: 2px solid var(--secondary, #5a94ff);
   outline-offset: 2px;
 }
 
@@ -504,7 +504,7 @@ body.loading * {
   width: 50px;
   height: 50px;
   border: 5px solid rgba(128, 0, 32, 0.1);
-  border-top-color: var(--primary, #800020);
+  border-top-color: var(--primary, #004280);
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -802,7 +802,7 @@ body,
 .card-title {
   font-size: 18px;
   font-weight: 700;
-  color: var(--text-primary, #800020);
+  color: var(--text-primary, #004d80);
   margin: 0;
 }
 

@@ -1,4 +1,4 @@
-// Portfolio.jsx - Fixed version with updated chart library
+// Portfolio.jsx - UPDATED WITH AUTHENTICATION
 import React, { useState, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
 import {
@@ -13,7 +13,6 @@ import {
 import axios from 'axios';
 import './Portfolio.css';
 
-// ✅ Register Chart.js components
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -32,20 +31,51 @@ export default function Portfolio() {
     const [totals, setTotals] = useState({ id: 0, cr: 0, tm: 0, um: 0 });
     const [selectedYear, setSelectedYear] = useState('all');
     const [availableYears, setAvailableYears] = useState([]);
+    const [userType, setUserType] = useState(null);
 
-    // useCallback to memoize fetchPortfolioData and avoid missing dependency warning
+    // Get auth token and user type from localStorage
+    const getAuthToken = () => {
+        const userData = JSON.parse(localStorage.getItem('user') || '{}');
+        return userData.token;
+    };
+
+    const getUserType = () => {
+        const userData = JSON.parse(localStorage.getItem('user') || '{}');
+        return userData.userType;
+    };
+
+    // Create axios config with auth header
+    const getAxiosConfig = () => ({
+        headers: {
+            'Authorization': `Bearer ${getAuthToken()}`
+        }
+    });
+
+    // useCallback to memoize fetchPortfolioData
     const fetchPortfolioData = React.useCallback(async () => {
         setLoading(true);
         setError(null);
         
         try {
+            const token = getAuthToken();
+            const currentUserType = getUserType();
+            
+            if (!token) {
+                setError("Authentication required. Please log in.");
+                setLoading(false);
+                return;
+            }
+
+            setUserType(currentUserType);
+
             const yearParam = selectedYear !== 'all' ? `&year=${selectedYear}` : '';
+            const config = getAxiosConfig();
 
             const [idRes, crRes, tmRes, umRes] = await Promise.all([
-                axios.get(`${API_BASE_URL}/portfolio/approved-submissions?type=id${yearParam}`),
-                axios.get(`${API_BASE_URL}/portfolio/approved-submissions?type=cr${yearParam}`),
-                axios.get(`${API_BASE_URL}/portfolio/approved-submissions?type=tm${yearParam}`),
-                axios.get(`${API_BASE_URL}/portfolio/approved-submissions?type=um${yearParam}`),
+                axios.get(`${API_BASE_URL}/portfolio/approved-submissions?type=id${yearParam}`, config),
+                axios.get(`${API_BASE_URL}/portfolio/approved-submissions?type=cr${yearParam}`, config),
+                axios.get(`${API_BASE_URL}/portfolio/approved-submissions?type=tm${yearParam}`, config),
+                axios.get(`${API_BASE_URL}/portfolio/approved-submissions?type=um${yearParam}`, config),
             ]);
 
             const idData = Array.isArray(idRes.data) ? idRes.data : [];
@@ -144,7 +174,13 @@ export default function Portfolio() {
             });
         } catch (err) {
             console.error("Error fetching approved submissions:", err);
-            setError("Failed to load portfolio data. Please check if the backend is running.");
+            
+            if (err.response?.status === 401) {
+                setError("Session expired. Please log in again.");
+            } else {
+                setError("Failed to load portfolio data. Please check if the backend is running.");
+            }
+            
             setChartData({ labels: [], datasets: [] });
         } finally {
             setLoading(false);
@@ -169,7 +205,7 @@ export default function Portfolio() {
             },
             title: {
                 display: true,
-                text: `Approved IP Submissions Trend ${selectedYear !== 'all' ? `(${selectedYear})` : '(All Years)'}`,
+                text: `${userType === 'ADMIN' ? 'All' : 'My'} Approved IP Submissions ${selectedYear !== 'all' ? `(${selectedYear})` : '(All Years)'}`,
                 font: { size: 16, weight: 'bold' },
                 padding: 20,
             },
@@ -236,7 +272,13 @@ export default function Portfolio() {
     return (
         <div className="portfolio-page">
             <div className="portfolio-header">
-                <div></div>
+                <div>
+                    {userType === 'ADMIN' ? (
+                        <h5 style={{ color: '#6c757d', margin: 0 }}>Viewing all submissions</h5>
+                    ) : (
+                        <h5 style={{ color: '#6c757d', margin: 0 }}>Your approved submissions</h5>
+                    )}
+                </div>
                 <div className="year-filter">
                     <label htmlFor="year-select">Filter by Year: </label>
                     <select
@@ -289,6 +331,9 @@ export default function Portfolio() {
                 ) : (
                     <div className="no-data-message">
                         <p>No approved submissions data available for the selected period.</p>
+                        {userType !== 'ADMIN' && (
+                            <small>Submit your IP applications to see them here once approved!</small>
+                        )}
                     </div>
                 )}
             </div>

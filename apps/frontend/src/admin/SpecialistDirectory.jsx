@@ -12,6 +12,9 @@ function SpecialistDirectory() {
     const [searchTerm, setSearchTerm] = useState('');
     const [filterExpertise, setFilterExpertise] = useState('all');
     const [showModal, setShowModal] = useState(false);
+    const [showDeactivateModal, setShowDeactivateModal] = useState(false);
+    const [userToToggle, setUserToToggle] = useState(null);
+    const [actionLoading, setActionLoading] = useState(false);
 
     useEffect(() => {
         fetchSpecialists();
@@ -44,6 +47,47 @@ function SpecialistDirectory() {
         setSelectedSpecialist(null);
     };
 
+    const handleToggleAccess = (specialist) => {
+        setUserToToggle(specialist);
+        setShowDeactivateModal(true);
+    };
+
+    const confirmToggleAccess = async () => {
+        if (!userToToggle) return;
+
+        try {
+            setActionLoading(true);
+            const token = localStorage.getItem('token');
+            const newStatus = userToToggle.status === 'active' ? 'inactive' : 'active';
+            
+            await axios.put(
+                `${API_URL}/admin/users/${userToToggle.id}/toggle-access`,
+                { is_active: newStatus === 'active' },
+                { headers: { Authorization: `Bearer ${token}` }}
+            );
+
+            setSpecialists(specialists.map(spec => 
+                spec.id === userToToggle.id 
+                    ? { ...spec, status: newStatus, is_active: newStatus === 'active' }
+                    : spec
+            ));
+
+            setShowDeactivateModal(false);
+            setUserToToggle(null);
+            alert(`User access ${newStatus === 'active' ? 'activated' : 'deactivated'} successfully!`);
+        } catch (err) {
+            console.error('Error toggling access:', err);
+            alert('Failed to change user access. Please try again.');
+        } finally {
+            setActionLoading(false);
+        }
+    };
+
+    const cancelToggleAccess = () => {
+        setShowDeactivateModal(false);
+        setUserToToggle(null);
+    };
+
     const expertiseAreas = ['all', ...new Set(specialists.map(s => s.expertise_area || s.specialization || s.ip_category).filter(Boolean))];
 
     const filteredSpecialists = specialists.filter(specialist => {
@@ -68,9 +112,11 @@ function SpecialistDirectory() {
     if (loading) {
         return (
             <div className="directory-container">
+                <div className="directory-container-inner">
                 <div className="loading-spinner">
                     <div className="spinner"></div>
                     <p>Loading Specialists...</p>
+                </div>
                 </div>
             </div>
         );
@@ -79,6 +125,7 @@ function SpecialistDirectory() {
     if (error) {
         return (
             <div className="directory-container">
+                <div className="directory-container-inner">
                 <div className="error-message">
                     <i className="bi bi-exclamation-triangle"></i>
                     <p>{error}</p>
@@ -86,12 +133,14 @@ function SpecialistDirectory() {
                         Retry
                     </button>
                 </div>
+                </div>
             </div>
         );
     }
 
     return (
         <div className="directory-container">
+            <div className="directory-container-inner">
             <div className="directory-header">
                 <div className="header-left">
                     <h2>
@@ -106,7 +155,6 @@ function SpecialistDirectory() {
                 </div>
             </div>
 
-            {/* Filters Row */}
             <div className="filters-row">
                 <div className="search-bar">
                     <i className="bi bi-search"></i>
@@ -136,7 +184,6 @@ function SpecialistDirectory() {
                 </div>
             </div>
 
-            {/* Stats */}
             <div className="stats-row">
                 <div className="stat-card">
                     <div className="stat-icon">
@@ -167,7 +214,6 @@ function SpecialistDirectory() {
                 </div>
             </div>
 
-            {/* Data Table */}
             <div className="table-container">
                 {filteredSpecialists.length === 0 ? (
                     <div className="no-data">
@@ -185,14 +231,14 @@ function SpecialistDirectory() {
                                 <th>Contact</th>
                                 <th>User Type</th>
                                 <th>Expertise Area</th>
-                                <th>Experience (Years)</th>
+                                <th>Joined Date</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {filteredSpecialists.map((specialist, index) => (
-                                <tr key={specialist.id || index}>
+                                <tr key={specialist.id || index} className={specialist.status === 'inactive' ? 'inactive-row' : ''}>
                                     <td>{index + 1}</td>
                                     <td>
                                         <img
@@ -207,18 +253,21 @@ function SpecialistDirectory() {
                                             }}
                                         />
                                     </td>
-                                    <td className="name-cell">{specialist.full_name || 'N/A'}</td>
+                                    <td>{specialist.full_name || 'N/A'}</td>
                                     <td>{specialist.email || 'N/A'}</td>
                                     <td>
-                                        <span className="contact-badge">
-                                            <i className="bi bi-telephone"></i>
-                                            {specialist.contact || 'N/A'}
-                                        </span>
+                                        {specialist.contact ? (
+                                            <a href={`tel:${specialist.contact}`} className="contact-link">
+                                                <i className="bi bi-telephone"></i> {specialist.contact}
+                                            </a>
+                                        ) : (
+                                            <span className="no-data-text">N/A</span>
+                                        )}
                                     </td>
                                     <td>
                                         <span className="user-type-badge consultant">
                                             <i className="bi bi-award"></i>
-                                            Consultant
+                                            CONSULTANT
                                         </span>
                                     </td>
                                     <td>
@@ -227,23 +276,39 @@ function SpecialistDirectory() {
                                             {specialist.expertise_area || specialist.specialization || specialist.ip_category || 'N/A'}
                                         </span>
                                     </td>
-                                    <td className="experience-cell">
-                                        <i className="bi bi-clock-history"></i>
-                                        {specialist.experience || specialist.years_experience || 'N/A'}
+                                    <td>
+                                        {specialist.created_at 
+                                            ? new Date(specialist.created_at).toLocaleDateString('en-US', {
+                                                month: 'numeric',
+                                                day: 'numeric',
+                                                year: 'numeric'
+                                            })
+                                            : 'N/A'
+                                        }
                                     </td>
                                     <td>
-                                        <span className={`status-badge ${(specialist.status === 'active' || specialist.is_active) ? 'active' : 'inactive'}`}>
-                                            {(specialist.status === 'active' || specialist.is_active) ? 'Active' : 'Inactive'}
+                                        <span className={`status-badge ${specialist.status === 'active' ? 'active' : 'inactive'}`}>
+                                            {specialist.status === 'active' ? 'ACTIVE' : 'INACTIVE'}
                                         </span>
                                     </td>
                                     <td>
-                                        <button
-                                            onClick={() => handleViewProfile(specialist)}
-                                            className="btn-view"
-                                            title="View Profile"
-                                        >
-                                            <i className="bi bi-eye"></i> View
-                                        </button>
+                                        <div className="action-buttons">
+                                            <button
+                                                onClick={() => handleViewProfile(specialist)}
+                                                className="btn-view"
+                                                title="View Profile"
+                                            >
+                                                <i className="bi bi-eye"></i> View
+                                            </button>
+                                            <button 
+                                                onClick={() => handleToggleAccess(specialist)}
+                                                className={`btn-toggle ${specialist.status === 'active' ? 'deactivate' : 'activate'}`}
+                                                title={specialist.status === 'active' ? 'Deactivate Access' : 'Activate Access'}
+                                            >
+                                                <i className={`bi ${specialist.status === 'active' ? 'bi-lock' : 'bi-unlock'}`}></i>
+                                                {specialist.status === 'active' ? 'Deactivate' : 'Activate'}
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                             ))}
@@ -252,7 +317,44 @@ function SpecialistDirectory() {
                 )}
             </div>
 
-            {/* Modern Profile Modal */}
+            {/* Deactivate/Activate Confirmation Modal */}
+            {showDeactivateModal && userToToggle && (
+                <div className="logout-modal-overlay">
+                    <div className="logout-modal">
+                        <div className="logout-modal-icon">
+                            <i className={`bi ${userToToggle.status === 'active' ? 'bi-lock-fill' : 'bi-unlock-fill'}`}></i>
+                        </div>
+                        <h3>
+                            {userToToggle.status === 'active' ? 'Deactivate User Access' : 'Activate User Access'}
+                        </h3>
+                        <p>
+                            Are you sure you want to {userToToggle.status === 'active' ? 'deactivate' : 'activate'} access for <strong>{userToToggle.full_name}</strong>?
+                            <br/>
+                            {userToToggle.status === 'active' 
+                                ? 'The user will not be able to log in, but their data will remain in the system.' 
+                                : 'The user will be able to log in and access the system again.'}
+                        </p>
+                        <div className="logout-modal-buttons">
+                            <button 
+                                className="btn-cancel"
+                                onClick={cancelToggleAccess}
+                                disabled={actionLoading}
+                            >
+                                No, Cancel
+                            </button>
+                            <button 
+                                className={`btn-confirm ${userToToggle.status === 'active' ? 'deactivate' : 'activate'}`}
+                                onClick={confirmToggleAccess}
+                                disabled={actionLoading}
+                            >
+                                {actionLoading ? 'Processing...' : `Yes, ${userToToggle.status === 'active' ? 'Deactivate' : 'Activate'}`}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Profile Modal */}
             {showModal && selectedSpecialist && (
                 <div className="modal-overlay" onClick={closeModal}>
                     <div className="modal-content modern-profile-modal" onClick={(e) => e.stopPropagation()}>
@@ -260,8 +362,7 @@ function SpecialistDirectory() {
                             <i className="bi bi-x-lg"></i>
                         </button>
 
-                        {/* Modal Header with Gradient */}
-                        <div className="modern-profile-header consultant">
+                        <div className="modern-profile-header">
                             <div className="profile-header-bg"></div>
                             <div className="profile-header-content">
                                 <img
@@ -278,16 +379,11 @@ function SpecialistDirectory() {
                                 <h2>{selectedSpecialist.full_name}</h2>
                                 <span className="user-type-badge consultant large">
                                     <i className="bi bi-award"></i>
-                                    IP Consultant
-                                </span>
-                                <span className="expertise-badge large">
-                                    <i className="bi bi-patch-check-fill"></i>
-                                    {selectedSpecialist.expertise_area || selectedSpecialist.specialization || selectedSpecialist.ip_category || 'General'}
+                                    Consultant
                                 </span>
                             </div>
                         </div>
 
-                        {/* Profile Details Grid */}
                         <div className="modern-profile-body">
                             <div className="detail-grid">
                                 <div className="detail-card">
@@ -306,17 +402,17 @@ function SpecialistDirectory() {
                                     </div>
                                     <div className="detail-content">
                                         <label>Contact Number</label>
-                                        <p>{selectedSpecialist.contact || selectedSpecialist.phone || 'Not provided'}</p>
+                                        <p>{selectedSpecialist.contact || 'Not provided'}</p>
                                     </div>
                                 </div>
 
                                 <div className="detail-card">
-                                    <div className="detail-icon experience">
-                                        <i className="bi bi-clock-history"></i>
+                                    <div className="detail-icon building">
+                                        <i className="bi bi-award-fill"></i>
                                     </div>
                                     <div className="detail-content">
-                                        <label>Years of Experience</label>
-                                        <p>{selectedSpecialist.experience || selectedSpecialist.years_experience || 'Not specified'}</p>
+                                        <label>Expertise Area</label>
+                                        <p>{selectedSpecialist.expertise_area || selectedSpecialist.specialization || selectedSpecialist.ip_category || 'Not provided'}</p>
                                     </div>
                                 </div>
 
@@ -325,8 +421,8 @@ function SpecialistDirectory() {
                                         <i className="bi bi-briefcase-fill"></i>
                                     </div>
                                     <div className="detail-content">
-                                        <label>Position</label>
-                                        <p>{selectedSpecialist.position || 'IP Consultant'}</p>
+                                        <label>About</label>
+                                        <p>{selectedSpecialist.about || 'No information provided'}</p>
                                     </div>
                                 </div>
 
@@ -356,14 +452,15 @@ function SpecialistDirectory() {
                                     </div>
                                     <div className="detail-content">
                                         <label>Birthdate</label>
-                                        <p>{selectedSpecialist.birthdate 
-                                            ? new Date(selectedSpecialist.birthdate).toLocaleDateString('en-US', {
-                                                year: 'numeric',
-                                                month: 'long',
-                                                day: 'numeric'
-                                            })
-                                            : 'Not provided'
-                                        }</p>
+                                        <p>
+                                            {selectedSpecialist.birthdate
+                                                ? new Date(selectedSpecialist.birthdate).toLocaleDateString('en-US', {
+                                                    year: 'numeric',
+                                                    month: 'long',
+                                                    day: 'numeric'
+                                                })
+                                                : 'Not provided'}
+                                        </p>
                                     </div>
                                 </div>
 
@@ -373,14 +470,15 @@ function SpecialistDirectory() {
                                     </div>
                                     <div className="detail-content">
                                         <label>Joined Date</label>
-                                        <p>{selectedSpecialist.created_at 
-                                            ? new Date(selectedSpecialist.created_at).toLocaleDateString('en-US', {
-                                                year: 'numeric',
-                                                month: 'long',
-                                                day: 'numeric'
-                                            })
-                                            : 'Not provided'
-                                        }</p>
+                                        <p>
+                                            {selectedSpecialist.created_at
+                                                ? new Date(selectedSpecialist.created_at).toLocaleDateString('en-US', {
+                                                    year: 'numeric',
+                                                    month: 'long',
+                                                    day: 'numeric'
+                                                })
+                                                : 'Not provided'}
+                                        </p>
                                     </div>
                                 </div>
 
@@ -390,8 +488,8 @@ function SpecialistDirectory() {
                                     </div>
                                     <div className="detail-content">
                                         <label>Account Status</label>
-                                        <span className={`status-badge ${(selectedSpecialist.status === 'active' || selectedSpecialist.is_active) ? 'active' : 'inactive'}`}>
-                                            {(selectedSpecialist.status === 'active' || selectedSpecialist.is_active) ? (
+                                        <span className={`status-badge ${selectedSpecialist.status === 'active' ? 'active' : 'inactive'}`}>
+                                            {selectedSpecialist.status === 'active' ? (
                                                 <><i className="bi bi-check-circle-fill"></i> Active</>
                                             ) : (
                                                 <><i className="bi bi-x-circle-fill"></i> Inactive</>
@@ -404,13 +502,13 @@ function SpecialistDirectory() {
 
                         <div className="modal-actions">
                             <button onClick={closeModal} className="btn-close-modal">
-                                <i className="bi bi-x-circle"></i>
-                                Close
+                                <i className="bi bi-x-circle"></i> Close
                             </button>
                         </div>
                     </div>
                 </div>
             )}
+            </div>
         </div>
     );
 }

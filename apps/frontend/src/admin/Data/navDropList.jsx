@@ -1,25 +1,46 @@
+// navDropList.jsx — Admin
+// The old static `badge` string values (e.g. 'Assign', 'Approved') have been
+// removed from all children. Dynamic number badges are injected at render time
+// by AdminSideBar.jsx via the `notifBadge` prop — no changes needed here.
+
 const navDropList = [
   {
     _id: 1,
-    name: 'Project Management',
+    name: 'Application Management',
     icon: 'bi bi-kanban',
     description: 'Manage Project Reviews and Finalization',
     children: [
       {
+        _id: '1-0',
+        name: 'Assign Submission',
+        icon: 'bi bi-person',
+        href: 'main2/AssignSubmission',
+      },
+      {
         _id: '1-1',
-        name: 'Active Reviews',
-        icon: 'bi bi-list-check',
-        href: 'main2/ActiveReviews',
-        badge: 'Reviews'
+        name: 'Approved for Application',
+        icon: 'bi bi-check2-square',
+        href: 'main2/ApprovedforApplication',
       },
       {
         _id: '1-2',
-        name: 'Finalized Projects',
-        icon: 'bi bi-clipboard-check',
-        href: 'main2/FinalizedProjects',
-        badge: 'Finalized'
+        name: 'Active Reviews',
+        icon: 'bi bi-list-check',
+        href: 'main2/ActiveReviews',
       },
-    ]
+      {
+        _id: '1-3',
+        name: 'Resubmission',
+        icon: 'bi bi-arrow-repeat',
+        href: 'main2/AdminResubmission',
+      },
+      {
+        _id: '1-4',
+        name: 'PAS Reports',
+        icon: 'bi bi-file-earmark-bar-graph',
+        href: 'main2/PASReports',
+      },
+    ],
   },
 
   {
@@ -31,52 +52,26 @@ const navDropList = [
     children: [
       {
         _id: '2-1',
-        name: 'Inventor Directory',
-        icon: 'bi bi-person-badge',
-        href: 'main2/InventorDirectory',
-        badge: 'Inventor'
-      },
-      {
-        _id: '2-2',
-        name: 'Specialist Directory',
-        icon: 'bi bi-person-workspace',
-        href: 'main2/SpecialistDirectory',
-        badge: 'Speacialist'
+        name: 'Account Management',
+        icon: 'bi bi-person-lines-fill',
+        href: 'main2/AccountManagement',
       },
       {
         _id: '2-3',
+        name: 'User Directory',
+        icon: 'bi bi-person-badge',
+        href: 'main2/Userdirectory',
+      },
+      {
+        _id: '2-4',
         name: 'Role Permissions',
         icon: 'bi bi-shield-lock',
         href: 'main2/RolePermissions',
-        badge: 'Permissions'
       },
-    ]
+    ],
   },
 
   {
-    _id: 3,
-    name: 'System Records (Formerly Portal Configuration)',
-    icon: 'bi bi-gear',
-    color: '#2563eb',
-    description: 'Portal Configuration',
-    children: [
-      {
-        _id: '3-1',
-        name: 'IP Reference Library',
-        icon: 'bi bi-journal-bookmark',
-        href: 'main2/ReferenceLibrary',
-        badge: 'Reference'
-      },
-      {
-        _id: '3-2',
-        name: 'System Audit Logs',
-        icon: 'bi bi-clipboard-data',
-        href: 'main2/SystemAudit',
-        badge: 'Audit'
-      },
-    ]
-  },
-   {
     _id: 4,
     name: 'Account & Support',
     icon: 'bi bi-person-gear',
@@ -84,20 +79,18 @@ const navDropList = [
     description: 'Account and Support',
     children: [
       {
-        _id: '3-1',
-        name: 'Admin Setting',
-        icon: 'bi bi-gear-wide-connected',
-        href: 'main2/AdminSetting',
-        badge: 'ID'
+        _id: '4-1',
+        name: 'IP Reference Library',
+        icon: 'bi bi-journal-bookmark',
+        href: 'main2/ReferenceLibrary',
       },
       {
-        _id: '3.2',
+        _id: '4-2',
         name: 'Terms & Conditions',
         icon: 'bi bi-file-earmark-text',
         href: 'main2/TermsConditions',
-        badge: 'T&C'
-      }
-    ]
+      },
+    ],
   },
 ];
 

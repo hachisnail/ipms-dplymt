@@ -2,79 +2,55 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import { FaEnvelope, FaLock, FaEye, FaEyeSlash, FaSignInAlt, FaRocket } from 'react-icons/fa';
+import { FaEnvelope, FaLock, FaEye, FaEyeSlash, FaSignInAlt } from 'react-icons/fa';
 import '../styles/Login.css';
+
+// Institution logos — relative to src/
+import cnscLogo from '../image/CNSC.jpg';
+import ipmoLogo from '../image/IPMO.jpg';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3006/api';
 
 const Login = () => {
-    const navigate = useNavigate();
-    const [formData, setFormData] = useState({
-        email: '',
-        password: ''
-    });
+    const navigate  = useNavigate();
+    const [formData, setFormData]       = useState({ email: '', password: '' });
     const [showPassword, setShowPassword] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading]     = useState(false);
 
-    const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        });
-    };
+    const handleChange = (e) =>
+        setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
-
         try {
-            console.log(API_URL+" = vite api url")
-
             const response = await axios.post(`${API_URL}/auth/login`, formData);
-
             if (response.data.success) {
                 const userData = response.data.data;
-                
-                // ✅ CHECK APPROVAL STATUS BEFORE ALLOWING LOGIN
-                if (userData.approval_status === 'pending') {
-                    toast.warning('⏳ Your account is pending admin approval. Please wait for approval before logging in.');
-                    setIsLoading(false);
-                    return;
-                }
-                
-                if (userData.approval_status === 'rejected') {
-                    const reason = userData.rejection_reason || 'No reason provided';
-                    toast.error(`❌ Your account has been rejected. Reason: ${reason}`);
-                    setIsLoading(false);
-                    return;
-                }
 
-                // ✅ Only proceed if approved
+                if (userData.approval_status === 'pending') {
+                    toast.warning('⏳ Your account is pending admin approval. Please wait.');
+                    setIsLoading(false); return;
+                }
+                if (userData.approval_status === 'rejected') {
+                    toast.error(`❌ Account rejected. Reason: ${userData.rejection_reason || 'No reason provided'}`);
+                    setIsLoading(false); return;
+                }
                 if (userData.approval_status !== 'approved') {
                     toast.error('Account status unknown. Please contact support.');
-                    setIsLoading(false);
-                    return;
+                    setIsLoading(false); return;
                 }
-                
-                // Store user data in localStorage
-                localStorage.setItem('token', userData.token);
-                localStorage.setItem('sessionToken', userData.sessionToken);
-                localStorage.setItem('user', JSON.stringify(userData));
 
+                localStorage.setItem('token',        userData.token);
+                localStorage.setItem('sessionToken', userData.sessionToken);
+                localStorage.setItem('user',         JSON.stringify(userData));
                 toast.success(`Welcome back, ${userData.fullName}! 🎉`);
-                
-                // 🎯 ROLE-BASED ROUTING
+
                 setTimeout(() => {
-                    switch(userData.userType) {
-                        case 'INVENTOR':
-                            navigate('/inventor');
-                            break;
-                        case 'CONSULTANT':
-                            navigate('/consultant');
-                            break;
-                        case 'ADMIN':
-                            navigate('/admin');
-                            break;
+                    switch (userData.userType) {
+                        case 'INVENTOR':   navigate('/inventor');   break;
+                        case 'CONSULTANT': navigate('/consultant'); break;
+                        case 'ADMIN':      navigate('/admin');      break;
                         default:
                             navigate('/login');
                             toast.error('Unknown user role. Please contact support.');
@@ -82,16 +58,10 @@ const Login = () => {
                 }, 1000);
             }
         } catch (error) {
-            console.error('Login error:', error);
-            
-            // ✅ Handle specific error messages from backend
             if (error.response?.status === 403) {
-                // Account not approved
-                const message = error.response.data.message || 'Account pending approval';
-                toast.warning(message);
+                toast.warning(error.response.data.message || 'Account pending approval');
             } else {
-                const errorMessage = error.response?.data?.message || 'Login failed. Please try again.';
-                toast.error(errorMessage);
+                toast.error(error.response?.data?.message || 'Login failed. Please try again.');
             }
         } finally {
             setIsLoading(false);
@@ -99,37 +69,64 @@ const Login = () => {
     };
 
     return (
-        <div className="login-container">
-            <div className="login-background">
-                <div className="floating-shape shape-1"></div>
-                <div className="floating-shape shape-2"></div>
-                <div className="floating-shape shape-3"></div>
+        <div className="login-page">
+
+            {/* ══════════════════════════════════════════
+                LEFT — Branding panel
+            ══════════════════════════════════════════ */}
+            <div className="login-panel-brand">
+                <div className="lp-brand-ring" />
+
+                <div className="lp-brand-inner">
+
+                    {/* Heading */}
+                    <span className="lp-eyebrow">Camarines Norte State College</span>
+                    <h2 className="lp-brand-title">
+                        Intellectual Property<br />Management System
+                    </h2>
+                    <p className="lp-brand-sub">
+                        Secure, efficient, and streamlined IP protection
+                        for innovators, consultants, and administrators.
+                    </p>
+
+                    {/* Logos — below title */}
+                    <div className="lp-logos-row">
+                        <div className="lp-logo-wrap">
+                            <img src={cnscLogo} alt="CNSC Logo" className="lp-inst-logo" />
+                        </div>
+                        <div className="lp-logo-divider" />
+                        <div className="lp-logo-wrap">
+                            <img src={ipmoLogo} alt="IPMO Logo" className="lp-inst-logo" />
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
-            <div className="login-content">
-                <div className="login-card">
-                    <div className="login-header">
-                        <div className="logo-container">
-                            <FaRocket className="logo-icon" />
-                        </div>
-                        <h1>Welcome Back!</h1>
-                        <p>Sign in to continue to IP Management System</p>
+            {/* ══════════════════════════════════════════
+                RIGHT — Form panel
+            ══════════════════════════════════════════ */}
+            <div className="login-panel-form">
+                <div className="lp-form-wrap">
+
+                    <div className="lp-form-header">
+                        <h1>Welcome Back</h1>
+                        <p>Sign in to continue to the IPMO portal</p>
+                        <div className="lp-divider" />
                     </div>
 
                     <form onSubmit={handleSubmit} className="login-form">
+
                         <div className="form-group">
                             <label htmlFor="email">
                                 <FaEnvelope /> Email Address
                             </label>
                             <input
-                                type="email"
-                                id="email"
-                                name="email"
+                                type="email" id="email" name="email"
                                 placeholder="Enter your email"
                                 value={formData.email}
                                 onChange={handleChange}
-                                required
-                                disabled={isLoading}
+                                required disabled={isLoading}
                             />
                         </div>
 
@@ -140,17 +137,14 @@ const Login = () => {
                             <div className="password-input-wrapper">
                                 <input
                                     type={showPassword ? 'text' : 'password'}
-                                    id="password"
-                                    name="password"
+                                    id="password" name="password"
                                     placeholder="Enter your password"
                                     value={formData.password}
                                     onChange={handleChange}
-                                    required
-                                    disabled={isLoading}
+                                    required disabled={isLoading}
                                 />
                                 <button
-                                    type="button"
-                                    className="password-toggle"
+                                    type="button" className="password-toggle"
                                     onClick={() => setShowPassword(!showPassword)}
                                     disabled={isLoading}
                                 >
@@ -159,54 +153,19 @@ const Login = () => {
                             </div>
                         </div>
 
-                        <button
-                            type="submit"
-                            className="login-button"
-                            disabled={isLoading}
-                        >
-                            {isLoading ? (
-                                <>
-                                    <span className="spinner"></span>
-                                    Signing In...
-                                </>
-                            ) : (
-                                <>
-                                    <FaSignInAlt /> Sign In
-                                </>
-                            )}
+                        <button type="submit" className="login-button" disabled={isLoading}>
+                            {isLoading
+                                ? <><span className="spinner" /> Signing In…</>
+                                : <><FaSignInAlt /> Sign In</>
+                            }
                         </button>
                     </form>
 
                     <div className="login-footer">
                         <p>Don't have an account?</p>
-                        <Link to="/signup" className="signup-link">
-                            Create Account
-                        </Link>
+                        <Link to="/signup" className="signup-link">Create Account</Link>
                     </div>
-                </div>
 
-                <div className="login-info">
-                    <div className="info-card">
-                        <h2>Intellectual Property Management System</h2>
-                        <p>Secure, efficient, and streamlined IP protection for innovators and consultants.</p>
-                        <div className="features">
-                            <div className="feature">
-                                <div className="feature-icon">🎨</div>
-                                <h3>For Inventors</h3>
-                                <p>Submit and track your innovative designs</p>
-                            </div>
-                            <div className="feature">
-                                <div className="feature-icon">💼</div>
-                                <h3>For Consultants</h3>
-                                <p>Review and evaluate IP submissions</p>
-                            </div>
-                            <div className="feature">
-                                <div className="feature-icon">🔒</div>
-                                <h3>For Admins</h3>
-                                <p>Manage and oversee the entire system</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

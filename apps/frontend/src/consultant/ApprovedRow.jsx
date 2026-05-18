@@ -1,164 +1,63 @@
-import './TableView.css';
+// ApprovedRow.jsx — single table row for the Approved for Filing list.
+// Table style matches UnderReview pages exactly (ur-* classes).
+import { useState } from 'react';
+import ApprovedReviewPanel from './ApprovedReviewPanel';
+import './UnderReview.css';
+import './ApprovedReview.css';
 
-const ApprovedRow = ({ project }) => {
-    const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3006/api';
+const fmt = d => d
+    ? new Date(d).toLocaleDateString('en-PH', { year:'numeric', month:'short', day:'numeric' })
+    : 'N/A';
 
-    // Handle downloading all files
-    const handleDownloadAll = async () => {
-        const hasFiles = project.official_form_path || project.design_image_path;
-        
-        if (!hasFiles) {
-            alert('No files available for download');
-            return;
-        }
+const IP_LABEL  = { um: 'Utility Model', id: 'Industrial Design', tm: 'Trademark', cr: 'Copyright' };
+const REF_PREFIX = { um: 'UM', id: 'ID', tm: 'TM', cr: 'CR' };
 
-        // Helper function to download a file
-        const downloadFile = (filePath, fileName) => {
-            const fileUrl = `${API_BASE_URL.replace('/api', '')}/uploads/${filePath}`;
-            const link = document.createElement('a');
-            link.href = fileUrl;
-            link.download = fileName || filePath;
-            link.target = '_blank';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        };
+export default function ApprovedRow({ project, ipType = 'um' }) {
+    const [open, setOpen] = useState(false);
 
-        // Download official form if exists
-        if (project.official_form_path) {
-            downloadFile(
-                project.official_form_path, 
-                `${project.title}_Official_Form.pdf`
-            );
-            
-            // Small delay between downloads to avoid browser blocking
-            await new Promise(resolve => setTimeout(resolve, 500));
-        }
-
-        // Download design image if exists
-        if (project.design_image_path) {
-            downloadFile(
-                project.design_image_path, 
-                `${project.title}_Design_Image`
-            );
-        }
-
-        // Show success notification
-        const fileCount = (project.official_form_path ? 1 : 0) + (project.design_image_path ? 1 : 0);
-        alert(`✅ Downloading ${fileCount} file(s) for Project ${project.id}: ${project.title}`);
-    };
-
-    // Handle clicking on image thumbnail to view full size
-    const handleImageClick = (imagePath) => {
-        if (imagePath) {
-            const imageUrl = `${API_BASE_URL.replace('/api', '')}/uploads/${imagePath}`;
-            window.open(imageUrl, '_blank');
-        }
-    };
-
-    // Handle clicking on PDF to view
-    const handlePDFClick = (pdfPath) => {
-        if (pdfPath) {
-            const pdfUrl = `${API_BASE_URL.replace('/api', '')}/uploads/${pdfPath}`;
-            window.open(pdfUrl, '_blank');
-        }
-    };
+    const refId   = `${REF_PREFIX[ipType]}-${project.id}`;
+    const subType = project.ip_type || project.mark_type || project.work_type || project.project_type || '—';
 
     return (
-        <tr>
-            {/* ID Column */}
-            <td data-label="ID">
-                <span className="id-badge">{project.id}</span>
-            </td>
+        <>
+            <tr>
+                <td>
+                    <span className="ur-ref-badge">{refId}</span>
+                </td>
+                <td style={{ fontWeight: 700 }}>{project.title || 'N/A'}</td>
+                <td>
+                    <div style={{ fontWeight: 700, fontSize: 13 }}>{project.inventor_name || 'N/A'}</div>
+                    <div style={{ fontSize: 11, color: 'var(--text-soft)' }}>{project.inventor_email || ''}</div>
+                </td>
+                <td>
+                    <span className="ur-status-badge ready">
+                        <i className="bi bi-check-circle-fill"></i>Approved for Filing
+                    </span>
+                </td>
+                <td>
+                    <span style={{
+                        display: 'inline-block', padding: '3px 10px',
+                        background: '#f1f5f9', borderRadius: 'var(--r-pill)',
+                        fontSize: 12, fontWeight: 600, color: 'var(--text-mid)',
+                    }}>{subType}</span>
+                </td>
+                <td style={{ fontFamily: 'var(--mono)', fontSize: 12 }}>{fmt(project.approval_date)}</td>
+                <td>
+                    <button className="ur-review-btn" onClick={() => setOpen(true)}>
+                        <i className="bi bi-file-earmark-arrow-up"></i>
+                        View &amp; Submit PAS
+                    </button>
+                </td>
+            </tr>
 
-            {/* Title Column */}
-            <td data-label="TITLE">
-                <div className="title-cell">
-                    {project.title || 'N/A'}
-                </div>
-            </td>
-
-            {/* Description Column */}
-            <td data-label="DESCRIPTION">
-                <div className="description-cell">
-                    {project.description || 'N/A'}
-                </div>
-            </td>
-            
-            {/* Status Column */}
-            <td data-label="STATUS">
-                <span className="status-badge approved-for-filing">
-                    <i className="bi bi-check-circle me-1"></i>
-                    Approved for Filing
-                </span>
-            </td>
-            
-            {/* Design Type Column */}
-            <td data-label="DESIGN TYPE">
-                <span className="type-cell">{project.design_type || 'N/A'}</span>
-            </td>
-
-            {/* Approval Date Column */}
-            <td data-label="APPROVAL DATE">
-                <span className="date-cell">
-                    {project.approval_date ? new Date(project.approval_date).toLocaleDateString() : 'N/A'}
-                </span>
-            </td>
-
-            {/* Image Column - Only Thumbnail (Clickable to View) */}
-            <td data-label="IMAGE">
-                {project.design_image_path ? (
-                    <div className="image-preview-wrapper">
-                        <img
-                            src={`${API_BASE_URL.replace('/api', '')}/uploads/${project.design_image_path}`}
-                            alt="Design Preview"
-                            className="table-image clickable"
-                            onClick={() => handleImageClick(project.design_image_path)}
-                            title="Click to view full size"
-                            onError={(e) => {
-                                e.target.src = 'https://via.placeholder.com/70?text=No+Image';
-                                e.target.alt = 'Image not found';
-                            }}
-                        />
-                        <div className="preview-overlay">
-                            <i className="bi bi-zoom-in"></i>
-                        </div>
-                    </div>
-                ) : (
-                    <span className="no-data">No image</span>
-                )}
-            </td>
-
-            {/* PDF Column - Only Icon (Clickable to View) */}
-            <td data-label="PDF FILE">
-                {project.official_form_path ? (
-                    <div 
-                        className="pdf-preview clickable" 
-                        onClick={() => handlePDFClick(project.official_form_path)}
-                        title="Click to view PDF"
-                    >
-                        <i className="bi bi-file-earmark-pdf-fill pdf-icon-large"></i>
-                        <span className="pdf-text">PDF</span>
-                    </div>
-                ) : (
-                    <span className="no-data">No file</span>
-                )}
-            </td>
-
-            {/* Action Column - Only Download All button */}
-            <td data-label="ACTION">
-                <button 
-                    className="download-all-btn" 
-                    onClick={handleDownloadAll}
-                    aria-label="Download all documents"
-                    title="Download complete submission package"
-                >
-                    <i className="bi bi-download"></i>
-                    <span>Download All</span>
-                </button>
-            </td>
-        </tr>
+            {open && (
+                <ApprovedReviewPanel
+                    project={project}
+                    ipType={ipType}
+                    refId={refId}
+                    onClose={() => setOpen(false)}
+                />
+            )}
+        </>
     );
-};
-
-export default ApprovedRow;
+}

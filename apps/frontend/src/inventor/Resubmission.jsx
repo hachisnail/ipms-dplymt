@@ -1,624 +1,454 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import './Resubmission.css';
+import './InventorResubmission.css';
 
-const Resubmission = () => {
-  const [resubmissions, setResubmissions] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [selectedResubmission, setSelectedResubmission] = useState(null);
-  const [showSubmitModal, setShowSubmitModal] = useState(false);
-  const [contactFile, setContactFile] = useState(null);
-  const [designFile, setDesignFile] = useState(null);
-  const [descriptionFile, setDescriptionFile] = useState(null);
-  const [remarks, setRemarks] = useState('');
-  const [submitting, setSubmitting] = useState(false);
+// ── URL normalizer ────────────────────────────────────────────────────────────
+const _RAW     = (import.meta.env.VITE_API_URL || 'http://localhost:3006').replace(/\/$/, '');
+const API_BASE = _RAW.endsWith('/api') ? _RAW.slice(0, -4) : _RAW;
+const API      = `${API_BASE}/api`;
 
-  const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3006/api';
+const hdrs = () => ({ Authorization: `Bearer ${localStorage.getItem('token') || ''}` });
+const fmt  = d => d
+    ? new Date(d).toLocaleDateString('en-PH', { year: 'numeric', month: 'short', day: 'numeric' })
+    : 'N/A';
 
-  const getIpTypeCode = (ipType) => {
-    const mapping = {
-      'Copyright': 'cr',
-      'Trademark': 'tm',
-      'Industrial Design': 'id',
-      'Utility Model': 'um'
-    };
-    return mapping[ipType] || 'cr';
-  };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const userId = localStorage.getItem('userId');
-        const token = localStorage.getItem('token');
-        
-        console.log('🔍 Checking credentials:', { 
-          userId, 
-          hasToken: !!token
-        });
-        
-        if (!userId || !token) {
-          const sessionUserId = sessionStorage.getItem('userId');
-          const sessionToken = sessionStorage.getItem('token');
-          
-          if (!sessionUserId || !sessionToken) {
-            console.error('❌ No credentials found');
-            setError('Please login first');
-            setLoading(false);
-            return;
-          }
-          
-          console.log('✅ Using sessionStorage credentials');
-          await fetchResubmissions(sessionUserId, sessionToken);
-          return;
-        }
-        
-        await fetchResubmissions(userId, token);
-        
-      } catch (err) {
-        console.error('❌ Error in fetchData:', err);
-        setError(err.response?.data?.error || err.message || 'Failed to load data');
-        setLoading(false);
-      }
-    };
-    
-    fetchData();
-  }, []);
-
-  const fetchResubmissions = async (userId, token) => {
-    console.log(`📥 Fetching resubmissions for user ${userId}...`);
-    
-    const response = await axios.get(
-      `${API_BASE_URL}/inventor-resubmissions/${userId}`,
-      { 
-        headers: { 
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      }
-    );
-    
-    console.log('📦 Response:', response.data);
-    
-    if (response.data.success && response.data.data) {
-      setResubmissions(response.data.data);
-      console.log(`✅ Loaded ${response.data.data.length} resubmissions`);
-    } else {
-      setResubmissions([]);
-      console.log('ℹ️ No resubmissions found');
-    }
-    
-    setLoading(false);
-  };
-
-  const handleSubmit = async () => {
-    if (!remarks.trim()) {
-      alert('Please provide remarks explaining what you corrected');
-      return;
-    }
-
-    // Validate required files
-    if (selectedResubmission.missing_inventor_details && !contactFile) {
-      alert('You must upload the Inventor Contact Document');
-      return;
-    }
-
-    if (selectedResubmission.missing_design_views && !designFile) {
-      alert('You must upload the Design Views Document');
-      return;
-    }
-
-    if (selectedResubmission.missing_description && !descriptionFile) {
-      alert('You must upload the Description Document');
-      return;
-    }
-
-    try {
-      setSubmitting(true);
-
-      const formData = new FormData();
-      if (contactFile) formData.append('contactFile', contactFile);
-      if (designFile) formData.append('designFile', designFile);
-      if (descriptionFile) formData.append('descriptionFile', descriptionFile);
-      formData.append('remarks', remarks);
-
-      const ipTypeCode = getIpTypeCode(selectedResubmission.ip_type);
-      const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-
-      const response = await axios.post(
-        `${API_BASE_URL}/resubmission/${ipTypeCode}/${selectedResubmission.id}/submit`,
-        formData,
-        {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'multipart/form-data'
-          }
-        }
-      );
-
-      if (response.data.success) {
-        alert('✅ Re-submission submitted successfully! The consultant will be notified.');
-        setShowSubmitModal(false);
-        // Reset form
-        setContactFile(null);
-        setDesignFile(null);
-        setDescriptionFile(null);
-        setRemarks('');
-        // Refresh data
-        const userId = localStorage.getItem('userId') || sessionStorage.getItem('userId');
-        await fetchResubmissions(userId, token);
-      }
-    } catch (err) {
-      console.error('❌ Submit error:', err);
-      alert(err.response?.data?.error || 'Failed to submit re-submission');
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  const getStatusBadgeStyle = (status) => {
-    const styles = {
-      'Pending Resubmission': { bg: '#fef3c7', color: '#92400e', icon: '⏳' },
-      'Resubmitted': { bg: '#dbeafe', color: '#1e40af', icon: '📤' },
-      'Received by Consultant': { bg: '#e0e7ff', color: '#3730a3', icon: '📥' },
-      'Under Re-review': { bg: '#fef3c7', color: '#92400e', icon: '🔍' },
-      'Approved': { bg: '#d1fae5', color: '#065f46', icon: '✅' },
-      'Rejected Again': { bg: '#fee2e2', color: '#991b1b', icon: '❌' }
-    };
-    return styles[status] || { bg: '#f3f4f6', color: '#374151', icon: '📋' };
-  };
-
-  if (loading) {
-    return (
-      <div className="loading-container">
-        <div className="spinner"></div>
-        <p style={{marginTop: '1rem', fontSize: '1.125rem', color: '#6b7280'}}>Loading your re-submissions...</p>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="loading-container">
-        <div className="alert alert-danger">
-          <i className="fas fa-exclamation-circle me-2"></i>
-          {error}
-        </div>
-      </div>
-    );
-  }
-
-  const stats = {
-    total: resubmissions.length,
-    pending: resubmissions.filter(r => r.resubmission_status === 'Pending Resubmission').length,
-    submitted: resubmissions.filter(r => ['Resubmitted', 'Received by Consultant', 'Under Re-review'].includes(r.resubmission_status)).length,
-    completed: resubmissions.filter(r => ['Approved', 'Rejected Again'].includes(r.resubmission_status)).length
-  };
-
-  return (
-    <div className="resubmission-portal">
-      {/* Header */}
-      <div className="portal-header">
-        <h1>
-          <i className="fas fa-redo-alt"></i>
-          Re-submission Portal
-        </h1>
-        <p className="subtitle">
-          Complete and resubmit your IP applications that require additional information
-        </p>
-      </div>
-
-      {/* No Re-submissions State */}
-      {resubmissions.length === 0 ? (
-        <div className="no-resubmissions">
-          <i className="fas fa-check-circle"></i>
-          <h3>All Clear!</h3>
-          <p>You don't have any pending re-submissions at this time.</p>
-        </div>
-      ) : (
-        <>
-          {/* Stats Bar */}
-          <div className="stats-bar">
-            <div className="stat-item">
-              <span className="stat-number">{stats.total}</span>
-              <span className="stat-label">Total Re-submissions</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-number">{stats.pending}</span>
-              <span className="stat-label">Action Required</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-number">{stats.submitted}</span>
-              <span className="stat-label">In Progress</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-number">{stats.completed}</span>
-              <span className="stat-label">Completed</span>
-            </div>
-          </div>
-
-          {/* Re-submissions Grid */}
-          <div className="resubmissions-grid">
-            {resubmissions.map((resub) => {
-              const statusStyle = getStatusBadgeStyle(resub.resubmission_status);
-              const isActionRequired = resub.resubmission_status === 'Pending Resubmission';
-
-              return (
-                <div 
-                  key={`${resub.ip_type}-${resub.id}`} 
-                  className={`resubmission-card ${isActionRequired ? 'action-required' : ''}`}
-                >
-                  {/* Card Header */}
-                  <div className="card-header">
-                    <div className="header-left">
-                      <h3>{resub.title || 'Untitled Submission'}</h3>
-                      <span className="ip-type-badge">{resub.ip_type}</span>
-                    </div>
-                    <span 
-                      className="status-badge"
-                      style={{
-                        background: statusStyle.bg,
-                        color: statusStyle.color
-                      }}
-                    >
-                      {statusStyle.icon} {resub.resubmission_status}
-                    </span>
-                  </div>
-
-                  {/* Card Body */}
-                  <div className="card-body">
-                    <div className="info-row">
-                      <i className="fas fa-hashtag"></i>
-                      <span>Resubmission #{resub.resubmission_number}</span>
-                    </div>
-
-                    <div className="info-row">
-                      <i className="fas fa-calendar-alt"></i>
-                      <span>Created: {new Date(resub.created_at).toLocaleDateString('en-US', {
-                        month: 'long', day: 'numeric', year: 'numeric'
-                      })}</span>
-                    </div>
-
-                    {resub.resubmission_deadline && (
-                      <div className="info-row">
-                        <i className="fas fa-clock"></i>
-                        <span>Deadline: {new Date(resub.resubmission_deadline).toLocaleDateString('en-US', {
-                          month: 'long', day: 'numeric', year: 'numeric'
-                        })}</span>
-                      </div>
-                    )}
-
-                    {/* Missing Requirements */}
-                    {(resub.missing_inventor_details || resub.missing_design_views || resub.missing_description) && (
-                      <div className="missing-requirements">
-                        <h4>
-                          <i className="fas fa-exclamation-triangle me-2"></i>
-                          Missing Requirements
-                        </h4>
-                        <ul>
-                          {resub.missing_inventor_details && (
-                            <li className="missing-item">
-                              <i className="fas fa-times-circle"></i>
-                              <span>Inventor Contact Details</span>
-                            </li>
-                          )}
-                          {resub.missing_design_views && (
-                            <li className="missing-item">
-                              <i className="fas fa-times-circle"></i>
-                              <span>Design Views/Images</span>
-                            </li>
-                          )}
-                          {resub.missing_description && (
-                            <li className="missing-item">
-                              <i className="fas fa-times-circle"></i>
-                              <span>Detailed Description</span>
-                            </li>
-                          )}
-                        </ul>
-                      </div>
-                    )}
-
-                    {/* Consultant Comments */}
-                    {resub.resubmission_notes && (
-                      <div className="consultant-comments">
-                        <h4>
-                          <i className="fas fa-comment-dots me-2"></i>
-                          Consultant's Feedback
-                        </h4>
-                        <p>{resub.resubmission_notes}</p>
-                      </div>
-                    )}
-
-                    {/* Your Previous Remarks */}
-                    {resub.applicant_remarks && (
-                      <div style={{
-                        marginTop: '1rem',
-                        padding: '1rem',
-                        background: '#f0fdf4',
-                        borderRadius: '0.5rem',
-                        borderLeft: '4px solid #10b981'
-                      }}>
-                        <h4 style={{
-                          fontSize: '0.9375rem',
-                          color: '#065f46',
-                          margin: '0 0 0.5rem 0',
-                          display: 'flex',
-                          alignItems: 'center'
-                        }}>
-                          <i className="fas fa-reply me-2"></i>
-                          Your Remarks
-                        </h4>
-                        <p style={{margin: 0, color: '#047857', fontSize: '0.875rem'}}>
-                          {resub.applicant_remarks}
-                        </p>
-                      </div>
-                    )}
-
-                    {/* Final Decision */}
-                    {resub.consultant_remarks && ['Approved', 'Rejected Again'].includes(resub.resubmission_status) && (
-                      <div style={{
-                        marginTop: '1rem',
-                        padding: '1rem',
-                        background: resub.resubmission_status === 'Approved' ? '#f0fdf4' : '#fef2f2',
-                        borderRadius: '0.5rem',
-                        borderLeft: `4px solid ${resub.resubmission_status === 'Approved' ? '#10b981' : '#ef4444'}`
-                      }}>
-                        <h4 style={{
-                          fontSize: '0.9375rem',
-                          color: resub.resubmission_status === 'Approved' ? '#065f46' : '#991b1b',
-                          margin: '0 0 0.5rem 0',
-                          display: 'flex',
-                          alignItems: 'center'
-                        }}>
-                          <i className="fas fa-gavel me-2"></i>
-                          Final Decision
-                        </h4>
-                        <p style={{
-                          margin: 0,
-                          color: resub.resubmission_status === 'Approved' ? '#047857' : '#991b1b',
-                          fontSize: '0.875rem'
-                        }}>
-                          {resub.consultant_remarks}
-                        </p>
-                      </div>
-                    )}
-
-                    {/* Timestamps */}
-                    <div className="timestamp-info">
-                      {resub.resubmission_date && (
-                        <>
-                          <i className="fas fa-upload"></i>
-                          <span>Submitted: {new Date(resub.resubmission_date).toLocaleDateString()}</span>
-                        </>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Card Footer */}
-                  <div className="card-footer">
-                    {isActionRequired && (
-                      <button
-                        className="btn btn-primary btn-lg"
-                        onClick={() => {
-                          setSelectedResubmission(resub);
-                          setShowSubmitModal(true);
-                          setContactFile(null);
-                          setDesignFile(null);
-                          setDescriptionFile(null);
-                          setRemarks('');
-                        }}
-                      >
-                        <i className="fas fa-upload me-2"></i>
-                        Submit Re-submission
-                      </button>
-                    )}
-
-                    {!isActionRequired && (
-                      <button
-                        className="btn btn-secondary"
-                        style={{cursor: 'default', opacity: 0.7}}
-                        disabled
-                      >
-                        <i className="fas fa-hourglass-half me-2"></i>
-                        {resub.resubmission_status}
-                      </button>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </>
-      )}
-
-      {/* Submit Modal */}
-      {showSubmitModal && selectedResubmission && (
-        <div className="modal-overlay" onClick={() => setShowSubmitModal(false)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            {/* Close Button */}
-            <button 
-              className="close-btn"
-              onClick={() => setShowSubmitModal(false)}
-            >
-              ✕
-            </button>
-
-            {/* Modal Header */}
-            <div className="modal-header">
-              <h2>
-                <i className="fas fa-upload me-2"></i>
-                Submit Re-submission
-              </h2>
-              <h3>{selectedResubmission.title || 'Untitled'}</h3>
-              <span className="ip-type-badge large">{selectedResubmission.ip_type}</span>
-            </div>
-
-            {/* Modal Body - Form */}
-            <form className="resubmission-form" onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
-              {/* Info Box */}
-              <div className="info-box">
-                <h4>
-                  <i className="fas fa-info-circle me-2"></i>
-                  Instructions
-                </h4>
-                <p>
-                  Please upload the corrected documents as requested and provide a brief explanation
-                  of the changes you made. Required files are marked with an asterisk (*).
-                </p>
-              </div>
-
-              {/* Original Feedback */}
-              {selectedResubmission.resubmission_notes && (
-                <div style={{
-                  padding: '1rem',
-                  background: '#fef3c7',
-                  borderLeft: '4px solid #f59e0b',
-                  borderRadius: '0.5rem',
-                  marginBottom: '1.5rem'
-                }}>
-                  <h4 style={{
-                    fontSize: '0.9375rem',
-                    color: '#92400e',
-                    margin: '0 0 0.5rem 0',
-                    display: 'flex',
-                    alignItems: 'center'
-                  }}>
-                    <i className="fas fa-comment-alt me-2"></i>
-                    Consultant's Feedback
-                  </h4>
-                  <p style={{margin: 0, color: '#92400e', fontSize: '0.875rem', lineHeight: 1.6}}>
-                    {selectedResubmission.resubmission_notes}
-                  </p>
-                </div>
-              )}
-
-              {/* File Uploads */}
-              {selectedResubmission.missing_inventor_details && (
-                <div className="form-group">
-                  <label className="required">
-                    <i className="fas fa-user-circle me-2"></i>
-                    Inventor Contact Document
-                  </label>
-                  <input
-                    type="file"
-                    className="file-input"
-                    accept=".pdf,.doc,.docx"
-                    onChange={(e) => setContactFile(e.target.files[0])}
-                  />
-                  {contactFile && (
-                    <div className="file-selected">
-                      <i className="fas fa-check-circle me-2"></i>
-                      Selected: {contactFile.name}
-                    </div>
-                  )}
-                  <small className="form-help">
-                    Upload complete inventor/applicant contact information (PDF, DOC, DOCX)
-                  </small>
-                </div>
-              )}
-
-              {selectedResubmission.missing_design_views && (
-                <div className="form-group">
-                  <label className="required">
-                    <i className="fas fa-images me-2"></i>
-                    Design Views/Images
-                  </label>
-                  <input
-                    type="file"
-                    className="file-input"
-                    accept=".pdf,.jpg,.jpeg,.png,.zip"
-                    onChange={(e) => setDesignFile(e.target.files[0])}
-                  />
-                  {designFile && (
-                    <div className="file-selected">
-                      <i className="fas fa-check-circle me-2"></i>
-                      Selected: {designFile.name}
-                    </div>
-                  )}
-                  <small className="form-help">
-                    Upload all required design views (PDF, JPG, PNG, or ZIP file)
-                  </small>
-                </div>
-              )}
-
-              {selectedResubmission.missing_description && (
-                <div className="form-group">
-                  <label className="required">
-                    <i className="fas fa-file-alt me-2"></i>
-                    Detailed Description
-                  </label>
-                  <input
-                    type="file"
-                    className="file-input"
-                    accept=".pdf,.doc,.docx"
-                    onChange={(e) => setDescriptionFile(e.target.files[0])}
-                  />
-                  {descriptionFile && (
-                    <div className="file-selected">
-                      <i className="fas fa-check-circle me-2"></i>
-                      Selected: {descriptionFile.name}
-                    </div>
-                  )}
-                  <small className="form-help">
-                    Upload detailed description/specification (PDF, DOC, DOCX)
-                  </small>
-                </div>
-              )}
-
-              {/* Remarks */}
-              <div className="form-group">
-                <label className="required">
-                  <i className="fas fa-comment-dots me-2"></i>
-                  Your Remarks
-                </label>
-                <textarea
-                  className="form-textarea"
-                  rows="5"
-                  placeholder="Explain what corrections you made and how you addressed the consultant's feedback..."
-                  value={remarks}
-                  onChange={(e) => setRemarks(e.target.value)}
-                  required
-                />
-                <small className="form-help">
-                  Please provide a clear explanation of the changes you made to address the feedback.
-                </small>
-              </div>
-
-              {/* Form Actions */}
-              <div className="form-actions">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  onClick={() => setShowSubmitModal(false)}
-                  disabled={submitting}
-                >
-                  <i className="fas fa-times me-2"></i>
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="btn btn-success btn-lg"
-                  disabled={submitting}
-                >
-                  {submitting ? (
-                    <>
-                      <span className="spinner-border spinner-border-sm me-2"></span>
-                      Submitting...
-                    </>
-                  ) : (
-                    <>
-                      <i className="fas fa-paper-plane me-2"></i>
-                      Submit Re-submission
-                    </>
-                  )}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-    </div>
-  );
+// ── Document field map per IP type ────────────────────────────────────────────
+const DOC_FIELD_MAP = {
+    um: {
+        chk_cover_letter    : { label: 'Endorsement / Cover Letter',       fieldName: 'endorsementLetter', dbCol: 'endorsement_letter_path', accept: '.pdf,.doc,.docx' },
+        chk_disclosure_form : { label: 'Technology Disclosure Form',        fieldName: 'disclosureForm',    dbCol: 'disclosure_form_path',    accept: '.pdf,.doc,.docx' },
+        chk_drawings        : { label: 'Drawings / Illustrations',          fieldName: 'drawings',          dbCol: 'drawings_path',           accept: '.pdf,.jpg,.jpeg,.png,.zip' },
+        chk_description     : { label: 'Description is Clear',              fieldName: 'disclosureForm',    dbCol: 'disclosure_form_path',    accept: '.pdf,.doc,.docx' },
+        chk_inventor_details: { label: 'Inventor Details Verified',         fieldName: 'disclosureForm',    dbCol: 'disclosure_form_path',    accept: '.pdf,.doc,.docx' },
+        chk_gov_id          : { label: 'Government-Issued ID Attached',     fieldName: 'governmentId',      dbCol: 'government_id_path',      accept: '.pdf,.jpg,.jpeg,.png' },
+    },
+    id: {
+        chk_cover_letter    : { label: 'Endorsement / Cover Letter',        fieldName: 'endorsementLetter', dbCol: 'endorsement_letter_path', accept: '.pdf,.doc,.docx' },
+        chk_disclosure_form : { label: 'Technology Disclosure Form',        fieldName: 'disclosureForm',    dbCol: 'disclosure_form_path',    accept: '.pdf,.doc,.docx' },
+        chk_all_views       : { label: 'All-View Photos / Illustrations',   fieldName: 'drawings',          dbCol: 'drawings_path',           accept: '.pdf,.jpg,.jpeg,.png,.zip' },
+        chk_description     : { label: 'Ornamental Description',            fieldName: 'disclosureForm',    dbCol: 'disclosure_form_path',    accept: '.pdf,.doc,.docx' },
+        chk_inventor_details: { label: 'Designer Details Verified',         fieldName: 'disclosureForm',    dbCol: 'disclosure_form_path',    accept: '.pdf,.doc,.docx' },
+        chk_gov_id          : { label: 'Government-Issued ID Attached',     fieldName: 'governmentId',      dbCol: 'government_id_path',      accept: '.pdf,.jpg,.jpeg,.png' },
+    },
+    tm: {
+        chk_cover_letter    : { label: 'Endorsement / Cover Letter',        fieldName: 'endorsementLetter', dbCol: 'endorsement_letter_path', accept: '.pdf,.doc,.docx' },
+        chk_ipophl_form     : { label: 'IPOPHL Trademark Application Form', fieldName: 'applicationForm',   dbCol: 'application_form_path',   accept: '.pdf,.doc,.docx' },
+        chk_specimen        : { label: 'Specimen / Sample of Mark',         fieldName: 'specimen',          dbCol: 'specimen_path',           accept: '.pdf,.jpg,.jpeg,.png' },
+        chk_mark_type       : { label: 'Mark Type Specified',               fieldName: 'applicationForm',   dbCol: 'application_form_path',   accept: '.pdf,.doc,.docx' },
+        chk_goods_services  : { label: 'Goods / Services Listed',           fieldName: 'applicationForm',   dbCol: 'application_form_path',   accept: '.pdf,.doc,.docx' },
+        chk_inventor_details: { label: 'Applicant Details Verified',        fieldName: 'endorsementLetter', dbCol: 'endorsement_letter_path', accept: '.pdf,.doc,.docx' },
+        chk_gov_id          : { label: 'Government-Issued ID Attached',     fieldName: 'governmentId',      dbCol: 'government_id_path',      accept: '.pdf,.jpg,.jpeg,.png' },
+    },
+    cr: {
+        chk_cover_letter    : { label: 'Endorsement / Cover Letter',              fieldName: 'endorsementLetter', dbCol: 'endorsement_letter_path', accept: '.pdf,.doc,.docx' },
+        chk_bcrr1           : { label: 'BCRR Copyright Enrollment Form (4 sets)', fieldName: 'bcrrForm',          dbCol: 'bcrr_form_path',          accept: '.pdf,.zip' },
+        chk_bcrr2           : { label: 'BCRR Form 2 Supplemental Form (4 sets)',  fieldName: 'bcrrForm2',         dbCol: 'bcrr_form2_path',         accept: '.pdf,.zip' },
+        chk_deed            : { label: 'Notarized Deed of Assignment (4 sets)',   fieldName: 'deedOfAssignment',  dbCol: 'deed_of_assignment_path', accept: '.pdf,.zip' },
+        chk_author_id       : { label: "Author's Gov-ID signed 3× (4 sets)",     fieldName: 'authorId',          dbCol: 'author_id_path',          accept: '.pdf,.jpg,.jpeg,.png,.zip' },
+        chk_creative_work   : { label: 'Copy of Creative Work (4 sets)',          fieldName: 'creativeWork',      dbCol: 'creative_work_path',      accept: '.pdf,.zip,.doc,.docx' },
+        chk_work_type       : { label: 'Work Type Correctly Identified',          fieldName: 'bcrrForm',          dbCol: 'bcrr_form_path',          accept: '.pdf,.zip' },
+        chk_inventor_details: { label: 'Author / Creator Details Verified',       fieldName: 'endorsementLetter', dbCol: 'endorsement_letter_path', accept: '.pdf,.doc,.docx' },
+    },
 };
 
-export default Resubmission;
+const IP_LABEL   = { um: 'Utility Model', id: 'Industrial Design', tm: 'Trademark', cr: 'Copyright' };
+const REF_PREFIX = { um: 'UM', id: 'ID', tm: 'TM', cr: 'CR' };
+const PREFIX_MAP = {
+    'Utility Model'    : 'um',
+    'Industrial Design': 'id',
+    'Trademark'        : 'tm',
+    'Copyright'        : 'cr',
+    // handle raw prefix values returned from the DB
+    'um': 'um', 'id': 'id', 'tm': 'tm', 'cr': 'cr',
+};
+
+// ── Single Resubmission Card ──────────────────────────────────────────────────
+function ResubmissionCard({ submission, onSubmitted }) {
+    const rawPrefix = submission.ip_type_prefix || PREFIX_MAP[submission.ip_type] || 'um';
+    const ipType    = rawPrefix;
+    const fieldMap  = DOC_FIELD_MAP[ipType] || DOC_FIELD_MAP.um;
+    const refId     = `${REF_PREFIX[ipType] || 'IP'}-${submission.id}`;
+
+    const labelToKey = Object.fromEntries(
+        Object.entries(fieldMap).map(([k, v]) => [v.label.toLowerCase().trim(), k])
+    );
+
+    const missingKeys = (() => {
+        const rawKeys = (submission.missing_checklist_keys || '').trim();
+        if (rawKeys) {
+            const keys = rawKeys.split(/[,;]/).map(s => s.trim()).filter(Boolean);
+            if (keys.some(k => k.startsWith('chk_'))) return keys;
+        }
+        const rawLabels = (submission.missing_items || '').trim();
+        if (rawLabels) {
+            return rawLabels
+                .split(/[;,]/).map(s => s.trim()).filter(Boolean)
+                .map(label => labelToKey[label.toLowerCase().trim()] || null)
+                .filter(Boolean);
+        }
+        return [];
+    })();
+
+    const itemsToResubmit = missingKeys
+        .map(key => ({ key, ...(fieldMap[key] || { label: key, fieldName: null, dbCol: null, accept: '*' }) }))
+        .filter(item => item.fieldName);
+
+    const existingItems = Object.entries(fieldMap)
+        .filter(([key]) => !missingKeys.includes(key));
+
+    const [files,      setFiles]      = useState({});
+    const [submitting, setSubmitting] = useState(false);
+    const [error,      setError]      = useState('');
+
+    const handleFileChange = (key, file) => setFiles(prev => ({ ...prev, [key]: file }));
+
+    const handleSubmit = async () => {
+        const missing = itemsToResubmit.filter(item => !files[item.key]);
+        if (missing.length > 0) {
+            setError(`Please upload all required documents: ${missing.map(i => i.label).join(', ')}`);
+            return;
+        }
+        setError('');
+        setSubmitting(true);
+        try {
+            const formData = new FormData();
+            formData.append('submissionId', submission.id);
+            formData.append('ipTypePrefix', ipType);
+
+            const fieldNameToFile = {};
+            itemsToResubmit.forEach(item => {
+                if (files[item.key]) fieldNameToFile[item.fieldName] = files[item.key];
+            });
+            Object.entries(fieldNameToFile).forEach(([fieldName, file]) => {
+                formData.append(fieldName, file);
+            });
+            formData.append('resubmittedKeys', missingKeys.join(','));
+
+            const routePrefix = (ipType === 'um' || ipType === 'id') ? 'umid' : ipType;
+            const res = await axios.post(
+                `${API}/${routePrefix}/resubmit/${submission.id}`,
+                formData,
+                { headers: { ...hdrs(), 'Content-Type': 'multipart/form-data' } }
+            );
+            if (res.status === 200) onSubmitted(submission.id);
+        } catch (err) {
+            console.error('Resubmission error:', err);
+            setError(err?.response?.data?.error || 'Submission failed. Please try again.');
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
+    const allUploaded = itemsToResubmit.length > 0 &&
+        itemsToResubmit.every(item => !!files[item.key]);
+
+    return (
+        <div className="resub-card">
+
+            {/* ── Card Header ── */}
+            <div className="resub-card-header">
+                <div className="resub-card-left">
+                    <span className="resub-ref-badge">{refId}</span>
+                    <div className="resub-card-info">
+                        <div className="resub-card-title">{submission.title || 'Untitled'}</div>
+                        <div className="resub-card-meta">
+                            <span>
+                                <i className="bi bi-tag"></i>
+                                {submission.ip_type || IP_LABEL[ipType]}
+                            </span>
+                            <span>
+                                <i className="bi bi-calendar3"></i>
+                                Returned: {fmt(submission.approval_date || submission.updated_at)}
+                            </span>
+                            <span className="resub-missing-count">
+                                <i className="bi bi-exclamation-circle-fill"></i>
+                                {itemsToResubmit.length} item{itemsToResubmit.length !== 1 ? 's' : ''} to correct
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div className="resub-card-right">
+                    <span className="resub-status-badge">
+                        <i className="bi bi-arrow-clockwise"></i>
+                        Needs Resubmission
+                    </span>
+                </div>
+            </div>
+
+            {/* ── Card Body ── */}
+            <div className="resub-card-body">
+
+                {/* Deficiency notice */}
+                <div className="resub-notice-box">
+                    <div className="resub-notice-header">
+                        <i className="bi bi-envelope-paper-fill"></i>
+                        Communication from IPMO Director
+                    </div>
+                    <div className="resub-notice-body">
+                        {submission.rejection_reason
+                            ? <p>{submission.rejection_reason}</p>
+                            : <p><em>Please correct and resubmit the documents listed below.</em></p>
+                        }
+                    </div>
+                </div>
+
+                {/* ── Communication Letter download ── */}
+                {submission.comm_letter_path ? (
+                    <div className="resub-comm-letter-box resub-comm-letter--available">
+                        <div className="resub-comm-letter-left">
+                            <i className="bi bi-file-earmark-pdf-fill"></i>
+                            <div>
+                                <strong>Communication Letter Issued</strong>
+                                <span>
+                                    Signed by the IPMO Director
+                                    {submission.comm_letter_signed_at
+                                        ? ` on ${fmt(submission.comm_letter_signed_at)}`
+                                        : ''}
+                                    . Download and review before resubmitting.
+                                </span>
+                            </div>
+                        </div>
+                        <a
+                            href={`${API_BASE}/uploads/${submission.comm_letter_path}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="resub-comm-letter-btn"
+                        >
+                            <i className="bi bi-download"></i>
+                            Download Letter
+                        </a>
+                    </div>
+                ) : (
+                    <div className="resub-comm-letter-box resub-comm-letter--pending">
+                        <i className="bi bi-hourglass-split"></i>
+                        <span>
+                            The signed Communication Letter is being prepared by the IPMO Director
+                            and will appear here once uploaded. You may begin preparing your corrected
+                            documents in the meantime.
+                        </span>
+                    </div>
+                )}
+
+                {/* Upload corrected documents */}
+                <div className="resub-section-title">
+                    <i className="bi bi-upload"></i>
+                    Upload Corrected Documents
+                    <span className="resub-section-sub">
+                        Only upload the documents listed below. Your other documents remain on file.
+                    </span>
+                </div>
+
+                <div className="resub-upload-list">
+                    {itemsToResubmit.length === 0 ? (
+                        <div className="resub-no-items">
+                            <i className="bi bi-check-circle-fill"></i>
+                            No specific documents flagged. Please contact IPMO for guidance.
+                        </div>
+                    ) : (
+                        itemsToResubmit.map(item => (
+                            <div
+                                key={item.key}
+                                className={`resub-upload-item${files[item.key] ? ' uploaded' : ''}`}
+                            >
+                                {/* Label + hint */}
+                                <div className="resub-upload-label">
+                                    <i className={`bi ${files[item.key] ? 'bi-check-circle-fill' : 'bi-x-circle-fill'} resub-upload-icon`}></i>
+                                    <div>
+                                        <strong>{item.label}</strong>
+                                        <span className="resub-upload-hint">Accepted: {item.accept}</span>
+                                    </div>
+                                </div>
+
+                                {/* File name + choose button */}
+                                <div className="resub-upload-control">
+                                    {files[item.key] && (
+                                        <span className="resub-file-name">
+                                            <i className="bi bi-paperclip"></i>
+                                            {files[item.key].name}
+                                        </span>
+                                    )}
+                                    <label className="resub-file-btn">
+                                        <i className="bi bi-cloud-arrow-up"></i>
+                                        {files[item.key] ? 'Replace' : 'Choose File'}
+                                        <input
+                                            type="file"
+                                            accept={item.accept}
+                                            style={{ display: 'none' }}
+                                            onChange={e => handleFileChange(item.key, e.target.files[0] || null)}
+                                        />
+                                    </label>
+                                </div>
+                            </div>
+                        ))
+                    )}
+                </div>
+
+                {/* Documents already on file */}
+                <div className="resub-existing-title">
+                    <i className="bi bi-folder-check"></i>
+                    Documents Already on File
+                    <span className="resub-section-sub">These do not need to be re-uploaded.</span>
+                </div>
+                <div className="resub-existing-list">
+                    {existingItems.map(([key, meta]) => {
+                        const filePath = submission[meta.dbCol];
+                        return (
+                            <div key={key} className="resub-existing-item">
+                                <i className="bi bi-check2-circle"></i>
+                                <span>{meta.label}</span>
+                                {filePath && (
+                                    <a
+                                        href={`${API_BASE}/uploads/${filePath}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="resub-view-link"
+                                    >
+                                        <i className="bi bi-box-arrow-up-right"></i>View
+                                    </a>
+                                )}
+                            </div>
+                        );
+                    })}
+                </div>
+
+                {/* In-card error */}
+                {error && (
+                    <div className="resub-error-msg">
+                        <i className="bi bi-exclamation-triangle-fill"></i>
+                        {error}
+                    </div>
+                )}
+
+                {/* Submit footer */}
+                <div className="resub-submit-row">
+                    <div className="resub-submit-note">
+                        <i className="bi bi-info-circle"></i>
+                        After submitting, your application will return to the IP Specialist for re-review.
+                    </div>
+                    <button
+                        className="resub-submit-btn"
+                        onClick={handleSubmit}
+                        disabled={submitting || !allUploaded}
+                    >
+                        {submitting
+                            ? <><i className="bi bi-hourglass-split"></i> Submitting…</>
+                            : <><i className="bi bi-send-check-fill"></i> Submit Corrections</>
+                        }
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+// ── Main Page ─────────────────────────────────────────────────────────────────
+export default function Resubmission() {
+    const [submissions, setSubmissions] = useState([]);
+    const [loading,     setLoading]     = useState(true);
+    const [error,       setError]       = useState(null);
+    const [successIds,  setSuccessIds]  = useState([]);
+
+    const load = useCallback(async () => {
+        try {
+            const [umid, tm, cr] = await Promise.all([
+                axios.get(`${API}/inventor/resubmission-pending/umid`, { headers: hdrs() }),
+                axios.get(`${API}/inventor/resubmission-pending/tm`,   { headers: hdrs() }),
+                axios.get(`${API}/inventor/resubmission-pending/cr`,   { headers: hdrs() }),
+            ]);
+            const all = [
+                ...(Array.isArray(umid.data) ? umid.data : []),
+                ...(Array.isArray(tm.data)   ? tm.data   : []),
+                ...(Array.isArray(cr.data)   ? cr.data   : []),
+            ];
+            setSubmissions(all.filter(s => !successIds.includes(s.id)));
+            setError(null);
+        } catch (err) {
+            console.error('❌ Resubmission load error:', err);
+            setError('Failed to load your resubmission requests.');
+        } finally {
+            setLoading(false);
+        }
+    }, [successIds]);
+
+    useEffect(() => { load(); }, [load]);
+
+    const handleSubmitted = (id) => {
+        setSuccessIds(prev => [...prev, id]);
+        setSubmissions(prev => prev.filter(s => s.id !== id));
+    };
+
+    if (loading) return (
+        <div className="inv-resub-page">
+            <div className="inv-resub-loader">
+                <div className="inv-resub-spinner"></div>
+                <p>Loading your resubmission requests…</p>
+            </div>
+        </div>
+    );
+
+    return (
+        <div className="inv-resub-page">
+
+            {/* Page header */}
+            <div className="inv-resub-header">
+                <div className="inv-resub-header-icon">
+                    <i className="bi bi-arrow-clockwise"></i>
+                </div>
+                <div>
+                    <h1>Resubmission Required</h1>
+                    <p>
+                        The applications below were returned by the IPMO because some documents are
+                        missing or need correction. Please upload only the flagged items and resubmit.
+                    </p>
+                </div>
+            </div>
+
+            {/* QCP reminder */}
+            <div className="inv-resub-qcp-notice">
+                <i className="bi bi-journal-check"></i>
+                <span>
+                    <strong>CNSC-IPMO Process Reminder:</strong> Per QCP guidelines, only the
+                    missing or non-conforming documents need to be replaced. Documents already
+                    accepted remain on file and do not need to be re-uploaded.
+                </span>
+            </div>
+
+            {/* Load error */}
+            {error && (
+                <div className="inv-resub-error">
+                    <i className="bi bi-exclamation-triangle-fill"></i>
+                    {error}
+                </div>
+            )}
+
+            {/* Success */}
+            {successIds.length > 0 && (
+                <div className="inv-resub-success">
+                    <i className="bi bi-check-circle-fill"></i>
+                    <span>
+                        Your correction{successIds.length > 1 ? 's have' : ' has'} been submitted successfully.
+                        The IP Specialist will review your updated documents and you will be notified of the outcome.
+                    </span>
+                </div>
+            )}
+
+            {/* Empty state */}
+            {submissions.length === 0 && successIds.length === 0 ? (
+                <div className="inv-resub-empty">
+                    <i className="bi bi-check2-all"></i>
+                    <p>No resubmission requests at this time. All your applications are in good standing.</p>
+                </div>
+            ) : (
+                <div className="inv-resub-list">
+                    {submissions.map(s => (
+                        <ResubmissionCard
+                            key={s.id}
+                            submission={s}
+                            onSubmitted={handleSubmitted}
+                        />
+                    ))}
+                </div>
+            )}
+        </div>
+    );
+}

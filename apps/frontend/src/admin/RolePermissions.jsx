@@ -126,26 +126,19 @@ function RolePermissions() {
         }
     };
 
-    if (loading) {
-        return (
-            <div className="directory-container">
-                <div className="loading-spinner">
-                    <div className="spinner"></div>
-                    <p>Loading User Permissions...</p>
-                </div>
-            </div>
-        );
-    }
+   
 
     if (error) {
         return (
             <div className="directory-container">
+                <div className="directory-container-inner">
                 <div className="error-message">
                     <i className="bi bi-exclamation-triangle"></i>
                     <p>{error}</p>
                     <button onClick={fetchUsers} className="btn-retry">
                         Retry
                     </button>
+                </div>
                 </div>
             </div>
         );
@@ -155,6 +148,7 @@ function RolePermissions() {
 
     return (
         <div className="directory-container">
+            <div className="directory-container-inner">
             <div className="directory-header">
                 <div className="header-left">
                     <h2>
@@ -171,8 +165,8 @@ function RolePermissions() {
 
             {/* Stats */}
             <div className="stats-row">
-                <div className="stat-card pending">
-                    <div className="stat-icon">
+                <div className="stat-card">
+                    <div className="stat-icon pending">
                         <i className="bi bi-hourglass-split"></i>
                     </div>
                     <div className="stat-content">
@@ -180,8 +174,8 @@ function RolePermissions() {
                         <p>Pending Approval</p>
                     </div>
                 </div>
-                <div className="stat-card approved">
-                    <div className="stat-icon">
+                <div className="stat-card">
+                    <div className="stat-icon active">
                         <i className="bi bi-check-circle-fill"></i>
                     </div>
                     <div className="stat-content">
@@ -189,8 +183,8 @@ function RolePermissions() {
                         <p>Approved Users</p>
                     </div>
                 </div>
-                <div className="stat-card rejected">
-                    <div className="stat-icon">
+                <div className="stat-card">
+                    <div className="stat-icon rejected-icon">
                         <i className="bi bi-x-circle-fill"></i>
                     </div>
                     <div className="stat-content">
@@ -201,29 +195,32 @@ function RolePermissions() {
             </div>
 
             {/* Tabs */}
-            <div className="tabs-container">
+            <div className="tab-nav">
                 <button
-                    className={`tab ${activeTab === 'pending' ? 'active' : ''}`}
+                    className={`tab-btn ${activeTab === 'pending' ? 'active' : ''}`}
                     onClick={() => setActiveTab('pending')}
                 >
-                    <i className="bi bi-hourglass-split"></i> Pending ({pendingUsers.length})
+                    <i className="bi bi-hourglass-split"></i> Pending
+                    <span className="tab-count">{pendingUsers.length}</span>
                 </button>
                 <button
-                    className={`tab ${activeTab === 'approved' ? 'active' : ''}`}
+                    className={`tab-btn ${activeTab === 'approved' ? 'active' : ''}`}
                     onClick={() => setActiveTab('approved')}
                 >
-                    <i className="bi bi-check-circle"></i> Approved ({approvedUsers.length})
+                    <i className="bi bi-check-circle"></i> Approved
+                    <span className="tab-count">{approvedUsers.length}</span>
                 </button>
                 <button
-                    className={`tab ${activeTab === 'rejected' ? 'active' : ''}`}
+                    className={`tab-btn ${activeTab === 'rejected' ? 'active' : ''}`}
                     onClick={() => setActiveTab('rejected')}
                 >
-                    <i className="bi bi-x-circle"></i> Rejected ({rejectedUsers.length})
+                    <i className="bi bi-x-circle"></i> Rejected
+                    <span className="tab-count">{rejectedUsers.length}</span>
                 </button>
             </div>
 
             {/* Data Table */}
-            <div className="table-container">
+            <div className="table-wrap">
                 {currentList.length === 0 ? (
                     <div className="no-data">
                         <i className="bi bi-inbox"></i>
@@ -394,6 +391,7 @@ function RolePermissions() {
                     </div>
                 </div>
             )}
+            </div>
         </div>
     );
 }

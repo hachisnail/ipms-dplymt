@@ -1,0 +1,1094 @@
+/* ============================================================
+   UnderReview.css — CNSC-IPMO Triage & Review
+   Light Mode · Professional · Maroon brand accent
+   ============================================================ */
+
+:root {
+    /* ── Brand ── */
+    --maroon:       #800000;
+    --maroon-mid:   #6B0000;
+    --maroon-light: #FFF5F5;
+    --maroon-tint:  #FCEAEA;
+    --maroon-bd:    #F5C6C6;
+
+    /* ── Teal accent ── */
+    --teal:         #0D7377;
+    --teal-dark:    #0A5E61;
+    --teal-light:   #E8F6F7;
+    --teal-bd:      #B2DFDF;
+
+    /* ── Semantic ── */
+    --green:        #16A34A;
+    --green-dark:   #15803D;
+    --green-light:  #F0FDF4;
+    --green-bd:     #BBF7D0;
+
+    --amber:        #D97706;
+    --amber-dark:   #B45309;
+    --amber-light:  #FFFBEB;
+    --amber-bd:     #FDE68A;
+
+    --red:          #DC2626;
+    --red-dark:     #B91C1C;
+    --red-light:    #FEF2F2;
+    --red-bd:       #FECACA;
+
+    --blue:         #2563EB;
+    --blue-light:   #EFF6FF;
+    --blue-bd:      #BFDBFE;
+
+    /* ── Neutrals ── */
+    --surface:      #FFFFFF;
+    --surface-2:    #F8F9FC;
+    --surface-3:    #F1F3F8;
+    --border:       #E2E8F0;
+    --border-mid:   #CBD5E1;
+
+    /* ── Text ── */
+    --text:         #0F172A;
+    --text-sec:     #334155;
+    --text-soft:    #64748B;
+    --text-faint:   #94A3B8;
+
+    --mono: 'SFMono-Regular', 'Fira Mono', 'Courier New', monospace;
+
+    --shadow-sm: 0 1px 3px rgba(15,23,42,0.07), 0 1px 2px rgba(15,23,42,0.04);
+    --shadow-md: 0 4px 16px rgba(15,23,42,0.09), 0 2px 6px rgba(15,23,42,0.05);
+    --shadow-lg: 0 8px 28px rgba(15,23,42,0.11), 0 2px 8px rgba(15,23,42,0.05);
+}
+
+/* ── Page wrapper ──────────────────────────────────────────── */
+.ur-page {
+    padding:    10px 20px 20px;
+    min-height: 100vh;
+    background: var(--surface-2);
+    font-family: 'DM Sans', system-ui, sans-serif;
+    color: var(--text);
+}
+
+/* ── Error banner ──────────────────────────────────────────── */
+.ur-error {
+    background:    var(--red-light);
+    border:        1px solid var(--red-bd);
+    border-radius: 8px;
+    padding:       10px 16px;
+    color:         var(--red-dark);
+    font-size:     13.5px;
+    font-weight:   600;
+    margin-bottom: 16px;
+    display:       flex;
+    align-items:   center;
+    gap:           8px;
+}
+
+/* ── Loading ───────────────────────────────────────────────── */
+/* Loader hidden — no spinner design per spec */
+.ur-loader { display: none; }
+.ur-spinner { display: none; }
+@keyframes ur-spin { to { transform: rotate(360deg); } }
+
+/* ── Table card ────────────────────────────────────────────── */
+.ur-table-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+/* ── Horizontal scroll wrapper ───────────────────────────── */
+.ur-table-scroll {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 12px;
+
+    /* Transparent scrollbar track — visible thumb only */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(128, 0, 0, 0.18) transparent;
+}
+
+.ur-table-scroll::-webkit-scrollbar {
+    height: 5px;
+}
+.ur-table-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+.ur-table-scroll::-webkit-scrollbar-thumb {
+    background: rgba(128, 0, 0, 0.18);
+    border-radius: 9999px;
+    transition: background 0.2s;
+}
+.ur-table-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(128, 0, 0, 0.38);
+}
+
+/* ── Empty ─────────────────────────────────────────────────── */
+.ur-empty {
+    text-align: center; padding: 60px 24px;
+    color: var(--text-soft);
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+}
+.ur-empty > i { font-size: 44px; color: var(--border-mid); }
+.ur-empty > p { font-size: 14px; margin: 0; }
+
+/* ── Table ─────────────────────────────────────────────────── */
+.ur-table { width: 100%; min-width: 820px; border-collapse: separate; border-spacing: 0; font-size: 13.5px; }
+
+.ur-table thead tr { background: var(--maroon); }
+
+.ur-table th {
+    padding: 11px 16px;
+    color: rgba(255,255,255,0.90);
+    font-size: 10.5px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    font-family: var(--mono);
+    border-bottom: 2px solid var(--maroon-mid);
+    white-space: nowrap; text-align: left;
+}
+
+.ur-table th > i { color: rgba(255,255,255,0.55); margin-right: 5px; }
+
+.ur-table td {
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text); vertical-align: middle;
+}
+
+.ur-table tbody tr:last-child td   { border-bottom: none; }
+.ur-table tbody tr:nth-child(even) td { background: var(--surface-2); }
+.ur-table tbody tr:hover td        { background: var(--maroon-light); }
+
+/* ── REF badge ─────────────────────────────────────────────── */
+.ur-ref-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    background: var(--maroon);
+    color: #fff;
+    border-radius: 9999px;
+    font-size: 11px; font-weight: 700;
+    font-family: var(--mono);
+    letter-spacing: 0.4px; white-space: nowrap;
+}
+
+/* ── Status badges ─────────────────────────────────────────── */
+.ur-status-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 4px 10px; border-radius: 9999px;
+    font-size: 11.5px; font-weight: 700; white-space: nowrap;
+}
+.ur-status-badge.under-review  { background: var(--teal-light);  color: var(--teal-dark);  border: 1px solid var(--teal-bd);  }
+.ur-status-badge.re-review     { background: var(--amber-light); color: var(--amber-dark); border: 1px solid var(--amber-bd); }
+.ur-status-badge.resubmission  { background: var(--blue-light);  color: var(--blue);       border: 1px solid var(--blue-bd);  }
+
+/* ── Review button ─────────────────────────────────────────── */
+.ur-review-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 7px 14px;
+    background: var(--teal); color: #fff;
+    border: none; border-radius: 7px;
+    font-size: 12.5px; font-weight: 600; font-family: inherit;
+    cursor: pointer; white-space: nowrap;
+    transition: all .2s ease;
+    box-shadow: 0 2px 6px rgba(13,115,119,0.25);
+}
+.ur-review-btn:hover:not(:disabled) { background: var(--teal-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(13,115,119,0.3); }
+.ur-review-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ============================================================
+   TRIAGE PANEL
+   ============================================================ */
+
+.triage-overlay {
+    position: fixed; inset: 0;
+    background: rgba(15,23,42,0.5);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    display: flex; align-items: stretch;
+}
+
+.triage-panel {
+    background: var(--surface);
+    border-left: 1px solid var(--border);
+    width: 100%;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+}
+
+/* ── Header ────────────────────────────────────────────────── */
+.triage-header {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 24px;
+    background: var(--maroon);
+    border-bottom: 3px solid var(--maroon-mid);
+    flex-shrink: 0;
+}
+
+.triage-header-icon {
+    width: 42px; height: 42px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+}
+.triage-header-icon i { color: #fff; font-size: 19px; }
+
+.triage-header-info { flex: 1; min-width: 0; }
+
+.triage-header-info h2 {
+    font-size: 16px; font-weight: 700; color: #fff;
+    margin: 0 0 5px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.triage-meta { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.triage-meta-item {
+    display: flex; align-items: center; gap: 5px;
+    font-size: 12px; color: rgba(255,255,255,0.75);
+}
+.triage-meta-item i      { color: rgba(255,255,255,0.5); font-size: 11px; }
+.triage-meta-item strong { color: #fff; font-weight: 600; }
+
+.triage-close-btn {
+    width: 34px; height: 34px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px; color: rgba(255,255,255,0.85);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 14px;
+    transition: all .15s; flex-shrink: 0;
+}
+.triage-close-btn:hover { background: var(--red-dark); border-color: var(--red-dark); color: #fff; }
+
+/* ── Body ──────────────────────────────────────────────────── */
+.triage-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    flex: 1; overflow: hidden;
+}
+
+.triage-col {
+    padding: 20px;
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    display: flex; flex-direction: column; gap: 12px;
+    background: var(--surface);
+}
+.triage-col:last-child { border-right: none; background: var(--surface-2); }
+.triage-col::-webkit-scrollbar       { width: 4px; }
+.triage-col::-webkit-scrollbar-track { background: transparent; }
+.triage-col::-webkit-scrollbar-thumb { background: var(--border-mid); border-radius: 9999px; }
+
+/* ── Section title ─────────────────────────────────────────── */
+.triage-section-title {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 10.5px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--text-soft);
+    padding-bottom: 10px;
+    border-bottom: 1.5px solid var(--border);
+    flex-shrink: 0;
+}
+.triage-section-title i { color: var(--maroon); font-size: 13px; }
+
+/* ── Notes textarea ────────────────────────────────────────── */
+.triage-notes-wrap { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+
+.triage-notes-wrap label { font-size: 12px; font-weight: 600; color: var(--text-soft); }
+
+.triage-notes-wrap textarea {
+    background: var(--surface-2);
+    border: 1.5px solid var(--border);
+    border-radius: 8px; color: var(--text);
+    padding: 10px 12px; font-size: 13px; font-family: inherit;
+    line-height: 1.55; resize: none; min-height: 120px; flex: 1;
+    transition: border-color .15s, box-shadow .15s;
+}
+.triage-notes-wrap textarea:focus {
+    outline: none; border-color: var(--maroon);
+    box-shadow: 0 0 0 3px rgba(128,0,0,0.08);
+}
+
+/* ── QCP Box ───────────────────────────────────────────────── */
+.triage-qcp-box {
+    background: var(--surface-2);
+    border: 1.5px solid var(--border);
+    border-radius: 8px; padding: 12px 14px; flex-shrink: 0;
+}
+.triage-qcp-title {
+    font-size: 10.5px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--text-soft); margin-bottom: 8px;
+    display: flex; align-items: center; gap: 6px;
+}
+.triage-qcp-row {
+    display: flex; align-items: flex-start; gap: 7px;
+    font-size: 11.5px; color: var(--text-soft); padding: 3px 0; line-height: 1.4;
+}
+.triage-qcp-row .bi { color: var(--teal); flex-shrink: 0; margin-top: 1px; }
+
+/* ── Progress bar ──────────────────────────────────────────── */
+.triage-progress-wrap { flex-shrink: 0; }
+.triage-progress-label {
+    display: flex; justify-content: space-between;
+    font-size: 12px; color: var(--text-soft); margin-bottom: 6px;
+}
+.triage-progress-bg {
+    background: var(--surface-3); border-radius: 9999px;
+    height: 8px; overflow: hidden; border: 1px solid var(--border);
+}
+.triage-progress-fill {
+    height: 100%; border-radius: 9999px;
+    background: linear-gradient(90deg, var(--amber-dark), var(--amber));
+    transition: width 0.4s ease;
+}
+.triage-progress-fill.complete { background: linear-gradient(90deg, var(--green-dark), var(--green)); }
+
+/* ── Status pill ───────────────────────────────────────────── */
+.triage-status-pill {
+    display: flex; align-items: center; gap: 7px;
+    padding: 8px 12px; border-radius: 8px;
+    font-size: 12.5px; font-weight: 600; flex-shrink: 0;
+}
+.triage-status-pill.complete   { background: var(--green-light); color: var(--green-dark); border: 1px solid var(--green-bd); }
+.triage-status-pill.incomplete { background: var(--amber-light); color: var(--amber-dark); border: 1px solid var(--amber-bd); }
+
+/* ── Checklist ─────────────────────────────────────────────── */
+.triage-checklist { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+
+.triage-check-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 10px 12px; border-radius: 8px; cursor: pointer;
+    transition: all .15s; border: 1.5px solid transparent; user-select: none;
+}
+.triage-check-item input[type="checkbox"] { display: none; }
+.triage-check-item.checked { background: var(--green-light);  border-color: var(--green-bd); }
+.triage-check-item.missing { background: var(--red-light);    border-color: var(--red-bd);   }
+.triage-check-item:hover   { filter: brightness(0.97); }
+
+.tr-checkbox {
+    width: 20px; height: 20px;
+    border-radius: 5px; border: 2px solid var(--border-mid);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
+    transition: all .15s; font-size: 12px; color: transparent;
+    background: var(--surface);
+}
+.triage-check-item.checked .tr-checkbox { background: var(--green);  border-color: var(--green);  color: #fff; }
+.triage-check-item.missing .tr-checkbox { border-color: var(--red); }
+
+.tr-check-label { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.tr-check-label strong { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.3; }
+.tr-check-label span   { font-size: 11.5px; color: var(--text-soft); line-height: 1.4; }
+.tr-missing-tag {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 10.5px; color: var(--red-dark); font-weight: 600; margin-top: 3px;
+}
+
+/* ── Document cards ────────────────────────────────────────── */
+.triage-doc-card {
+    display: flex; align-items: center;
+    justify-content: space-between; gap: 10px;
+    padding: 10px 12px;
+    background: var(--surface);
+    border: 1.5px solid var(--border); border-radius: 8px;
+    transition: border-color .15s, box-shadow .15s;
+}
+.triage-doc-card:hover { border-color: var(--teal-bd); box-shadow: var(--shadow-sm); }
+
+.triage-doc-info { flex: 1; min-width: 0; }
+.triage-doc-name {
+    font-size: 13px; font-weight: 600; color: var(--text);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.triage-doc-sub {
+    font-size: 11px; color: var(--text-faint);
+    font-family: var(--mono); margin-top: 2px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.triage-doc-open {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 5px 12px;
+    background: var(--teal-light); color: var(--teal-dark);
+    border: 1.5px solid var(--teal-bd); border-radius: 6px;
+    font-size: 12px; font-weight: 600; text-decoration: none;
+    white-space: nowrap; transition: all .15s; flex-shrink: 0;
+}
+.triage-doc-open:hover { background: var(--teal); color: #fff; border-color: var(--teal); }
+
+.triage-doc-missing {
+    font-size: 11.5px; color: var(--text-faint);
+    display: flex; align-items: center; gap: 4px; flex-shrink: 0;
+}
+
+/* ── Previous resubmission block ───────────────────────────── */
+.triage-prev-resub {
+    background: var(--amber-light);
+    border: 1.5px solid var(--amber-bd);
+    border-radius: 8px; padding: 12px 14px; margin-top: 4px;
+}
+.triage-prev-title {
+    font-size: 10.5px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 0.07em;
+    color: var(--amber-dark);
+    display: flex; align-items: center; gap: 6px; margin-bottom: 10px;
+}
+.triage-prev-row          { margin-bottom: 8px; }
+.triage-prev-row strong   { display: block; font-size: 11px; color: var(--text-soft); margin-bottom: 2px; }
+.triage-prev-row p        { margin: 0; font-size: 12.5px; color: var(--text-sec); line-height: 1.5; white-space: pre-line; }
+
+/* ── Banners ───────────────────────────────────────────────── */
+.triage-resub-banner {
+    display: flex; align-items: flex-start; gap: 10px;
+    background: var(--amber-light); border: 1.5px solid var(--amber-bd);
+    border-radius: 8px; padding: 12px 14px;
+    color: var(--amber-dark); flex-shrink: 0;
+}
+.triage-resub-banner .bi   { font-size: 18px; flex-shrink: 0; margin-top: 1px; color: var(--amber); }
+.triage-resub-banner strong { display: block; font-size: 13px; margin-bottom: 2px; }
+.triage-resub-banner p     { margin: 0; font-size: 12px; line-height: 1.4; }
+
+.triage-missing-summary {
+    background: var(--red-light); border: 1.5px solid var(--red-bd);
+    border-radius: 8px; padding: 10px 14px; flex-shrink: 0;
+}
+.triage-missing-title {
+    font-size: 12px; font-weight: 700; color: var(--red-dark);
+    display: flex; align-items: center; gap: 6px; margin-bottom: 8px;
+}
+.triage-missing-row {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 12px; color: var(--text-sec); padding: 2px 0;
+}
+
+/* ── Footer ────────────────────────────────────────────────── */
+.triage-footer {
+    display: flex; align-items: center;
+    justify-content: space-between; gap: 10px;
+    padding: 14px 24px;
+    background: var(--surface);
+    border-top: 1.5px solid var(--border);
+    flex-shrink: 0; flex-wrap: wrap;
+    box-shadow: 0 -2px 8px rgba(15,23,42,0.06);
+}
+.triage-footer-left,
+.triage-footer-right { display: flex; gap: 8px; }
+
+.triage-back-btn, .triage-save-btn, .triage-resub-btn, .triage-approve-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 9px 18px; border-radius: 8px;
+    font-size: 13px; font-weight: 600; font-family: inherit;
+    cursor: pointer; transition: all .2s; border: none; white-space: nowrap;
+}
+
+.triage-back-btn  { background: var(--surface-2);   border: 1.5px solid var(--border-mid); color: var(--text-soft); }
+.triage-back-btn:hover { border-color: var(--text-soft); color: var(--text); background: var(--surface-3); }
+
+.triage-save-btn  { background: var(--teal-light);  border: 1.5px solid var(--teal-bd);   color: var(--teal-dark); }
+.triage-save-btn:hover:not(:disabled) { background: var(--teal); color: #fff; border-color: var(--teal); }
+
+.triage-resub-btn { background: var(--maroon-tint); border: 1.5px solid var(--maroon-bd); color: var(--maroon); position: relative; }
+.triage-resub-btn:hover:not(:disabled) { background: var(--maroon); color: #fff; border-color: var(--maroon); }
+
+.triage-resub-badge {
+    background: var(--red-dark); color: #fff;
+    border-radius: 9999px; font-size: 10px; font-weight: 700;
+    padding: 1px 6px; margin-left: 2px;
+}
+
+.triage-approve-btn {
+    background: var(--green); color: #fff;
+    box-shadow: 0 2px 8px rgba(22,163,74,0.28);
+}
+.triage-approve-btn:hover:not(:disabled) { background: var(--green-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(22,163,74,0.32); }
+.triage-approve-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.triage-back-btn:disabled, .triage-save-btn:disabled, .triage-resub-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* ── Success toast ─────────────────────────────────────────── */
+.resub-success-toast {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--green-light); border: 1px solid var(--green-bd);
+    border-radius: 8px; padding: 10px 16px;
+    margin: 0 24px 4px; font-size: 13px; color: var(--green-dark);
+    animation: ur-fade-down 0.3s ease; flex-shrink: 0;
+}
+.resub-success-toast .bi { font-size: 16px; color: var(--green); }
+.resub-success-toast button {
+    margin-left: auto; background: none; border: none;
+    color: var(--green-dark); cursor: pointer; font-size: 15px;
+    padding: 0; display: flex; align-items: center;
+}
+
+@keyframes ur-fade-down {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   RESUBMISSION MODAL
+   ============================================================ */
+.resub-overlay {
+    position: fixed; inset: 0;
+    background: rgba(15,23,42,0.5);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 1200; backdrop-filter: blur(4px); padding: 16px;
+}
+
+.resub-modal {
+    background: var(--surface);
+    border: 1.5px solid var(--border); border-radius: 14px;
+    width: 100%; max-width: 560px; max-height: 90vh;
+    overflow-y: auto; display: flex; flex-direction: column;
+    box-shadow: var(--shadow-lg);
+}
+.resub-modal--wide   { max-width: 640px; }
+.resub-modal--letter { max-width: 760px; }
+
+.resub-header {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 20px 24px 16px;
+    border-bottom: 1.5px solid var(--border);
+    background: var(--surface-2);
+    border-radius: 14px 14px 0 0;
+}
+.resub-header > .bi         { font-size: 24px; color: var(--amber); flex-shrink: 0; margin-top: 2px; }
+.resub-header--letter > .bi { color: var(--blue); }
+.resub-header h3   { margin: 0 0 2px; font-size: 16px; font-weight: 700; color: var(--text); }
+.resub-header-sub  { margin: 0; font-size: 12px; color: var(--text-soft); }
+
+.resub-body { padding: 20px 24px; flex: 1; display: flex; flex-direction: column; gap: 14px; }
+
+.resub-qcp-notice, .resub-letter-notice {
+    display: flex; align-items: flex-start; gap: 10px;
+    background: var(--teal-light); border: 1.5px solid var(--teal-bd);
+    border-radius: 8px; padding: 10px 14px;
+    font-size: 12.5px; color: var(--teal-dark); line-height: 1.5;
+}
+.resub-qcp-notice .bi, .resub-letter-notice .bi { font-size: 14px; flex-shrink: 0; margin-top: 1px; color: var(--teal); }
+
+.resub-all-ok-notice {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--amber-light); border: 1.5px solid var(--amber-bd);
+    border-radius: 8px; padding: 10px 14px;
+    font-size: 12.5px; color: var(--amber-dark);
+}
+
+.resub-missing-box { background: var(--red-light); border: 1.5px solid var(--red-bd); border-radius: 8px; padding: 12px 14px; }
+.resub-missing-title { font-size: 12px; font-weight: 700; color: var(--red-dark); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.resub-missing-item  { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-sec); padding: 3px 0; }
+
+.resub-label { font-size: 12.5px; font-weight: 600; color: var(--text-soft); display: block; margin-bottom: 6px; }
+
+.resub-textarea {
+    width: 100%; background: var(--surface-2);
+    border: 1.5px solid var(--border); border-radius: 8px;
+    color: var(--text); padding: 10px 12px; font-size: 13px;
+    resize: vertical; font-family: inherit; line-height: 1.5;
+    box-sizing: border-box; transition: border-color .15s, box-shadow .15s;
+}
+.resub-textarea:focus { outline: none; border-color: var(--maroon); box-shadow: 0 0 0 3px rgba(128,0,0,0.08); }
+
+.resub-footer {
+    display: flex; justify-content: flex-end; gap: 10px;
+    padding: 16px 24px;
+    border-top: 1.5px solid var(--border);
+    background: var(--surface-2);
+    border-radius: 0 0 14px 14px;
+}
+
+.resub-cancel {
+    background: var(--surface); border: 1.5px solid var(--border-mid);
+    color: var(--text-soft); padding: 8px 16px; border-radius: 7px;
+    font-size: 13px; cursor: pointer;
+    display: flex; align-items: center; gap: 6px;
+    font-family: inherit; transition: all .15s;
+}
+.resub-cancel:hover:not(:disabled) { border-color: var(--text-soft); color: var(--text); }
+
+.resub-next-btn {
+    background: var(--teal); border: none; color: #fff;
+    padding: 8px 20px; border-radius: 7px; font-size: 13px; font-weight: 600;
+    cursor: pointer; display: flex; align-items: center; gap: 6px;
+    font-family: inherit; transition: all .15s;
+}
+.resub-next-btn:disabled              { opacity: 0.45; cursor: not-allowed; }
+.resub-next-btn:not(:disabled):hover  { background: var(--teal-dark); }
+
+.resub-confirm {
+    background: var(--green); border: none; color: #fff;
+    padding: 8px 20px; border-radius: 7px; font-size: 13px; font-weight: 600;
+    cursor: pointer; display: flex; align-items: center; gap: 6px;
+    font-family: inherit; transition: all .15s;
+}
+.resub-confirm:disabled             { opacity: 0.45; cursor: not-allowed; }
+.resub-confirm:not(:disabled):hover { background: var(--green-dark); }
+
+/* ── Communication Letter ──────────────────────────────────── */
+.comm-letter-preview {
+    background: var(--surface); color: var(--text);
+    border-radius: 8px; padding: 28px 32px;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 13px; line-height: 1.7;
+    border: 1.5px solid var(--border);
+}
+.cl-header-logo  { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+.cl-logo-block   { display: flex; align-items: center; gap: 12px; }
+.cl-logo-seal    { font-size: 36px; line-height: 1; }
+.cl-logo-text    { display: flex; flex-direction: column; }
+.cl-college      { font-size: 15px; font-weight: 700; color: var(--maroon); line-height: 1.2; }
+.cl-office       { font-size: 12px; color: var(--teal); font-style: italic; }
+.cl-ref-block    { text-align: right; font-size: 11px; color: var(--text-soft); }
+.cl-ref-label    { display: block; font-weight: 600; color: var(--text-sec); text-transform: uppercase; letter-spacing: 0.5px; font-family: sans-serif; font-size: 10px; }
+.cl-ref-val      { display: block; font-family: 'Courier New', monospace; font-size: 12px; color: var(--maroon); font-weight: 700; }
+.cl-divider      { border: none; border-top: 2px solid var(--maroon); margin: 12px 0; opacity: 0.2; }
+.cl-meta         { display: flex; flex-direction: column; gap: 3px; margin-bottom: 14px; font-size: 13px; color: var(--text-sec); }
+.cl-meta-label   { font-weight: 700; display: inline-block; width: 40px; }
+.cl-subject      { font-weight: 700; font-size: 13px; text-align: center; text-decoration: underline; margin: 12px 0 16px; color: var(--maroon); font-family: sans-serif; letter-spacing: 0.3px; }
+.cl-body-text p  { margin: 0 0 12px; color: var(--text-sec); }
+.cl-missing-list { background: var(--surface-2); border: 1.5px solid var(--teal-bd); border-radius: 6px; padding: 12px 16px; margin: 10px 0 14px; }
+.cl-missing-item { display: flex; gap: 8px; padding: 3px 0; color: var(--teal-dark); font-size: 13px; }
+.cl-item-num     { font-weight: 700; min-width: 20px; }
+.cl-notes-block  { background: var(--amber-light); border-left: 3px solid var(--amber); padding: 10px 14px; border-radius: 0 6px 6px 0; font-style: italic; color: var(--text-soft); margin-bottom: 14px; font-size: 12.5px; white-space: pre-line; }
+.cl-signature    { display: flex; justify-content: flex-end; margin-top: 28px; margin-bottom: 10px; }
+.cl-sig-block    { text-align: center; min-width: 200px; }
+.cl-sig-line     { border-top: 1px solid var(--border-mid); margin-bottom: 6px; }
+.cl-sig-name     { font-weight: 700; font-size: 13px; font-family: sans-serif; color: var(--text); }
+.cl-sig-title    { font-size: 11px; color: var(--text-soft); font-family: sans-serif; }
+.cl-footer-note  { border-top: 1px dashed var(--border-mid); margin-top: 14px; padding-top: 10px; font-size: 10px; color: var(--text-faint); font-style: italic; font-family: sans-serif; text-align: center; }
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 1100px) {
+    .triage-body { grid-template-columns: 1fr 1fr; }
+    .triage-col:nth-child(3) { grid-column: span 2; border-right: none; border-top: 1px solid var(--border); }
+}
+
+@media (max-width: 768px) {
+    .ur-page     { padding: 16px; }
+    .triage-body { grid-template-columns: 1fr; }
+    .triage-col  { border-right: none; border-bottom: 1px solid var(--border); }
+    .triage-col:last-child { border-bottom: none; }
+    .triage-footer { flex-direction: column; }
+    .triage-footer-left, .triage-footer-right { width: 100%; justify-content: stretch; }
+    .triage-footer-left > *, .triage-footer-right > * { flex: 1; justify-content: center; }
+    .resub-modal--letter { max-width: 100%; }
+    .comm-letter-preview { padding: 18px 16px; }
+}
+/* ============================================================
+   PAS REPORT — Table badges (UnderReview list view)
+   ============================================================ */
+.ur-pas-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 4px 10px; border-radius: 9999px;
+    font-size: 11.5px; font-weight: 700; white-space: nowrap;
+    text-decoration: none;
+}
+
+/* Not required — checklist 100% complete */
+.ur-pas-badge--na {
+    background: #f0fdf4; color: #15803d;
+    border: 1px solid #bbf7d0;
+}
+
+/* PAS uploaded */
+.ur-pas-badge--uploaded {
+    background: #eff6ff; color: #1d4ed8;
+    border: 1px solid #bfdbfe;
+    cursor: pointer; transition: all .15s;
+}
+.ur-pas-badge--uploaded:hover { background: #2563eb; color: #fff; border-color: #2563eb; }
+
+/* PAS pending — required but not yet uploaded */
+.ur-pas-badge--pending {
+    background: #fff7ed; color: #b45309;
+    border: 1px solid #fde68a;
+}
+
+/* ============================================================
+   PAS REPORT — Triage Panel header chips
+   ============================================================ */
+.triage-meta-pas-ok  strong { color: #4ade80 !important; }
+.triage-meta-pas-req strong { color: #fbbf24 !important; }
+
+/* ============================================================
+   PAS REPORT — Triage notices in Col 1
+   ============================================================ */
+.triage-pas-notice,
+.triage-pas-ok-notice,
+.triage-pas-uploaded-notice {
+    display: flex; align-items: flex-start; gap: 10px;
+    border-radius: 8px; padding: 11px 14px; flex-shrink: 0;
+    font-size: 12.5px; line-height: 1.5;
+}
+.triage-pas-notice > .bi,
+.triage-pas-ok-notice > .bi,
+.triage-pas-uploaded-notice > .bi { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+/* Red warning — PAS needed but not uploaded */
+.triage-pas-notice {
+    background: var(--red-light); border: 1.5px solid var(--red-bd); color: var(--red-dark);
+}
+.triage-pas-notice > .bi { color: var(--red); }
+.triage-pas-notice strong { display: block; font-size: 13px; margin-bottom: 2px; }
+.triage-pas-notice p      { margin: 0; font-size: 12px; }
+
+/* Green info — checklist complete, no PAS needed */
+.triage-pas-ok-notice {
+    background: var(--green-light); border: 1.5px solid var(--green-bd); color: var(--green-dark);
+}
+.triage-pas-ok-notice > .bi { color: var(--green); }
+.triage-pas-ok-notice strong { display: block; font-size: 13px; margin-bottom: 2px; }
+.triage-pas-ok-notice p      { margin: 0; font-size: 12px; }
+
+/* Blue info — PAS uploaded, ready to return */
+.triage-pas-uploaded-notice {
+    background: var(--blue-light); border: 1.5px solid var(--blue-bd); color: var(--blue);
+}
+.triage-pas-uploaded-notice > .bi { color: var(--blue); }
+.triage-pas-uploaded-notice strong { display: block; font-size: 13px; margin-bottom: 2px; }
+.triage-pas-uploaded-notice p      { margin: 0; font-size: 12px; color: var(--text-sec); }
+
+/* ============================================================
+   APPROVAL PATH PILLS — Col 2 indicator
+   ============================================================ */
+.triage-path-pill {
+    display: flex; align-items: flex-start; gap: 9px;
+    padding: 9px 12px; border-radius: 8px; flex-shrink: 0;
+    font-size: 12px; line-height: 1.5;
+}
+.triage-path-pill > .bi { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+.triage-path-pill span  { flex: 1; }
+
+/* Direct approve — all green */
+.triage-path-direct {
+    background: var(--green-light); border: 1.5px solid var(--green-bd); color: var(--green-dark);
+}
+.triage-path-direct > .bi { color: var(--green); }
+
+/* PAS path — amber warning */
+.triage-path-pas {
+    background: var(--amber-light); border: 1.5px solid var(--amber-bd); color: var(--amber-dark);
+}
+.triage-path-pas > .bi { color: var(--amber); }
+
+/* ============================================================
+   PAS REPORT SUBMISSION BIN — Col 3
+   ============================================================ */
+.pas-bin {
+    background: var(--surface-2);
+    border: 1.5px dashed var(--border-mid);
+    border-radius: 10px;
+    padding: 14px;
+    display: flex; flex-direction: column; gap: 10px;
+}
+
+/* Done state */
+.pas-bin--done {
+    border-style: solid;
+    border-color: var(--blue-bd);
+    background: var(--blue-light);
+}
+
+.pas-bin-icon-row {
+    display: flex; align-items: center; gap: 12px;
+}
+
+.pas-bin-icon-circle {
+    width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--amber-light); border: 1.5px solid var(--amber-bd);
+    font-size: 18px; color: var(--amber-dark);
+}
+.pas-bin-icon-circle--ok {
+    background: var(--blue-light); border-color: var(--blue-bd);
+    color: var(--blue);
+}
+
+.pas-bin-title {
+    font-size: 13px; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 7px;
+}
+.pas-bin-sub {
+    font-size: 11.5px; color: var(--text-soft); margin-top: 2px; line-height: 1.4;
+}
+
+.pas-bin-required-tag {
+    display: inline-block;
+    background: var(--red-light); border: 1px solid var(--red-bd);
+    color: var(--red-dark); font-size: 10px; font-weight: 700;
+    padding: 2px 7px; border-radius: 9999px;
+}
+
+/* Drop zone */
+.pas-drop-zone {
+    border: 2px dashed var(--border-mid);
+    border-radius: 8px; padding: 20px 14px;
+    display: flex; flex-direction: column; align-items: center; gap: 5px;
+    cursor: pointer; background: var(--surface); text-align: center;
+    transition: border-color .2s, background .2s;
+}
+.pas-drop-zone:hover          { border-color: var(--teal); background: var(--teal-light); }
+.pas-drop-zone--filled        { border-color: var(--teal); border-style: solid; background: var(--teal-light); }
+
+.pas-cta    { font-size: 13.5px; font-weight: 600; color: var(--text-sec); }
+.pas-types  { font-size: 11px;   color: var(--text-faint); }
+.pas-filename { font-size: 12.5px; font-weight: 700; color: var(--teal-dark); word-break: break-all; }
+.pas-change   { font-size: 11px;   color: var(--text-faint); }
+
+/* Error */
+.pas-err {
+    display: flex; align-items: center; gap: 7px;
+    background: var(--red-light); border: 1px solid var(--red-bd);
+    border-radius: 7px; padding: 8px 12px;
+    font-size: 12.5px; color: var(--red-dark); font-weight: 500;
+}
+.pas-err .bi { flex-shrink: 0; }
+
+/* Upload button */
+.pas-upload-btn {
+    display: flex; align-items: center; justify-content: center; gap: 7px;
+    padding: 9px 16px; border-radius: 8px; border: none;
+    background: var(--teal); color: #fff;
+    font-size: 13px; font-weight: 600; font-family: inherit;
+    cursor: pointer; transition: background .2s;
+}
+.pas-upload-btn:hover:not(:disabled) { background: var(--teal-dark); }
+.pas-upload-btn:disabled             { opacity: 0.45; cursor: not-allowed; }
+
+/* View uploaded PAS */
+.pas-bin-open-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 7px 14px; border-radius: 7px;
+    background: var(--blue-light); color: var(--blue);
+    border: 1.5px solid var(--blue-bd); font-size: 12.5px;
+    font-weight: 600; text-decoration: none; transition: all .15s;
+    align-self: flex-start;
+}
+.pas-bin-open-btn:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+/* Spin animation for upload button loading state */
+.pas-spin-icon {
+    animation: ur-spin 0.8s linear infinite;
+    display: inline-block;
+}
+/* ── Inline viewer column ────────────────────────────────────── */
+.triage-col--viewer {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.triage-col--viewer.empty-viewer {
+    background: #fafafa;
+    border-left: 1.5px dashed #e5e7eb;
+}
+
+.triage-col--viewer.has-doc {
+    padding: 0 !important;
+    border-left: 1.5px solid #e5e7eb;
+}
+
+/* Empty state */
+.tp-iv-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 14px;
+    padding: 32px 24px;
+    text-align: center;
+    color: #9ca3af;
+}
+.tp-iv-empty i {
+    font-size: 52px;
+    opacity: 0.25;
+}
+.tp-iv-empty p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #9ca3af;
+    max-width: 220px;
+}
+.tp-iv-empty strong { color: #800000; }
+
+/* Inline viewer container */
+.tp-inline-viewer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Viewer header */
+.tp-iv-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 14px;
+    background: linear-gradient(135deg, #800000, #660000);
+    flex-shrink: 0;
+}
+.tp-iv-title {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #fff;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.tp-iv-title i { font-size: 14px; flex-shrink: 0; }
+.tp-iv-actions {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0;
+}
+.tp-iv-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.20);
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.15s;
+}
+.tp-iv-btn:hover { background: rgba(255,255,255,0.26); color: #fff; }
+.tp-iv-close { font-size: 12px; }
+
+/* Filename strip */
+.tp-iv-filename {
+    padding: 5px 14px;
+    font-size: 10.5px;
+    font-family: monospace;
+    color: #6b7280;
+    background: #f8f9fb;
+    border-bottom: 1px solid #e5e7eb;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 0;
+}
+
+/* Content area */
+.tp-iv-body {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background: #f3f4f6;
+}
+.tp-iv-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    flex: 1;
+    display: block;
+}
+
+/* Image viewer */
+.tp-iv-img-wrap {
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 16px;
+    background: #1e1e2e;
+}
+.tp-iv-img {
+    max-width: 100%;
+    border-radius: 6px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+/* Fallback for Word/Office/unknown */
+.tp-iv-fallback {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 32px 20px;
+    text-align: center;
+    background: #fff;
+}
+.tp-iv-fallback-icon { font-size: 54px; }
+.tp-iv-fallback p { font-size: 13px; color: #6b7280; margin: 0; }
+.tp-iv-fallback-btns { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.tp-iv-fallback-open {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 18px; background: #800000; color: #fff;
+    border-radius: 6px; font-size: 12.5px; font-weight: 700;
+    text-decoration: none; transition: background 0.15s;
+}
+.tp-iv-fallback-open:hover { background: #660000; color: #fff; }
+.tp-iv-fallback-dl {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 18px; background: #005555; color: #fff;
+    border-radius: 6px; font-size: 12.5px; font-weight: 700;
+    text-decoration: none; transition: background 0.15s;
+}
+.tp-iv-fallback-dl:hover { background: #004444; color: #fff; }
+
+/* ── Checklist item Open/Close button ────────────────────────── */
+.tr-open-btn {
+    flex-shrink: 0;
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 700;
+    font-family: inherit;
+    color: #800000;
+    background: rgba(128,0,0,0.07);
+    border: 1px solid rgba(128,0,0,0.18);
+    border-radius: 5px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s;
+    pointer-events: all;
+}
+.tr-open-btn:hover {
+    background: #800000;
+    color: #fff;
+    border-color: #800000;
+}
+.tr-open-btn.active {
+    background: #800000;
+    color: #fff;
+    border-color: #800000;
+}
+
+/* Active checklist row highlight when its doc is open */
+.triage-check-item.viewer-active {
+    border-left: 3px solid #800000 !important;
+    background: rgba(128,0,0,0.04) !important;
+}
+
+/* No-file indicator */
+.tr-no-file {
+    flex-shrink: 0;
+    margin-left: auto;
+    font-size: 14px;
+    color: #d1d5db;
+    display: inline-flex;
+    align-items: center;
+}

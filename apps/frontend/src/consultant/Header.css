@@ -1,205 +1,347 @@
-/* ================================================================
-   HEADER.CSS - CONSULTANT/ADMIN/INVENTOR
-   Fixed logo positioning and toggle button spacing
-   ================================================================ */
+/* ── Ensure role tokens are always maroon for every theme ── */
+:root,
+[data-theme="admin"],
+[data-theme="consultant"],
+[data-theme="inventor"],
+[data-theme="public"] {
+    --role-color:       #800000;
+    --role-color-dark:  #5c0000;
+    --role-color-light: rgba(128, 0, 0, 0.07);
+    --role-color-mid:   rgba(128, 0, 0, 0.15);
+    --role-accent:      #15803d;   /* green — used for active states / highlights */
+    --role-accent-light: rgba(21, 128, 61, 0.08);
+}
 
-header {
-    transition: all 0.5s ease;
-    z-index: 997;
-    height: 60px;
-    box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
-    background-color: #fff;
-    padding-left: 20px;
-    display: flex;
-    align-items: center;
+/* ============================================================
+   HEADER SHELL
+============================================================ */
+header.header {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-}
-
-/* Logo/Brand Section */
-.header-logo,
-.header-brand {
+    z-index: 997;
+    height: 60px;
+    background: #ffffff;
+    border-bottom: 2px solid var(--role-color);
+    box-shadow: 0 1px 10px rgba(128, 0, 0, 0.1);
+    padding: 0 20px;
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-left: 0;
-    padding-left: 0;
-    z-index: 998;
+    justify-content: space-between;
+    font-family: 'DM Sans', 'Segoe UI', system-ui, sans-serif;
 }
 
-.header-logo img {
-    height: 40px;
-    width: auto;
+/* ============================================================
+   LEFT SIDE — inner Bootstrap div fix
+   DOM: header > div.d-flex > [a.logo, i.toggle-sidebar-btn]
+============================================================ */
+
+/* Override Bootstrap's justify-content-between on inner div */
+.header > div.d-flex {
+    justify-content: flex-start !important;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
 }
 
-.header-title,
-.header-brand-text {
-    font-size: 20px;
+/* Logo anchor — prevent it from stretching */
+.header > div.d-flex > a.logo,
+.header .logo {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    margin-right: 4px;
+}
+
+/* ── Logo image ── */
+.header .logo img,
+.header-logo-img,
+.header-logo-area img {
+    height: 34px;
+    width: 34px;
+    object-fit: contain;
+    border-radius: 6px;
+    display: block;
+    flex-shrink: 0;
+}
+
+/* ── Welcome text block ── */
+.header .logo .header-welcome-text,
+.header-welcome-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+    gap: 0;
+}
+
+/* "WELCOME" micro-label */
+.header-welcome-text .welcome-label {
+    font-size: 9px;
     font-weight: 700;
-    color: var(--primary, #0f172a);
-    margin: 0;
-    white-space: nowrap;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #94a3b8;
+    display: block;
 }
 
-/* Toggle Sidebar Button - FIXED POSITIONING */
-.header .toggle-sidebar-btn {
-    font-size: 32px;
-    padding: 0 20px;
+/* Role / name text */
+.header-welcome-text .welcome-role,
+.header .logo span:not(.welcome-label) {
+    font-family: 'DM Sans', 'Segoe UI', system-ui, sans-serif;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--role-color);
+    line-height: 1.15;
+    white-space: nowrap;
+    letter-spacing: 0.1px;
+}
+
+/* ============================================================
+   SIDEBAR TOGGLE BUTTON
+============================================================ */
+.header .toggle-sidebar-btn,
+.header > div.d-flex > .toggle-sidebar-btn,
+.toggle-sidebar-btn {
+    font-size: 22px;
     cursor: pointer;
-    color: var(--primary, #00503C);
-    margin-left: 0;  /* ✅ FIXED: Removed negative margin */
-    margin-right: 20px;  /* ✅ Space between toggle and logo */
-    position: relative;
-    top: 0;
-    transition: color 0.3s ease;
+    color: var(--role-color);
+    padding: 6px 8px;
+    border-radius: 8px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    line-height: 1;
+    transition: background 0.18s ease, transform 0.15s ease, color 0.15s ease;
+    margin: 0;
+    position: static;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: none;
-    border: none;
-    line-height: 1;
 }
 
-.header .toggle-sidebar-btn:hover {
-    color: var(--secondary, #0369a1);
+.header .toggle-sidebar-btn:hover,
+.toggle-sidebar-btn:hover {
+    background: var(--role-color-light);
+    color: var(--role-color-dark);
+    transform: scale(1.06);
 }
 
-/* Navigation Section (Right side) */
+.header .toggle-sidebar-btn:active,
+.toggle-sidebar-btn:active {
+    transform: scale(0.94);
+}
+
+/* ============================================================
+   RIGHT NAV
+============================================================ */
 .header-nav {
-    margin-left: auto;
     display: flex;
     align-items: center;
-    gap: 15px;
-    padding-right: 20px;
+    gap: 6px;
+    margin-left: auto;
 }
 
-/* ================================================================
-   CONSULTANT THEME SPECIFIC
-   ================================================================ */
-[data-theme="consultant"] header {
-    background-color: #ffffff;
-    border-bottom: 1px solid #e5e7eb;
+/* Notification bell + any icon nav item */
+.header-nav .nav-item {
+    list-style: none;
 }
 
-[data-theme="consultant"] .header .toggle-sidebar-btn {
-    color: #0f172a;
+.header-nav .nav-link,
+.header-nav .nav-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--role-color);
+    font-size: 18px;
+    padding: 7px 9px;
+    border-radius: 8px;
+    transition: background 0.18s ease, color 0.15s ease;
+    text-decoration: none;
+    position: relative;
 }
 
-[data-theme="consultant"] .header .toggle-sidebar-btn:hover {
-    color: #0369a1;
+.header-nav .nav-link:hover,
+.header-nav .nav-icon:hover {
+    background: var(--role-color-light);
+    color: var(--role-color-dark);
 }
 
-[data-theme="consultant"] .header-title {
-    color: #0f172a;
+/* ── Profile / user name ── */
+.header-nav .nav-profile,
+.header-nav .nav-link.nav-profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 12px;
+    border-radius: 8px;
+    color: var(--role-color);
+    font-weight: 600;
+    font-size: 13.5px;
+    text-decoration: none;
+    transition: background 0.18s ease;
+    cursor: pointer;
 }
 
-/* ================================================================
-   INVENTOR THEME SPECIFIC
-   ================================================================ */
-[data-theme="inventor"] header {
-    background-color: #ffffff;
-    border-bottom: 1px solid #e2e8f0;
+.header-nav .nav-profile:hover {
+    background: var(--role-color-light);
 }
 
-[data-theme="inventor"] .header .toggle-sidebar-btn {
-    color: #1e3a8a;
+/* Profile picture */
+.header-nav .nav-profile img,
+.header-nav img.rounded-circle {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--role-color);
+    flex-shrink: 0;
 }
 
-[data-theme="inventor"] .header .toggle-sidebar-btn:hover {
-    color: #3b82f6;
+/* Profile name text */
+.header-nav .nav-profile span,
+.header-nav .profile-name {
+    font-family: 'DM Sans', 'Segoe UI', system-ui, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--role-color);
+    white-space: nowrap;
+    max-width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-[data-theme="inventor"] .header-title {
-    color: #1e3a8a;
+/* ── Notification badge ── */
+.badge-number,
+.header-nav .badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    font-size: 9.5px;
+    padding: 2px 5px;
+    border-radius: 50%;
+    min-width: 17px;
+    height: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    color: #fff;
+    background: var(--role-color) !important;
+    box-shadow: 0 1px 5px rgba(128, 0, 0, 0.35);
+    line-height: 1;
+    animation: badge-pulse 2.5s ease-in-out infinite;
 }
 
-/* ================================================================
-   ADMIN THEME SPECIFIC
-   ================================================================ */
-[data-theme="admin"] header {
-    background-color: #ffffff;
-    border-bottom: 1px solid #e5e7eb;
+@keyframes badge-pulse {
+    0%, 100% { transform: scale(1); }
+    50%       { transform: scale(1.14); }
 }
 
-[data-theme="admin"] .header .toggle-sidebar-btn {
-    color: #0f172a;
+/* ── Dropdown menus in header nav ── */
+.header-nav .dropdown-menu {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 8px 28px rgba(15,23,42,0.12);
+    padding: 6px;
+    font-family: 'DM Sans', 'Segoe UI', system-ui, sans-serif;
+    min-width: 180px;
 }
 
-[data-theme="admin"] .header .toggle-sidebar-btn:hover {
-    color: #4f46e5;
+.header-nav .dropdown-item {
+    border-radius: 7px;
+    padding: 9px 14px;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--role-color);
+    transition: background 0.15s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-[data-theme="admin"] .header-title {
-    color: #0f172a;
+.header-nav .dropdown-item:hover,
+.header-nav .dropdown-item:focus {
+    background: var(--role-color-light);
+    color: var(--role-color-dark);
 }
 
-/* ================================================================
-   RESPONSIVE DESIGN
-   ================================================================ */
+.header-nav .dropdown-item i {
+    font-size: 15px;
+    color: var(--role-color);
+    flex-shrink: 0;
+}
+
+.header-nav .dropdown-divider {
+    margin: 4px 0;
+    border-color: #e2e8f0;
+}
+
+/* Logout item — green accent */
+.header-nav .dropdown-item.logout-item,
+.header-nav .dropdown-item[href*="logout"] {
+    color: var(--role-accent);
+    font-weight: 600;
+}
+
+.header-nav .dropdown-item.logout-item:hover,
+.header-nav .dropdown-item[href*="logout"]:hover {
+    background: rgba(21, 128, 61, 0.08);
+    color: #166534;
+}
+
+/* ============================================================
+   HEADER LEFT AREA (custom class variant)
+============================================================ */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.header-logo-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    text-decoration: none;
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width: 1199px) {
+    header.header { padding: 0 16px; }
+}
 
 @media (max-width: 768px) {
-    header {
-        padding-left: 10px;
-    }
-    
-    .header .toggle-sidebar-btn {
-        padding: 0 10px;
-        margin-right: 10px;
-        font-size: 28px;
-    }
-    
-    .header-title,
-    .header-brand-text {
-        font-size: 16px;
-    }
-    
-    .header-nav {
-        padding-right: 10px;
-        gap: 10px;
-    }
+    header.header { padding: 0 12px; }
+
+    .header .toggle-sidebar-btn { font-size: 20px; padding: 5px 7px; }
+
+    .header-welcome-text .welcome-role { font-size: 12.5px; }
+    .header-welcome-text .welcome-label { display: none; }
+
+    .header .logo img,
+    .header-logo-img { height: 30px; width: 30px; }
+
+    .header-nav .profile-name,
+    .header-nav .nav-profile span { max-width: 100px; font-size: 12px; }
 }
 
-@media (max-width: 480px) {
-    .header-title,
-    .header-brand-text {
-        font-size: 14px;
-        max-width: 150px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-    
-    .header .toggle-sidebar-btn {
-        font-size: 24px;
-        padding: 0 8px;
-        margin-right: 8px;
-    }
-}
+@media (max-width: 576px) {
+    header.header { padding: 0 10px; }
 
-/* ================================================================
-   ACCESSIBILITY
-   ================================================================ */
-.header .toggle-sidebar-btn:focus {
-    outline: 2px solid var(--secondary, #0369a1);
-    outline-offset: 2px;
-}
+    .header .toggle-sidebar-btn { font-size: 18px; padding: 4px 6px; }
 
-.header .toggle-sidebar-btn:active {
-    transform: scale(0.95);
-}
+    .header-welcome-text .welcome-role { font-size: 12px; }
 
-/* ================================================================
-   PRINT STYLES
-   ================================================================ */
-@media print {
-    header {
-        position: static;
-        box-shadow: none;
-        border-bottom: 1px solid #e5e7eb;
-    }
-    
-    .header .toggle-sidebar-btn {
-        display: none;
-    }
+    .header-nav .profile-name,
+    .header-nav .nav-profile span { display: none; }
 }

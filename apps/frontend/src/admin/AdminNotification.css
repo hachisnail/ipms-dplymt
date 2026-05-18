@@ -1,0 +1,467 @@
+/* =========================================================================
+   ADMIN NOTIFICATION CSS
+   Matches AdminNotice.jsx structure exactly
+   ========================================================================= */
+
+/* ── Bell Badge ─────────────────────────────────────────────────────────── */
+.badge-number {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    font-size: 10px;
+    padding: 2px 5px;
+    border-radius: 50%;
+    min-width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    animation: pulse-badge 2.2s ease-in-out infinite;
+    line-height: 1;
+}
+
+@keyframes pulse-badge {
+    0%, 100% { transform: scale(1); }
+    50%       { transform: scale(1.15); }
+}
+
+/* ── Dropdown Shell ─────────────────────────────────────────────────────── */
+.notifications.admin-notifications {
+    width: 440px;
+    max-height: 640px;
+    overflow: hidden;
+    padding: 0;
+    border-radius: 14px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 12px 40px rgba(15, 23, 42, 0.14), 0 2px 8px rgba(15, 23, 42, 0.06);
+    display: none;
+    background: #fff;
+}
+
+.notifications.admin-notifications.show {
+    display: block;
+    animation: dropDown 0.22s ease;
+}
+
+@keyframes dropDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Header ─────────────────────────────────────────────────────────────── */
+.admin-notifications .dropdown-header {
+    padding: 16px 18px 12px;
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    border-bottom: none;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+}
+
+.admin-notifications .notification-header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.admin-notifications .notification-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #f1f5f9;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: 0.2px;
+}
+
+.admin-notifications .notification-title i {
+    font-size: 16px;
+    color: #fbbf24;
+}
+
+.admin-notifications .notification-actions {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.admin-notifications .btn-mark-read {
+    padding: 5px 11px;
+    border-radius: 6px;
+    font-size: 11.5px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: #e2e8f0;
+    transition: background 0.2s, transform 0.15s;
+}
+
+.admin-notifications .btn-mark-read:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+}
+
+.admin-notifications .btn-clear-all {
+    padding: 5px 11px;
+    border-radius: 6px;
+    font-size: 11.5px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+    border: none;
+    background: rgba(239, 68, 68, 0.75);
+    color: #fff;
+    transition: background 0.2s, transform 0.15s;
+}
+
+.admin-notifications .btn-clear-all:hover {
+    background: #ef4444;
+    transform: translateY(-1px);
+}
+
+/* ── Filter Tabs ────────────────────────────────────────────────────────── */
+.admin-notifications .notification-filter-tabs {
+    display: flex;
+    gap: 0;
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 0 14px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.admin-notifications .notification-filter-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.admin-notifications .filter-tab {
+    padding: 9px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.18s, border-color 0.18s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0;
+}
+
+.admin-notifications .filter-tab:hover {
+    color: #0f172a;
+}
+
+.admin-notifications .filter-tab.active {
+    color: #1d4ed8;
+    border-bottom-color: #1d4ed8;
+}
+
+.admin-notifications .tab-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    border-radius: 8px;
+    background: #ef4444;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.admin-notifications .tab-count:empty {
+    display: none;
+}
+
+/* ── Scrollable List ────────────────────────────────────────────────────── */
+.admin-notifications .notifications-list {
+    max-height: 430px;
+    overflow-y: auto;
+    background: #fff;
+}
+
+.admin-notifications .notifications-list::-webkit-scrollbar {
+    width: 5px;
+}
+
+.admin-notifications .notifications-list::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+.admin-notifications .notifications-list::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+.admin-notifications .notifications-list::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* ── Notification Item ──────────────────────────────────────────────────── */
+.admin-notifications .notification-item {
+    padding: 13px 18px;
+    display: flex;
+    gap: 13px;
+    align-items: flex-start;
+    border-left: 3px solid transparent;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    position: relative;
+}
+
+.admin-notifications .notification-item.unread {
+    background: linear-gradient(to right, #f0f7ff, #fff);
+    border-left-color: #2563eb;
+}
+
+.admin-notifications .notification-item:hover {
+    background: #f8fafc;
+}
+
+/* ── Icon Wrapper ───────────────────────────────────────────────────────── */
+.admin-notifications .notification-icon-wrapper {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: #f1f5f9;
+}
+
+.admin-notifications .notification-icon-wrapper i {
+    font-size: 20px;
+}
+
+/* ── Content ────────────────────────────────────────────────────────────── */
+.admin-notifications .notification-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.admin-notifications .notif-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 4px;
+}
+
+/* Category Badges */
+.admin-notifications .notif-category-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+}
+
+.admin-notifications .badge-new_submission  { background: #dbeafe; color: #1d4ed8; }
+.admin-notifications .badge-new_user        { background: #dcfce7; color: #15803d; }
+.admin-notifications .badge-role_change     { background: #fef9c3; color: #a16207; }
+.admin-notifications .badge-pas_report      { background: #cffafe; color: #0e7490; }
+.admin-notifications .badge-assignment      { background: #f1f5f9; color: #475569; }
+.admin-notifications .badge-communication   { background: #fee2e2; color: #b91c1c; }
+
+.admin-notifications .badge-new {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 7px;
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: #fff;
+    border-radius: 4px;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    box-shadow: 0 1px 3px rgba(239, 68, 68, 0.3);
+}
+
+.admin-notifications .notification-content h4 {
+    font-size: 13.5px;
+    font-weight: 600;
+    margin: 0 0 4px 0;
+    color: #0f172a;
+    line-height: 1.4;
+}
+
+.admin-notifications .notification-message {
+    font-size: 12.5px;
+    margin: 0 0 5px 0;
+    color: #475569;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.admin-notifications .notification-time {
+    font-size: 11px;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0;
+}
+
+/* ── Mark Single Button ─────────────────────────────────────────────────── */
+.admin-notifications .btn-mark-single {
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.18s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.admin-notifications .btn-mark-single:hover {
+    background: #2563eb;
+    border-color: #2563eb;
+    color: #fff;
+    transform: scale(1.08);
+}
+
+.admin-notifications .btn-mark-single i {
+    font-size: 15px;
+}
+
+/* ── Loading / Empty ────────────────────────────────────────────────────── */
+.admin-notifications .notification-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 44px 20px;
+    color: #64748b;
+    font-size: 13.5px;
+    gap: 8px;
+}
+
+.admin-notifications .notification-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 56px 20px;
+    text-align: center;
+}
+
+.admin-notifications .notification-empty i {
+    font-size: 52px;
+    color: #cbd5e1;
+    margin-bottom: 14px;
+}
+
+.admin-notifications .notification-empty p {
+    font-size: 15px;
+    font-weight: 600;
+    color: #64748b;
+    margin: 0 0 5px 0;
+}
+
+.admin-notifications .notification-empty span {
+    font-size: 12.5px;
+    color: #94a3b8;
+}
+
+/* ── Divider ────────────────────────────────────────────────────────────── */
+.admin-notifications .dropdown-divider {
+    margin: 0;
+    border-top: 1px solid #e2e8f0;
+}
+
+/* ── Footer ─────────────────────────────────────────────────────────────── */
+.admin-notifications .dropdown-footer {
+    padding: 11px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+}
+
+.admin-notifications .notification-count {
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.admin-notifications .view-all-link {
+    font-size: 12px;
+    font-weight: 600;
+    color: #2563eb;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: gap 0.15s;
+}
+
+.admin-notifications .view-all-link:hover {
+    gap: 7px;
+    text-decoration: none;
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .notifications.admin-notifications {
+        width: 380px;
+    }
+
+    .admin-notifications .notifications-list {
+        max-height: 370px;
+    }
+}
+
+@media (max-width: 576px) {
+    .notifications.admin-notifications {
+        width: calc(100vw - 30px);
+        max-width: 380px;
+    }
+
+    .admin-notifications .dropdown-header {
+        padding: 13px 14px 10px;
+    }
+
+    .admin-notifications .notification-item {
+        padding: 11px 14px;
+    }
+
+    .admin-notifications .notification-filter-tabs {
+        padding: 0 10px;
+    }
+
+    .admin-notifications .filter-tab {
+        padding: 8px 10px;
+        font-size: 11px;
+    }
+}

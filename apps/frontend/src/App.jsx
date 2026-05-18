@@ -13,7 +13,6 @@ import './App.css';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import ProtectedRoute from './components/ProtectedRoute';
-import AboutIPMS from './pages/AboutIPMS';
 
 // Inventor Portal (Maroon & Coral theme)
 import InventorApp from './inventor/App';
@@ -26,6 +25,7 @@ import AdminApp from './admin/App';
 
 // Landing/Home Page
 import HomePage from './components/HomePage';
+import DynamicPage from './components/DynamicPage';
 
 function App() {
   return (
@@ -49,8 +49,6 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/about" element={<AboutIPMS />} />
-
         {/* ===================================== */}
         {/* INVENTOR PORTAL (Protected) */}
         {/* ===================================== */}
@@ -86,6 +84,11 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        {/* ===================================== */}
+        {/* PUBLIC CMS PAGES (Page Builder) */}
+        {/* ===================================== */}
+        <Route path="/:slug" element={<DynamicPage />} />
 
         {/* ===================================== */}
         {/* FALLBACK - Redirect to Login */}

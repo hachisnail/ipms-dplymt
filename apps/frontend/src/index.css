@@ -1,32 +1,93 @@
 /* ================================================================
-   INDEX.CSS - MASTER BODY STYLES
-   This file controls body/layout for ALL user types:
-   - Inventor
-   - Consultant
-   - Admin
-   - Login/Public
-   
-   DO NOT modify body styles in individual component CSS files!
+   INDEX.CSS — CNSC-IPMO MASTER STYLES
+   Single color scheme: Maroon (#800000) + Green (#15803D)
+   Single font: DM Sans (Google Fonts)
+   Applies to ALL user types: Inventor · Consultant · Admin · Public
    ================================================================ */
 
+/* ── Google Font import ── */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+
 /* ================================================================
-   ROOT VARIABLES (Can be overridden by themes.css)
+   DESIGN TOKENS — Single source of truth for all colors & spacing
    ================================================================ */
 :root {
-  /* Typography */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  line-height: 1.6;
-  font-weight: 400;
-  
-  /* Performance */
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  
-  /* Colors (defaults - overridden by themes.css) */
-  color: #1f2937;
-  background-color: #ffffff;
+  /* ── Brand palette ── */
+  --maroon:           #800000;
+  --maroon-dark:      #5c0000;
+  --maroon-mid:       #6b0000;
+  --maroon-light:     #fff5f5;
+  --maroon-tint:      #fceaea;
+  --maroon-border:    #f5c6c6;
+
+  --green:            #15803d;
+  --green-dark:       #166534;
+  --green-light:      #f0fdf4;
+  --green-border:     #bbf7d0;
+
+  /* ── Neutrals ── */
+  --white:            #ffffff;
+  --surface:          #ffffff;
+  --surface-2:        #f8f9fc;
+  --surface-3:        #f1f3f8;
+  --border:           #e2e8f0;
+  --border-mid:       #cbd5e1;
+
+  /* ── Text ── */
+  --text:             #0f172a;
+  --text-sec:         #334155;
+  --text-soft:        #64748b;
+  --text-faint:       #94a3b8;
+
+  /* ── Semantic ── */
+  --danger:           #dc2626;
+  --danger-light:     #fef2f2;
+  --warning:          #d97706;
+  --warning-light:    #fffbeb;
+  --info:             #0369a1;
+  --info-light:       #eff6ff;
+
+  /* ── Shadows ── */
+  --shadow-sm:        0 1px 3px rgba(15,23,42,0.07), 0 1px 2px rgba(15,23,42,0.04);
+  --shadow-md:        0 4px 16px rgba(15,23,42,0.09), 0 2px 6px rgba(15,23,42,0.05);
+  --shadow-lg:        0 8px 28px rgba(15,23,42,0.11), 0 2px 8px rgba(15,23,42,0.05);
+
+  /* ── Typography ── */
+  --font:             'DM Sans', 'Segoe UI', system-ui, sans-serif;
+  --mono:             'SFMono-Regular', 'Fira Mono', 'Courier New', monospace;
+  --line-height:      1.6;
+
+  /* ── Radius ── */
+  --radius-sm:        6px;
+  --radius-md:        10px;
+  --radius-lg:        14px;
+  --radius-full:      9999px;
+
+  /* ── Transitions ── */
+  --transition:       0.2s ease;
+
+  /* ── Layout ── */
+  --header-h:         60px;
+  --sidebar-w:        260px;
+
+  /* ── Legacy role-color aliases (kept for backward compat) ── */
+  --role-color:       var(--maroon);
+  --role-color-light: rgba(128, 0, 0, 0.07);
+  --role-color-mid:   rgba(128, 0, 0, 0.15);
+  --primary:          var(--maroon);
+  --secondary:        var(--green);
+  --bg-light:         #f8f9fc;
+  --text-primary:     var(--maroon);
+}
+
+/* All themes now use the same maroon+green palette */
+[data-theme="admin"],
+[data-theme="consultant"],
+[data-theme="inventor"],
+[data-theme="public"] {
+  --role-color:       var(--maroon);
+  --role-color-light: rgba(128, 0, 0, 0.07);
+  --role-color-mid:   rgba(128, 0, 0, 0.15);
 }
 
 /* ================================================================
@@ -41,375 +102,327 @@
 }
 
 /* ================================================================
-   HTML - Foundation
+   HTML
    ================================================================ */
 html {
   scroll-behavior: smooth;
-  height: 100%;
-  overflow-x: hidden;
+  height: 100vh;
+  overflow: hidden;
+  font-size: 16px;
 }
 
 /* ================================================================
-   BODY - MASTER STYLES (APPLIES TO ALL USER TYPES)
+   BODY
    ================================================================ */
 body {
-  /* Layout */
   margin: 0;
   padding: 0;
-  min-height: 100vh;
-  
-  /* Typography */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 16px;
-  line-height: 1.6;
-  color: #1f2937;
-  
-  /* Background - Uses theme variables if available */
-  background: var(--bg-light, #fff9f8);
-  
-  /* Performance */
+  height: 100vh;
+  overflow: hidden;
+
+  font-family: var(--font);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: var(--line-height);
+  color: var(--text);
+
+  background: var(--surface-2);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-  
-  /* Prevent horizontal scroll */
-  overflow-x: hidden;
-  
-  /* ⚠️ REMOVED PROBLEMATIC STYLES */
-  /* display: flex;          ← REMOVED: Breaks layout */
-  /* place-items: center;    ← REMOVED: Breaks layout */
-  /* min-width: 3600px;      ← REMOVED: Breaks mobile! */
 }
 
 /* ================================================================
-   LINKS - Global Styling
-   ================================================================ */
-a {
-  color: var(--primary, #800020);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-a:hover {
-  color: var(--secondary, #FF6B5A);
-  text-decoration: underline;
-}
-
-a:focus-visible {
-  outline: 2px solid var(--secondary, #FF6B5A);
-  outline-offset: 2px;
-  border-radius: 2px;
-}
-
-/* ================================================================
-   HEADINGS - Global Styling
-   ================================================================ */
-h1, h2, h3, h4, h5, h6 {
-  line-height: 1.2;
-  font-weight: 700;
-  color: var(--text-primary, #800020);
-  margin: 0;
-}
-
-h1 {
-  font-size: 2.5rem;
-}
-
-h2 {
-  font-size: 2rem;
-}
-
-h3 {
-  font-size: 1.75rem;
-}
-
-h4 {
-  font-size: 1.5rem;
-}
-
-h5 {
-  font-size: 1.25rem;
-}
-
-h6 {
-  font-size: 1rem;
-}
-
-/* ================================================================
-   BUTTONS - Global Styling
-   ================================================================ */
-button {
-  font-family: inherit;
-  font-size: 1em;
-  font-weight: 500;
-  cursor: pointer;
-  border: none;
-  border-radius: 8px;
-  padding: 0.6em 1.2em;
-  transition: all 0.25s ease;
-  background-color: var(--secondary, #FF6B5A);
-  color: white;
-}
-
-button:hover {
-  background-color: var(--primary, #800020);
-  transform: translateY(-2px);
-}
-
-button:focus-visible {
-  outline: 2px solid var(--secondary, #FF6B5A);
-  outline-offset: 2px;
-}
-
-button:active {
-  transform: translateY(0);
-}
-
-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-}
-
-/* ================================================================
-   FORM ELEMENTS - Global Styling
-   ================================================================ */
-input,
-textarea,
-select {
-  font-family: inherit;
-  font-size: 1em;
-  padding: 0.5em;
-  border: 1px solid var(--border, #ffe8e5);
-  border-radius: 4px;
-  transition: border-color 0.2s ease;
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-  outline: none;
-  border-color: var(--primary, #800020);
-  box-shadow: 0 0 0 3px rgba(128, 0, 32, 0.1);
-}
-
-/* ================================================================
-   ROOT CONTAINER - App Wrapper
+   ROOT APP CONTAINER
    ================================================================ */
 #root {
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   position: relative;
 }
 
 /* ================================================================
-   IMAGES - Responsive & Accessible
+   TYPOGRAPHY
    ================================================================ */
-img,
-picture,
-video,
-canvas,
-svg {
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--text);
+  margin: 0;
+}
+
+h1 { font-size: 2rem;    }
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.5rem;  }
+h4 { font-size: 1.25rem; }
+h5 { font-size: 1.1rem;  }
+h6 { font-size: 1rem;    }
+
+p {
+  margin: 0;
+  color: var(--text-sec);
+  line-height: var(--line-height);
+}
+
+strong, b {
+  font-weight: 600;
+  color: var(--text);
+}
+
+small {
+  font-size: 0.8em;
+  color: var(--text-soft);
+}
+
+/* ================================================================
+   LINKS
+   ================================================================ */
+a {
+  color: var(--maroon);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+a:hover {
+  color: var(--maroon-dark);
+  text-decoration: underline;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--maroon);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ================================================================
+   BUTTONS — Reset only; component files add color
+   ================================================================ */
+button {
+  font-family: var(--font);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  background: none;
+  transition: all var(--transition);
+  line-height: 1.4;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--maroon);
+  outline-offset: 2px;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* ── Primary button (maroon) ── */
+.btn-primary-app,
+.btn-maroon {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 20px;
+  background: var(--maroon);
+  color: #fff;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+  box-shadow: 0 2px 8px rgba(128,0,0,0.2);
+}
+
+.btn-primary-app:hover,
+.btn-maroon:hover {
+  background: var(--maroon-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(128,0,0,0.28);
+  color: #fff;
+  text-decoration: none;
+}
+
+/* ── Secondary button (green) ── */
+.btn-secondary-app,
+.btn-green {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 20px;
+  background: var(--green);
+  color: #fff;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+  box-shadow: 0 2px 8px rgba(21,128,61,0.2);
+}
+
+.btn-secondary-app:hover,
+.btn-green:hover {
+  background: var(--green-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(21,128,61,0.28);
+  color: #fff;
+  text-decoration: none;
+}
+
+/* ── Ghost / outline button ── */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 18px;
+  background: transparent;
+  color: var(--maroon);
+  border: 1.5px solid var(--maroon-border);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all var(--transition);
+}
+
+.btn-ghost:hover {
+  background: var(--maroon-tint);
+  border-color: var(--maroon);
+}
+
+/* ================================================================
+   FORM ELEMENTS
+   ================================================================ */
+input,
+textarea,
+select {
+  font-family: var(--font);
+  font-size: 0.9375rem;
+  padding: 9px 13px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--text);
+  transition: border-color var(--transition), box-shadow var(--transition);
+  width: 100%;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-faint);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--maroon);
+  box-shadow: 0 0 0 3px rgba(128, 0, 0, 0.1);
+}
+
+label {
+  font-family: var(--font);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-sec);
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* ================================================================
+   IMAGES
+   ================================================================ */
+img, picture, video, canvas, svg {
   display: block;
   max-width: 100%;
   height: auto;
 }
 
 /* ================================================================
-   SCROLLBAR - Global Styling
+   SCROLLBAR — Maroon accent
    ================================================================ */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
+::-webkit-scrollbar          { width: 7px; height: 7px; }
+::-webkit-scrollbar-track    { background: var(--surface-2); border-radius: 4px; }
+::-webkit-scrollbar-thumb    { background: var(--maroon-border); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--maroon); }
 
-::-webkit-scrollbar-track {
-  background: var(--bg-light, #fff9f8);
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--secondary, #FF6B5A);
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--primary, #800020);
-}
-
-/* Firefox scrollbar */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--secondary, #FF6B5A) var(--bg-light, #fff9f8);
+  scrollbar-color: var(--maroon-border) var(--surface-2);
 }
 
 /* ================================================================
-   TEXT SELECTION
+   TEXT SELECTION — Maroon
    ================================================================ */
-::selection {
-  background: var(--secondary, #FF6B5A);
-  color: white;
-}
-
-::-moz-selection {
-  background: var(--secondary, #FF6B5A);
-  color: white;
-}
+::selection      { background: var(--maroon); color: #fff; }
+::-moz-selection { background: var(--maroon); color: #fff; }
 
 /* ================================================================
-   ACCESSIBILITY - Skip to Content
-   ================================================================ */
-.skip-to-content {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  background: var(--primary, #800020);
-  color: white;
-  padding: 8px 16px;
-  text-decoration: none;
-  border-radius: 0 0 4px 0;
-  z-index: 9999;
-  transition: top 0.3s;
-}
-
-.skip-to-content:focus {
-  top: 0;
-}
-
-/* ================================================================
-   FOCUS VISIBLE (Better Accessibility)
+   FOCUS VISIBLE
    ================================================================ */
 :focus-visible {
-  outline: 2px solid var(--secondary, #FF6B5A);
+  outline: 2px solid var(--maroon);
   outline-offset: 2px;
 }
 
 /* ================================================================
-   PRINT STYLES
+   UTILITY CLASSES
    ================================================================ */
-@media print {
-  body {
-    background: white !important;
-    color: black !important;
-  }
-  
-  button {
-    display: none;
-  }
-  
-  a {
-    color: black !important;
-    text-decoration: underline !important;
-  }
+
+/* Badges */
+.badge-maroon {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  background: var(--maroon-tint);
+  color: var(--maroon);
+  border: 1px solid var(--maroon-border);
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.badge-green {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  background: var(--green-light);
+  color: var(--green-dark);
+  border: 1px solid var(--green-border);
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+/* Cards */
+.card-app {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 20px;
+}
+
+.card-app:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--maroon-border);
+}
+
+/* Divider */
+.divider-app {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 16px 0;
 }
 
 /* ================================================================
-   RESPONSIVE TYPOGRAPHY
-   ================================================================ */
-@media (max-width: 768px) {
-  body {
-    font-size: 14px;
-  }
-  
-  h1 {
-    font-size: 2rem;
-  }
-  
-  h2 {
-    font-size: 1.75rem;
-  }
-  
-  h3 {
-    font-size: 1.5rem;
-  }
-  
-  h4 {
-    font-size: 1.25rem;
-  }
-}
-
-@media (max-width: 480px) {
-  body {
-    font-size: 13px;
-  }
-  
-  h1 {
-    font-size: 1.75rem;
-  }
-  
-  h2 {
-    font-size: 1.5rem;
-  }
-}
-
-/* ================================================================
-   THEME-SPECIFIC BODY BACKGROUNDS
-   These work with data-theme attribute set in App.jsx
-   ================================================================ */
-
-/* Inventor Theme */
-:root[data-theme="inventor"] body {
-  background: linear-gradient(135deg, #fff9f8 0%, #ffe8e5 100%);
-}
-
-/* Consultant Theme */
-:root[data-theme="consultant"] body {
-  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-}
-
-/* Admin Theme */
-:root[data-theme="admin"] body {
-  background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
-}
-
-/* Public/Login Theme */
-:root[data-theme="public"] body {
-  background: linear-gradient(135deg, #fff9f8 0%, #ffe8e5 100%);
-}
-
-/* ================================================================
-   DARK MODE SUPPORT (Optional - Remove if not needed)
-   ================================================================ */
-@media (prefers-color-scheme: dark) {
-  /* Only applies if user has system dark mode AND no data-theme set */
-  :root:not([data-theme]) {
-    color: rgba(255, 255, 255, 0.87);
-    background-color: #242424;
-  }
-  
-  :root:not([data-theme]) body {
-    background: #1a1a1a;
-    color: rgba(255, 255, 255, 0.87);
-  }
-  
-  :root:not([data-theme]) a {
-    color: #646cff;
-  }
-  
-  :root:not([data-theme]) a:hover {
-    color: #535bf2;
-  }
-  
-  :root:not([data-theme]) button {
-    background-color: #f9f9f9;
-    color: #1a1a1a;
-  }
-}
-
-/* ================================================================
-   LOADING STATE
-   ================================================================ */
-body.loading {
-  cursor: wait;
-}
-
-body.loading * {
-  pointer-events: none;
-}
-
-/* ================================================================
-   MODAL OPEN (Prevent body scroll)
+   MODAL OPEN STATE
    ================================================================ */
 body.modal-open {
   overflow: hidden;
@@ -417,18 +430,63 @@ body.modal-open {
 }
 
 /* ================================================================
-   PERFORMANCE OPTIMIZATIONS
+   LOADING STATE
    ================================================================ */
-body {
-  will-change: auto;
-  contain: layout style paint;
+body.loading         { cursor: wait; }
+body.loading *       { pointer-events: none; }
+
+/* ================================================================
+   ACCESSIBILITY — Skip to content
+   ================================================================ */
+.skip-to-content {
+  position: absolute;
+  top: -50px;
+  left: 0;
+  background: var(--maroon);
+  color: #fff;
+  padding: 10px 18px;
+  font-family: var(--font);
+  font-weight: 600;
+  border-radius: 0 0 var(--radius-md) 0;
+  z-index: 9999;
+  transition: top 0.3s;
+  text-decoration: none;
+}
+
+.skip-to-content:focus { top: 0; }
+
+/* ================================================================
+   RESPONSIVE TYPOGRAPHY
+   ================================================================ */
+@media (max-width: 768px) {
+  html  { font-size: 15px; }
+  body  { font-size: 14px; }
+  h1    { font-size: 1.7rem;  }
+  h2    { font-size: 1.5rem;  }
+  h3    { font-size: 1.3rem;  }
+  h4    { font-size: 1.1rem;  }
+}
+
+@media (max-width: 480px) {
+  html { font-size: 14px; }
+  body { font-size: 13px; }
+  h1   { font-size: 1.5rem; }
+  h2   { font-size: 1.3rem; }
 }
 
 /* ================================================================
-   SAFARI/WEBKIT FIXES
+   SAFARI / WEBKIT FIX
    ================================================================ */
 @supports (-webkit-touch-callout: none) {
-  body {
-    min-height: -webkit-fill-available;
-  }
+  body { min-height: -webkit-fill-available; }
+}
+
+/* ================================================================
+   PRINT
+   ================================================================ */
+@media print {
+  body    { background: #fff !important; color: #000 !important; }
+  button  { display: none; }
+  a       { color: #000 !important; text-decoration: underline !important; }
+  .no-print { display: none !important; }
 }

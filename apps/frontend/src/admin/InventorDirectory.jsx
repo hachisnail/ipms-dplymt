@@ -11,6 +11,9 @@ function InventorDirectory() {
     const [selectedInventor, setSelectedInventor] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [showModal, setShowModal] = useState(false);
+    const [showDeactivateModal, setShowDeactivateModal] = useState(false);
+    const [userToToggle, setUserToToggle] = useState(null);
+    const [actionLoading, setActionLoading] = useState(false);
 
     useEffect(() => {
         fetchInventors();
@@ -43,6 +46,48 @@ function InventorDirectory() {
         setSelectedInventor(null);
     };
 
+    const handleToggleAccess = (inventor) => {
+        setUserToToggle(inventor);
+        setShowDeactivateModal(true);
+    };
+
+    const confirmToggleAccess = async () => {
+        if (!userToToggle) return;
+
+        try {
+            setActionLoading(true);
+            const token = localStorage.getItem('token');
+            const newStatus = userToToggle.status === 'active' ? 'inactive' : 'active';
+            
+            await axios.put(
+                `${API_URL}/admin/users/${userToToggle.id}/toggle-access`,
+                { is_active: newStatus === 'active' },
+                { headers: { Authorization: `Bearer ${token}` }}
+            );
+
+            // Update local state
+            setInventors(inventors.map(inv => 
+                inv.id === userToToggle.id 
+                    ? { ...inv, status: newStatus, is_active: newStatus === 'active' }
+                    : inv
+            ));
+
+            setShowDeactivateModal(false);
+            setUserToToggle(null);
+            alert(`User access ${newStatus === 'active' ? 'activated' : 'deactivated'} successfully!`);
+        } catch (err) {
+            console.error('Error toggling access:', err);
+            alert('Failed to change user access. Please try again.');
+        } finally {
+            setActionLoading(false);
+        }
+    };
+
+    const cancelToggleAccess = () => {
+        setShowDeactivateModal(false);
+        setUserToToggle(null);
+    };
+
     const filteredInventors = inventors.filter(inventor =>
         inventor.full_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         inventor.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -53,9 +98,11 @@ function InventorDirectory() {
     if (loading) {
         return (
             <div className="directory-container">
+                <div className="directory-container-inner">
                 <div className="loading-spinner">
                     <div className="spinner"></div>
                     <p>Loading Inventors...</p>
+                </div>
                 </div>
             </div>
         );
@@ -64,6 +111,7 @@ function InventorDirectory() {
     if (error) {
         return (
             <div className="directory-container">
+                <div className="directory-container-inner">
                 <div className="error-message">
                     <i className="bi bi-exclamation-triangle"></i>
                     <p>{error}</p>
@@ -71,12 +119,14 @@ function InventorDirectory() {
                         Retry
                     </button>
                 </div>
+                </div>
             </div>
         );
     }
 
     return (
         <div className="directory-container">
+            <div className="directory-container-inner">
             <div className="directory-header">
                 <div className="header-left">
                     <h2>
@@ -149,7 +199,7 @@ function InventorDirectory() {
                         </thead>
                         <tbody>
                             {filteredInventors.map((inventor, index) => (
-                                <tr key={inventor.id || index}>
+                                <tr key={inventor.id || index} className={inventor.status === 'inactive' ? 'inactive-row' : ''}>
                                     <td>{index + 1}</td>
                                     <td>
                                         <img
@@ -164,37 +214,57 @@ function InventorDirectory() {
                                             }}
                                         />
                                     </td>
-                                    <td className="name-cell">{inventor.full_name || 'N/A'}</td>
-                                    <td>{inventor.email || 'N/A'}</td>
+                                    <td>{inventor.full_name}</td>
+                                    <td>{inventor.email}</td>
                                     <td>
-                                        <span className="contact-badge">
-                                            <i className="bi bi-telephone"></i>
-                                            {inventor.contact || 'N/A'}
-                                        </span>
+                                        {inventor.contact ? (
+                                            <a href={`tel:${inventor.contact}`} className="contact-link">
+                                                <i className="bi bi-telephone"></i> {inventor.contact}
+                                            </a>
+                                        ) : (
+                                            <span className="no-data-text">N/A</span>
+                                        )}
                                     </td>
                                     <td>
                                         <span className="user-type-badge inventor">
                                             <i className="bi bi-person-fill"></i>
-                                            Inventor
+                                            INVENTOR
                                         </span>
                                     </td>
+                                    <td>{inventor.delivery_unit || 'N/A'}</td>
                                     <td>
-                                        <span className="unit-badge">{inventor.delivery_unit || 'N/A'}</span>
+                                        {inventor.created_at 
+                                            ? new Date(inventor.created_at).toLocaleDateString('en-US', {
+                                                month: 'numeric',
+                                                day: 'numeric',
+                                                year: 'numeric'
+                                            })
+                                            : 'N/A'
+                                        }
                                     </td>
-                                    <td>{inventor.created_at ? new Date(inventor.created_at).toLocaleDateString() : 'N/A'}</td>
                                     <td>
                                         <span className={`status-badge ${inventor.status === 'active' ? 'active' : 'inactive'}`}>
-                                            {inventor.status === 'active' ? 'Active' : 'Inactive'}
+                                            {inventor.status === 'active' ? 'ACTIVE' : 'INACTIVE'}
                                         </span>
                                     </td>
                                     <td>
-                                        <button
-                                            onClick={() => handleViewProfile(inventor)}
-                                            className="btn-view"
-                                            title="View Profile"
-                                        >
-                                            <i className="bi bi-eye"></i> View
-                                        </button>
+                                        <div className="action-buttons">
+                                            <button 
+                                                onClick={() => handleViewProfile(inventor)}
+                                                className="btn-view"
+                                                title="View Profile"
+                                            >
+                                                <i className="bi bi-eye"></i> View
+                                            </button>
+                                            <button 
+                                                onClick={() => handleToggleAccess(inventor)}
+                                                className={`btn-toggle ${inventor.status === 'active' ? 'deactivate' : 'activate'}`}
+                                                title={inventor.status === 'active' ? 'Deactivate Access' : 'Activate Access'}
+                                            >
+                                                <i className={`bi ${inventor.status === 'active' ? 'bi-lock' : 'bi-unlock'}`}></i>
+                                                {inventor.status === 'active' ? 'Deactivate' : 'Activate'}
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                             ))}
@@ -202,6 +272,43 @@ function InventorDirectory() {
                     </table>
                 )}
             </div>
+
+            {/* Deactivate/Activate Confirmation Modal */}
+            {showDeactivateModal && userToToggle && (
+                <div className="logout-modal-overlay">
+                    <div className="logout-modal">
+                        <div className="logout-modal-icon">
+                            <i className={`bi ${userToToggle.status === 'active' ? 'bi-lock-fill' : 'bi-unlock-fill'}`}></i>
+                        </div>
+                        <h3>
+                            {userToToggle.status === 'active' ? 'Deactivate User Access' : 'Activate User Access'}
+                        </h3>
+                        <p>
+                            Are you sure you want to {userToToggle.status === 'active' ? 'deactivate' : 'activate'} access for <strong>{userToToggle.full_name}</strong>?
+                            <br/>
+                            {userToToggle.status === 'active' 
+                                ? 'The user will not be able to log in, but their data will remain in the system.' 
+                                : 'The user will be able to log in and access the system again.'}
+                        </p>
+                        <div className="logout-modal-buttons">
+                            <button 
+                                className="btn-cancel"
+                                onClick={cancelToggleAccess}
+                                disabled={actionLoading}
+                            >
+                                No, Cancel
+                            </button>
+                            <button 
+                                className={`btn-confirm ${userToToggle.status === 'active' ? 'deactivate' : 'activate'}`}
+                                onClick={confirmToggleAccess}
+                                disabled={actionLoading}
+                            >
+                                {actionLoading ? 'Processing...' : `Yes, ${userToToggle.status === 'active' ? 'Deactivate' : 'Activate'}`}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* Modern Profile Modal */}
             {showModal && selectedInventor && (
@@ -253,7 +360,7 @@ function InventorDirectory() {
                                     </div>
                                     <div className="detail-content">
                                         <label>Contact Number</label>
-                                        <p>{selectedInventor.contact || selectedInventor.phone || 'Not provided'}</p>
+                                        <p>{selectedInventor.contact || 'Not provided'}</p>
                                     </div>
                                 </div>
 
@@ -358,6 +465,7 @@ function InventorDirectory() {
                     </div>
                 </div>
             )}
+            </div>
         </div>
     );
 }

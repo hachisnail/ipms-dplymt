@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import './main2.css';
 import SideBar from './AdminSideBar';
-// Imports for navitem (Dashboard)
 import Dashboard from './Dashboard';
-// Imports for navDropList main and child items
-// Project Management
+import ContentManagement from './ContentManagement.jsx';
+import AssignSubmission from './AssignSubmission';
+import ApprovedforApplication from './ApprovedforApplication.jsx';
 import ActiveReviews from './ActiveReviews';
-import FinalizedProjects from './FinalizedProjects';
-// User Management
-import InventorDirectory from './InventorDirectory';
-import SpecialistDirectory from './SpecialistDirectory';
+import AdminResubmission from './AdminResubmission';
+import PASReports from './PASReports';
+import Userdirectory from './Userdirectory';
 import RolePermissions from './RolePermissions';
-// System Records
 import ReferenceLibrary from './ReferenceLibrary';
-import SystemAudit from './SystemAudit';
-// Account & Support
-import AdminSetting from './AdminSetting';
 import TermsConditions from './TermsConditions';
+import AdminProfile from './AdminProfile.jsx';
+import AccountManagement from './AccountManagement.jsx';
+import PageBuilder from './PageBuilder.jsx';
 
 function Main2() {
     const getViewFromHash = () => {
@@ -33,37 +31,36 @@ function Main2() {
     }, []);
 
     const renderView = () => {
-        switch(view) {
-            // navitem
+        switch (view) {
             case 'Dashboard':
                 return <Dashboard />;
-
-            // navDropList: Project Management
+            case 'Content Management':
+                return <ContentManagement/>;
+            case 'PageBuilder':
+                return <PageBuilder/>;
+            case 'AdminProfile':
+                return <AdminProfile />;
+            case 'AssignSubmission':
+                return <AssignSubmission />;
+            case 'ApprovedforApplication':
+                /* FIXED: Passing the prefix prop here so the component knows which API to call[cite: 11, 12] */
+                return <ApprovedforApplication prefix="umid" />;
             case 'ActiveReviews':
                 return <ActiveReviews />;
-            case 'FinalizedProjects':
-                return <FinalizedProjects />;
-
-            // navDropList: User Management
-            case 'InventorDirectory':
-                return <InventorDirectory />;
-            case 'SpecialistDirectory':
-                return <SpecialistDirectory />;
+            case 'AdminResubmission':
+                return <AdminResubmission />;
+            case 'PASReports':
+                return <PASReports />;
+            case 'AccountManagement':
+                return <AccountManagement/>;
+            case 'Userdirectory':
+                return <Userdirectory />;
             case 'RolePermissions':
                 return <RolePermissions />;
-
-            // navDropList: System Records
             case 'ReferenceLibrary':
                 return <ReferenceLibrary />;
-            case 'SystemAudit':
-                return <SystemAudit />;
-
-            // navDropList: Account & Support
-            case 'AdminSetting':
-                return <AdminSetting />;
             case 'TermsConditions':
                 return <TermsConditions />;
-
             default:
                 return <Dashboard />;
         }
@@ -71,11 +68,7 @@ function Main2() {
 
     return (
         <>
-            {/* ✅ REMOVED: Conflicting inline styles (display: flex, gap: 20) */}
-            {/* ✅ Sidebar positioning is handled by SideBar.css (position: fixed) */}
             <SideBar active={view} onNavigate={setView} />
-            
-            {/* ✅ Main content margin is handled by main2.css */}
             <main id="main" className="main">
                 {renderView()}
             </main>

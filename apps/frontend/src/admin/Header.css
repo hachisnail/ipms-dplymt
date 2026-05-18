@@ -1,25 +1,229 @@
-/* HEADER.CSS - ADMIN THEME */
+/* ============================================================
+   HEADER.CSS — CNSC-IPMO
+   Role-based accent colors:
+     Admin      → #800000  (maroon)
+     Consultant → #005555  (teal)
+     Inventor   → #d97706  (amber)
+   Fonts: Playfair Display (role text) · DM Sans (body)
+============================================================ */
 
-header{
-    transition: all 0.5s;
-    z-index: 997;
-    height: 60px;
-    box-shadow: 0px 2px 20px rgba(15, 23, 42, 0.1);
-    background-color: #fff;
-    padding-left: 20px;
+/* ── Role color tokens ── */
+:root,
+[data-theme="admin"] {
+    --role-color:       #800000;
+    --role-color-light: rgba(128, 0, 0, 0.07);
+    --role-color-mid:   rgba(128, 0, 0, 0.15);
 }
 
-.header .toggle-sidebar-btn {
-    font-size: 32px;
-    padding-right: 20px;
-    cursor: pointer;
-    color: #0f172a;  /* Admin Dark Slate */
-    margin-left: -100px;
-    position: relative;
+[data-theme="consultant"] {
+    --role-color:       #005555;
+    --role-color-light: rgba(0, 85, 85, 0.07);
+    --role-color-mid:   rgba(0, 85, 85, 0.15);
+}
+
+[data-theme="inventor"] {
+    --role-color:       #d97706;
+    --role-color-light: rgba(217, 119, 6, 0.07);
+    --role-color-mid:   rgba(217, 119, 6, 0.15);
+}
+
+/* ============================================================
+   HEADER SHELL
+============================================================ */
+header {
+    position: fixed;
     top: 0;
-    transition: color 0.3s ease;
+    left: 0;
+    right: 0;
+    z-index: 997;
+    height: 60px;
+    background: #ffffff;
+    border-bottom: 2.5px solid var(--role-color);
+    box-shadow: 0 2px 14px rgba(0, 0, 0, 0.07);
+    padding: 0 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'DM Sans', 'Segoe UI', sans-serif;
+    transition: border-color 0.3s ease;
+}
+
+/* ============================================================
+   LEFT GROUP — logo + welcome text + toggle (all together)
+============================================================ */
+
+/* Wrapper that groups logo, welcome text, AND the toggle btn */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-shrink: 0;
+}
+
+/* Logo + welcome text pair */
+.header-logo-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    text-decoration: none;
+    margin-right: 14px;  /* gap between welcome text and toggle */
+}
+
+/* The IPMO logo image */
+.header-logo-area img,
+.header-logo-img {
+    height: 36px;
+    width: 36px;
+    object-fit: contain;
+    border-radius: 7px;
+    display: block;
+}
+
+/* Welcome label + role name stacked */
+.header-welcome-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+}
+
+.header-welcome-text .welcome-label {
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #aaa;
+    display: block;
+}
+
+.header-welcome-text .welcome-role {
+    font-family: 'Playfair Display', 'Georgia', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--role-color);
+    line-height: 1.1;
+    white-space: nowrap;
+}
+
+/* ============================================================
+   SIDEBAR TOGGLE BUTTON — sits right after welcome text
+============================================================ */
+.header .toggle-sidebar-btn {
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--role-color);
+    padding: 5px 8px;
+    border-radius: 8px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    line-height: 1;
+    transition: background 0.2s, transform 0.18s;
+    margin: 0;
+    position: static;
+    flex-shrink: 0;
 }
 
 .header .toggle-sidebar-btn:hover {
-    color: #4f46e5;  /* Admin Purple */
+    background: var(--role-color-light);
+    transform: scale(1.08);
+    color: var(--role-color);
+}
+
+.header .toggle-sidebar-btn:active {
+    transform: scale(0.96);
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width: 1199px) {
+    header { padding: 0 16px; }
+}
+
+@media (max-width: 768px) {
+    header { padding: 0 12px; }
+
+    .header .toggle-sidebar-btn {
+        font-size: 21px;
+        padding: 4px 7px;
+    }
+
+    .header-logo-area { margin-right: 10px; }
+    .header-welcome-text .welcome-role { font-size: 13px; }
+    .header-welcome-text .welcome-label { display: none; }
+    .header-logo-area img,
+    .header-logo-img { height: 30px; width: 30px; }
+}
+
+@media (max-width: 576px) {
+    header { padding: 0 10px; }
+
+    .header .toggle-sidebar-btn {
+        font-size: 19px;
+        padding: 3px 6px;
+    }
+
+    .header-logo-area { margin-right: 8px; }
+    .header-welcome-text .welcome-role { font-size: 12px; }
+}
+
+/* ============================================================
+   ACTUAL DOM STRUCTURE FIX
+   DevTools confirms the real HTML is:
+
+   <header class="header fixed-top d-flex align-items-center justify-content-between">
+     <div class="d-flex align-items-center justify-content-between">
+       <a class="logo d-flex align-items-center">logo + welcome text</a>
+       <i class="bi bi-list toggle-sidebar-btn"></i>
+     </div>
+     <nav class="header-nav ms-auto">...</nav>
+   </header>
+
+   Problem: The inner div has justify-content-between which stretches
+   the <a.logo> to ~380px, pushing the toggle all the way to the right.
+   Fix: Override justify-content-between on the inner div to gap-based
+   flex, and stop the logo anchor from growing.
+============================================================ */
+
+/* The inner div that wraps logo + toggle —
+   override Bootstrap's justify-content-between */
+.header > div.d-flex {
+    justify-content: flex-start !important;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+/* Stop the logo <a> from stretching to fill available space */
+.header > div.d-flex > a.logo {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: 0;
+}
+
+/* Toggle stays right after the logo with no gap */
+.header > div.d-flex > .toggle-sidebar-btn {
+    margin-left: 6px;
+    flex-shrink: 0;
+}
+
+/* Right nav stays pushed to the right */
+.header > .header-nav {
+    margin-left: auto;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-shrink: 0;
+}
+.header-left > div,
+.header-left .d-flex {
+    justify-content: flex-start !important;
+    gap: 10px;
+}
+.header-left .logo, .header-left a.logo {
+    flex: 0 0 auto !important;
+    width: auto !important;
 }

@@ -1,44 +1,48 @@
-/* ================================================================
-   MAIN2.CSS - MAIN CONTENT AREA
-   Works with fixed sidebar positioning
-   ================================================================ */
+/* ============================================================
+   main2.css — layout (Sidebar: 300px fixed, Navbar: 60px fixed)
+   Footer is INSIDE #main — scrolls with content, never overlaps
+   ============================================================ */
 
 #main {
-    margin-top: 60px;  /* Space for fixed header */
-    padding: 20px 30px;
-    transition: all 0.3s ease;
-    min-height: calc(100vh - 60px);  /* Full height minus header */
+  margin-left: 300px;
+  margin-top: 60px;
+  padding: 20px 30px 0;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  /* Invisible scrollbar */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-/* ================================================================
-   DESKTOP: Add margin for sidebar (>= 1200px)
-   ================================================================ */
-@media (min-width: 1200px) {
-    #main {
-        margin-left: 300px;  /* ✅ Space for sidebar */
-    }
-    
-    /* When sidebar is toggled (hidden) */
-    body.toggle-sidebar #main {
-        margin-left: 0;  /* ✅ Expand to full width */
-    }
+#main::-webkit-scrollbar { display: none; }
+
+/* Content area grows to fill space, pushing footer to bottom */
+#main > *:not(#footer) {
+  flex-shrink: 0;
 }
 
-/* ================================================================
-   MOBILE/TABLET: No margin for sidebar (< 1200px)
-   ================================================================ */
+#footer {
+  margin-top: auto;
+  flex-shrink: 0;
+}
+
 @media (max-width: 1199px) {
-    #main {
-        margin-left: 0;  /* ✅ Full width on mobile */
-        padding: 20px;
-    }
+  #main {
+    margin-left: 0;
+    width: 100%;
+    padding: 16px 16px 0;
+  }
 }
 
-/* ================================================================
-   SMALL MOBILE: Reduce padding further
-   ================================================================ */
-@media (max-width: 480px) {
-    #main {
-        padding: 15px;
-    }
+@media (max-width: 768px) {
+  #main { padding: 14px 14px 0; }
 }
+
+@media (max-width: 480px) {
+  #main { padding: 12px 12px 0; }
+}
+
+body.toggle-sidebar #main { margin-left: 0; }

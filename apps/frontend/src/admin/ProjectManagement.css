@@ -1,15 +1,17 @@
 /* ProjectManagement.css - Styles for Active Reviews and Finalized Projects */
 
 .project-container {
-    padding: 20px;
-    max-width: 1200px;
-    margin: 15px auto;
-    background: rgba(255, 255, 255, 0.85);
+    padding: 24px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    background: #f2f2f2;
     backdrop-filter: blur(10px);
     border-radius: 16px;
-    box-shadow: 0 6px 24px rgba(79, 70, 229, 0.08);
+    box-shadow: 0 6px 24px rgba(128, 0, 0, 0.06);
     border: 1px solid rgba(255, 255, 255, 0.3);
-    min-height: 500px;
+    min-height: calc(100vh - 40px);
+    box-sizing: border-box;
 }
 
 /* Header */
@@ -19,12 +21,12 @@
     align-items: flex-start;
     margin-bottom: 20px;
     padding: 0 0 15px 0;
-    border-bottom: 2px solid rgba(79, 70, 229, 0.1);
+    border-bottom: 2px solid rgba(128, 0, 0, 0.08);
 }
 
 .header-left h2 {
     margin: 0 0 6px 0;
-    color: #0f172a;
+    color: #800000;
     font-size: 24px;
     display: flex;
     align-items: center;
@@ -45,7 +47,7 @@
 
 .btn-refresh, .btn-export {
     padding: 8px 16px;
-    background: #0f172a;
+    background: #800000;
     color: white;
     border: none;
     border-radius: 6px;
@@ -62,7 +64,7 @@
 }
 
 .btn-refresh:hover {
-    background: #020617;
+    background: #660000;
     transform: translateY(-2px);
 }
 
@@ -126,7 +128,7 @@
 
 .search-bar input:focus {
     outline: none;
-    border-color: #0f172a;
+    border-color: #800000;
     background: white;
 }
 
@@ -160,7 +162,7 @@
 .filter-group select:focus,
 .filter-group input[type="date"]:focus {
     outline: none;
-    border-color: #0f172a;
+    border-color: #800000;
 }
 
 .btn-clear-dates {
@@ -189,7 +191,7 @@
 }
 
 .stat-card {
-    background: rgba(255, 255, 255, 0.95);
+    background: #ffffff;
     padding: 16px;
     border-radius: 10px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
@@ -203,7 +205,7 @@
 }
 
 .stat-card.total .stat-icon {
-    background: linear-gradient(135deg, #007bff, #0056b3);
+    background: linear-gradient(135deg, #005555, #004444);
 }
 
 .stat-card.approved .stat-icon {
@@ -226,7 +228,7 @@
     align-items: center;
     justify-content: center;
     font-size: 24px;
-    background: linear-gradient(135deg, #0f172a, #1e293b);
+    background: linear-gradient(135deg, #800000, #800000);
     color: white;
 }
 
@@ -245,7 +247,7 @@
 
 /* Table */
 .table-container {
-    background: rgba(255, 255, 255, 0.95);
+    background: #ffffff;
     border-radius: 10px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
     overflow-x: auto;
@@ -258,7 +260,7 @@
 }
 
 .data-table thead {
-    background: linear-gradient(135deg, #0f172a, #1e293b);
+    background: linear-gradient(135deg, #800000, #800000);
     color: white;
 }
 
@@ -277,7 +279,7 @@
 }
 
 .data-table tbody tr:hover {
-    background: rgba(79, 70, 229, 0.03);
+    background: rgba(128, 0, 0, 0.02);
 }
 
 .title-cell {
@@ -297,7 +299,7 @@
 }
 
 .consultant-info i {
-    color: #0f172a;
+    color: #800000;
 }
 
 /* ===================================================================
@@ -549,7 +551,7 @@
     margin: 0 0 8px 0;
     font-size: 20px;
     font-weight: 800;
-    color: #1e293b;
+    color: #800000;
 }
 
 .origin-content p {
@@ -565,7 +567,7 @@
 /* Buttons */
 .btn-view {
     padding: 6px 14px;
-    background: #007bff;
+    background: #005555;
     color: white;
     border: none;
     border-radius: 5px;
@@ -578,7 +580,7 @@
 }
 
 .btn-view:hover {
-    background: #0056b3;
+    background: #004444;
     transform: translateY(-2px);
 }
 
@@ -646,7 +648,7 @@
 .modal-header {
     text-align: center;
     padding: 24px;
-    background: linear-gradient(135deg, #0f172a, #1e293b);
+    background: linear-gradient(135deg, #800000, #800000);
     color: white;
     border-radius: 14px 14px 0 0;
 }
@@ -659,7 +661,7 @@
 
 .modal-body {
     padding: 24px;
-    background: #f8fafc;
+    background: #f8f8f8;
 }
 
 .detail-section {
@@ -667,12 +669,12 @@
     padding: 20px;
     background: white;
     border-radius: 10px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #e8e8e8;
 }
 
 .detail-section h3 {
     margin: 0 0 16px 0;
-    color: #0f172a;
+    color: #800000;
     font-size: 16px;
     display: flex;
     align-items: center;
@@ -705,9 +707,9 @@
 
 .detail-item {
     padding: 12px;
-    background: #f8fafc;
+    background: #f8f8f8;
     border-radius: 8px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #e8e8e8;
 }
 
 .detail-item label {
@@ -722,7 +724,7 @@
 
 .detail-item p {
     margin: 0;
-    color: #1e293b;
+    color: #800000;
     font-size: 14px;
     font-weight: 600;
 }
@@ -745,7 +747,7 @@
 
 .modal-actions {
     padding: 16px 24px;
-    border-top: 1px solid #e5e7eb;
+    border-top: 1px solid #e8e8e8;
     display: flex;
     gap: 8px;
     justify-content: center;
@@ -780,8 +782,8 @@
 }
 
 .spinner {
-    border: 4px solid rgba(79, 70, 229, 0.1);
-    border-top: 4px solid #0f172a;
+    border: 4px solid rgba(128, 0, 0, 0.08);
+    border-top: 4px solid #800000;
     border-radius: 50%;
     width: 44px;
     height: 44px;
@@ -807,7 +809,7 @@
 
 .btn-retry {
     padding: 8px 20px;
-    background: #0f172a;
+    background: #800000;
     color: white;
     border: none;
     border-radius: 6px;
@@ -817,7 +819,7 @@
 }
 
 .btn-retry:hover {
-    background: #020617;
+    background: #660000;
 }
 
 .no-data {
@@ -840,7 +842,8 @@
 @media (max-width: 768px) {
     .project-container {
         padding: 15px;
-        margin: 10px;
+        margin: 0;
+        border-radius: 10px;
     }
 
     .project-header {
@@ -916,4 +919,8 @@
         font-size: 14px;
         padding: 10px 18px;
     }
+}
+/* ── Inner container alias (used by some sub-pages) ── */
+.project-container-inner {
+    width: 100%;
 }
